@@ -106,7 +106,6 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 const Feed = () => {
   
   const [posts, setPosts] = useState([])
-  const router = useRouter();
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(false);

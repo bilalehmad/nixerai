@@ -8,7 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 
 const Sidebar = () => {
     const {data: session} = useSession();
-    const router = useRouter();
     const pathName = usePathname();
     
     

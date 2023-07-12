@@ -8,10 +8,10 @@ import Link from 'next/link';
 const ToolCard = ({post, handleEdit, handleDelete, handleTagClick, onModalStateChange,onShareModalStateChane}) => {
   const {data: session} = useSession();
   const pathName = usePathname();
-  const router = useRouter();
-  const promptView = () => {
-    router.push(`/view-prompt?id=${post._id}`)
-  }
+  // const router = useRouter();
+  // const promptView = () => {
+  //   router.push(`/view-prompt?id=${post._id}`)
+  // }
 
   const openModal = () => {
     onModalStateChange(post.youtubeUrl);
