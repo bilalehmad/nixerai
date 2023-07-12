@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import {  } from "next/navigation";
+import {  useRouter} from "next/navigation";
 
 const Dashboard = () => {
     const {data: session} = useSession();
