@@ -10,7 +10,6 @@ const Dashboard = () => {
     // Redirect to login page if session is invalid
   if (!session) {
     router.replace('/');
-    return null;
   }
 
 
