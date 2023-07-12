@@ -15,14 +15,7 @@ const Sidebar = () => {
   return (
 
     <>
-     {session && pathName === '/admin/dashboard' ? (
-        <>
-            <Navbar />
-            <Aside />
-        </>
-        ):(
-            <Nav />
-         )}
+     <Nav />
 
 
 
