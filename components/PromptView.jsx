@@ -58,7 +58,7 @@ function PromptView({post,isPageLoading,setPageIsLoading}) {
     }
 
   return (
-    <section className='w-full max-w-full flex justify-between'>
+    <section className='w-full max-w-full flex justify-between mt-20'>
         <div className="container px-5 py-4 mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 

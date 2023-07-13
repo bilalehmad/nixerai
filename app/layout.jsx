@@ -3,6 +3,7 @@ import '@styles/globals.css';
 
 import Provider from "@components/Provider"
 import Sidebar from "@components/Sidebar"
+import Footer from '@components/Footer';
 
 export const metadata = {
     title: "NixerAI",
@@ -20,6 +21,7 @@ const RootLayout = ({children}) => {
                         <Sidebar />
                         {children}
                     </main>
+                    <Footer />
                     
             </Provider>
         </body>
