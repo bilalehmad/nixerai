@@ -51,7 +51,7 @@ const ToolCardList = ({data, handleTagClick}) => {
    
 
     return(
-      <div className='mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4'>
+      <div className='mt-16 grid grid-cols-1 md:grid-cols-2 gap-4'>
         {data.map((post) => (
           <ToolCard 
             key={post._id}
