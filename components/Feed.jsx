@@ -21,10 +21,10 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
           
         <div className="container px-5 py-4 md:w-full">
           <div className="flex flex-wrap -m-5 ">
-            <div className="cursor-pointer py-2 w-full">
+            <div className="py-2 w-full">
               <div className="h-full rounded-xl border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md dark:from-black dark:to-blue-950  ">
                 
-                <div className="antialiased cursor-pointer css-84zodg">
+                <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
                       <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
@@ -57,10 +57,10 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
           
         <div className="container px-5 py-4 md:w-full">
           <div className="flex flex-wrap -m-5 ">
-            <div className="cursor-pointer py-2 w-full">
+            <div className="py-2 w-full">
               <div className="h-full rounded-xl border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md dark:from-black dark:to-blue-950  ">
                 
-                <div className="antialiased cursor-pointer css-84zodg">
+                <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
                       <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
@@ -94,10 +94,10 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
           
         <div className="container px-5 py-4 md:w-full">
           <div className="flex flex-wrap -m-5 ">
-            <div className="cursor-pointer py-2 w-full">
+            <div className="py-2 w-full">
               <div className="h-full rounded-xl border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md dark:from-black dark:to-blue-950  ">
                 
-                <div className="antialiased cursor-pointer css-84zodg">
+                <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
                       <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
