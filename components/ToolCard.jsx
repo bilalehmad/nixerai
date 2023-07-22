@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from 'next/link';
 import mql from "@microlink/mql";
+
 const cheerio = require('cheerio');
 
 const ToolCard = ({post, handleEdit, handleDelete, handleTagClick, onModalStateChange,onShareModalStateChane}) => {
@@ -50,6 +51,7 @@ useEffect(() => {
   fetch(post.url)
     .then(response => response.text())
     .then(html => {
+      
         const $ = cheerio.load(html);
         const ogImageURL = $('meta[property="og:image"]').attr('content');
         console.log(ogImageURL)
@@ -66,13 +68,17 @@ useEffect(() => {
   const shareModal = () => {
     onShareModalStateChane(post.url)
   }
-  if (navigator.share) {
+  useEffect(() => {
+    if (window.navigator.share) {
     setNativeShare(true);
   }
+  }, []);
+
+ 
   return (
     <div className="container px-5 py-4 mx-auto  ">
           <div className="flex flex-wrap -m-5 ">
-            <div className=" py-2 ">
+            <div className=" py-2 w-full">
               <div className="h-full rounded-xl shadow-cla-blue bg-gradient-to-r overflow-hidden shadow-md  border border-gray-200 dark:border-none">
                 <div className="bg-white dark:bg-[#2B3A55] group text-gray-800 dark:text-white w-full relative pr-3   flex flex-col justify-center hover:bg-gray-100 dark:hover:bg-gray-600 transition-all">
                   <div className=" overflow-hidden">
