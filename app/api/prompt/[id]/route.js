@@ -6,7 +6,6 @@ import Prompt from "@models/prompt";
 export const GET = async (request, {params}) => {
     try {
         await connectToDB()
-
         const prompts = await Prompt.findById(params.id).populate('creator');
         if(!prompts) return new Response("Prompt not found", {status : 404})
 

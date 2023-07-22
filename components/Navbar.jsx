@@ -94,22 +94,22 @@ const Navbar = () => {
             <ul className="flex flex-wrap items-center mt-3 text-sm font-semibold text-[#2B3A55]  dark:text-gray-400 sm:mt-0">
                 <li className='' >
                     {/* <a href="#" className="mr-4 hover:text-[#2B3A55] p-2 md:mr-6 "  >Submit</a> */}
-                    <button id="dropdownNavbarLink" onClick={OpenDropdown}  data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full  mr-4 hover:text-[#2B3A55] md:mr-6  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#2B3A55] md:p-0 md:w-auto dark:hover:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                    <button id="dropdownNavbarLink" onClick={OpenDropdown}  data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full  mr-4 hover:text-[#2B3A55] md:mr-6  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#2B3A55] md:p-0 md:w-auto dark:hover:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                         Submit 
                     </button>
                     {/* <!-- Dropdown menu --> */}
                     {hoverState && (
-                        <div id="dropdownNavbar" class="relative right-10 z-10 font-normal bg-white divide-y mx-1 divide-gray-100 shadow  dark:bg-gray-700 dark:divide-gray-600">
+                        <div id="dropdownNavbar" className="relative right-10 z-10 font-normal bg-white divide-y mx-1 divide-gray-100 shadow  dark:bg-gray-700 dark:divide-gray-600">
                         
-                            <ul class="absolute z-20 px-3 text-sm text-gray-700 rounded-md dark:bg-gray-700 bg-white shadow dark:text-gray-400 border border-gray-300" aria-labelledby="dropdownLargeButton">
+                            <ul className="absolute z-20 px-3 text-sm text-gray-700 rounded-md dark:bg-gray-700 bg-white shadow dark:text-gray-400 border border-gray-300" aria-labelledby="dropdownLargeButton">
                                 <li className='py-1.5'>
-                                    <a href="#" class="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700  hover:stroke-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700  hover:stroke-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" className="w-4 h-4 mr-2 -ml-1 dark:stroke-gray-300 stroke-[#2B3A55]" height="20" viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>          
                                         Prompt
                                     </a>
                                 </li>
                                 <li className='py-1.5'>
-                                    <a href="#" class="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  className="w-4 h-4 mr-2 dark:stroke-gray-300 stroke-[#2B3A55]"  viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
                                         Tools
                                     </a>

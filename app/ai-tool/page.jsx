@@ -1,6 +1,15 @@
 import Tool from "@components/Tool";
 
-const AITool = () => {
+const fetchFirstPosts = async () => {
+  const queryParam = `page=1&pageSize=10`;
+
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`);
+    const data = await response.json();
+  return data;
+}
+
+const AITool = async () => {
+  var data = await fetchFirstPosts();
   return (
     <section className="w-full flex-center flex-col">
     <h1 className="head_text text-center">
@@ -12,7 +21,7 @@ const AITool = () => {
     Explore and Use the most Extensive Collection of  AI Tools
     </p>
     
-    <Tool />
+    <Tool data={data} />
 </section>
   )
 }

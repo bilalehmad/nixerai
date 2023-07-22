@@ -189,7 +189,7 @@ body{
 
 /* Feed Component */
 .feed {
-  @apply mt-8 mx-auto w-full flex justify-center items-center flex-col gap-2;
+  @apply mt-4 mx-auto w-full flex justify-center items-center flex-col gap-2;
 }
 /* Chat Component */
 .chat_textarea {
