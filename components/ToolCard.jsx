@@ -9,7 +9,8 @@ const cheerio = require('cheerio');
 
 const ToolCard = ({post, handleEdit, handleDelete, handleTagClick, onModalStateChange,onShareModalStateChane}) => {
   const {data: session} = useSession();
-  const [thumbnail, setThumbnail] = useState('')
+  const [thumbnail, setThumbnail] = useState('');
+  const [isNativeShare, setNativeShare] = useState(false);
   const pathName = usePathname();
   // const router = useRouter();
   // const promptView = () => {
@@ -65,7 +66,9 @@ useEffect(() => {
   const shareModal = () => {
     onShareModalStateChane(post.url)
   }
-  const isShareSupported = navigator.share !== undefined;
+  if (navigator.share) {
+    setNativeShare(true);
+  }
   return (
     <div className="container px-5 py-4 mx-auto  ">
           <div className="flex flex-wrap -m-5 ">
@@ -91,13 +94,13 @@ useEffect(() => {
                                 
                                 <div className="w-full flex justify-between text-sm  h-[80px] ">
                                     <div className="inline-flex w-full items-end justify-start p-0.5 mr-2 overflow-hidden text-sm font-medium transition-all rounded-sm  ease-in duration-75  ">
-                                        <span onClick={openModal} target="_blank" className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
+                                        {/* <span onClick={openModal} target="_blank" className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" className="fill-gray-600 dark:fill-gray-400" ><path d="M12.04 3.5c.59 0 7.54.02 9.34.5a3.02 3.02 0 0 1 2.12 2.15C24 8.05 24 12 24 12v.04c0 .43-.03 4.03-.5 5.8A3.02 3.02 0 0 1 21.38 20c-1.76.48-8.45.5-9.3.51h-.17c-.85 0-7.54-.03-9.29-.5A3.02 3.02 0 0 1 .5 17.84c-.42-1.61-.49-4.7-.5-5.6v-.5c.01-.9.08-3.99.5-5.6a3.02 3.02 0 0 1 2.12-2.14c1.8-.49 8.75-.51 9.34-.51zM9.54 8.4v7.18L15.82 12 9.54 8.41z"/></svg>                      
-                                        </span>
+                                        </span> */}
                                         <span className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 stroke-gray-600 dark:stroke-gray-400" width="18" height="18" viewBox="0 0 24 24" fill="none"  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>                                        
                                         </span>
-                                        {isShareSupported && <span onClick={shareModal} className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
+                                        {isNativeShare && <span onClick={shareModal} className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
                                             <svg xmlns="http://www.w3.org/2000/svg"  width="14" height="14" viewBox="0 0 24 24" fill="none" className="stroke-gray-600 dark:stroke-gray-400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>                                            
                                         </span>}
                                         <Link href={post.url} target="_blank" className="relative px-1 py-0.5 transition-all ease-in duration-75 bg-none text-white  rounded-md group-hover:bg-opacity-0">
