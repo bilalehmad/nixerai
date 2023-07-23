@@ -51,7 +51,7 @@ async function PromptDetail(context) {
 
   return (
     <PromptView
-    post = {data}
+    data = {JSON.stringify(data)}
     />
   )
 }

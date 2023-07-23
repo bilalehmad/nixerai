@@ -75,7 +75,7 @@ function EditPrompt () {
   return (
     <Form 
         type="Edit"
-        post = {post}
+        data = {JSON.stringify(post)}
         setPost = {setPost}
         submitting = {submitting}
         handleSubmit  = {updatePrompt}
