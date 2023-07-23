@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import Filter from "./Filter";
-const SearchFeed = ({setSearching, setSearchPage, setSortPage, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
+const SearchFeed = ({category,setSearching, setSearchPage, setSortPage, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
  
   const handleSearchInputChange =(e) => {
     e.preventDefault();
@@ -23,6 +23,7 @@ const SearchFeed = ({setSearching, setSearchPage, setSortPage, setSearchText,isC
         isOpen = {isOpen}
         setIsOpen = {setIsOpen}
         setFilterPage={setFilterPage}
+        category={category}
         />
       
       {/* <input 

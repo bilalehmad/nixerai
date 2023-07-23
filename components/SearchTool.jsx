@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FilterTool from "./FilterTool";
 import DropdownAI from "./DropdownAI";
-const SearchTool = ({setSearching, setSearchPage, setSortPage, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
+const SearchTool = ({category,setSearching, setSearchPage, setSortPage, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
  
   const handleSearchInputChange =(e) => {
     e.preventDefault();
@@ -23,6 +23,7 @@ const SearchTool = ({setSearching, setSearchPage, setSortPage, setSearchText,isC
         isOpen = {isOpen}
         setIsOpen = {setIsOpen}
         setFilterPage={setFilterPage}
+        category={category}
         />
       
       {/* <input 

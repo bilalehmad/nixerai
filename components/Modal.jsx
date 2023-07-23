@@ -5,6 +5,7 @@ import { RiCloseLine } from "react-icons/ri";
 
 
 const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => {
+    console.log(data)
     const posts = JSON.parse(data);
     const handleCheckboxChange = (event) => {
         const checkboxValue = event.target.value;

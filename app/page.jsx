@@ -7,8 +7,16 @@ const fetchFirstPosts = async () => {
   const data = await response.json();
   return JSON.stringify(data);
 }
+
+  const fetchCategory = async () => {
+        const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`);
+        const data = await response.json();
+        return JSON.stringify(data)
+    }
+
 const Home = async () => {
   const data =  await fetchFirstPosts();
+  const category = await fetchCategory();
   return (
     <section className="w-full flex-center flex-col">
         <h1 className="head_text text-center">
@@ -21,7 +29,7 @@ const Home = async () => {
         </p>
         {/* <SearchFeedBar /> */}
         {/* <PromptCardList data={data} /> */}
-        <Feed data={data} />
+        <Feed data={data} category={category} />
     </section>
 
   )

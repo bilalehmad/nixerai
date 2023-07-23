@@ -66,23 +66,23 @@ const ToolCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
                   <div className="h-full rounded-xl shadow-cla-blue border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md">
                     <div className="bg-white dark:bg-[#2B3A55] group text-gray-800 dark:text-white w-full relative flex flex-col justify-center hover:bg-gray-100 dark:hover:bg-gray-600 transition-all">
                       <div className="flex items-center w-full " >
-                          <div class="bg-gray-200 w-48 rounded-t-lg h-36  md:w-48 md:rounded-none md:rounded-l-lg  animate-pulse">
+                          <div className="bg-gray-200 w-48 rounded-t-lg h-36  md:w-48 md:rounded-none md:rounded-l-lg  animate-pulse">
                           </div>
                           <div className="w-full flex flex-col h-[130px]">
                             <div className="w-full flex flex-wrap justify-between">
-                              <div class="w-full bg-gray-200 animate-pulse h-6 p-2 mt-2 mx-2 rounded-lg">
+                              <div className="w-full bg-gray-200 animate-pulse h-6 p-2 mt-2 mx-2 rounded-lg">
                               </div>
                               
-                              <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
+                              <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
                               </div>
-                              <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
+                              <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
                               </div>
                             </div>
                             
-                            <div class="flex flex-row justify-end items-end gap-3 h-[80px] p-2">
-                              <div class="w-32 h-4 bg-gray-200 rounded-lg animate-pulse">
+                            <div className="flex flex-row justify-end items-end gap-3 h-[80px] p-2">
+                              <div className="w-32 h-4 bg-gray-200 rounded-lg animate-pulse">
                               </div>
-                              <div class="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
+                              <div className="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
                               </div>
                             </div>
                           </div>
@@ -99,23 +99,23 @@ const ToolCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
                   <div className="h-full rounded-xl shadow-cla-blue border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md">
                     <div className="bg-white dark:bg-[#2B3A55] group text-gray-800 dark:text-white w-full relative flex flex-col justify-center hover:bg-gray-100 dark:hover:bg-gray-600 transition-all">
                       <div className="flex items-center w-full " >
-                          <div class="bg-gray-200 w-48 rounded-t-lg h-36  md:w-48 md:rounded-none md:rounded-l-lg  animate-pulse">
+                          <div className="bg-gray-200 w-48 rounded-t-lg h-36  md:w-48 md:rounded-none md:rounded-l-lg  animate-pulse">
                           </div>
                           <div className="w-full flex flex-col h-[130px]">
                             <div className="w-full flex flex-wrap justify-between">
-                              <div class="w-full bg-gray-200 animate-pulse h-6 p-2 mt-2 mx-2 rounded-lg">
+                              <div className="w-full bg-gray-200 animate-pulse h-6 p-2 mt-2 mx-2 rounded-lg">
                               </div>
                               
-                              <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
+                              <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
                               </div>
-                              <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
+                              <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mx-2 rounded-lg">
                               </div>
                             </div>
                             
-                            <div class="flex flex-row justify-end items-end gap-3 h-[80px] p-2">
-                              <div class="w-32 h-4 bg-gray-200 rounded-lg animate-pulse">
+                            <div className="flex flex-row justify-end items-end gap-3 h-[80px] p-2">
+                              <div className="w-32 h-4 bg-gray-200 rounded-lg animate-pulse">
                               </div>
-                              <div class="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
+                              <div className="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
                               </div>
                             </div>
                           </div>
@@ -165,12 +165,10 @@ const ToolCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
     )
   }
 
-const Tool = (props) => {
-    
-  const response = props.data;
-  const data = JSON.parse(response);
+const Tool = ({data,category})=> {
+  // const data = JSON.parse(data);
 
-  const [posts, setPosts] = useState(data)
+  const [posts, setPosts] = useState(JSON.parse(data))
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(false);
@@ -398,6 +396,7 @@ const Tool = (props) => {
         setSortPage={setSortPage}
         setSearchPage={setSearchPage}
         setSearching={setSearching}
+        category={category}
         />
             
       </form>

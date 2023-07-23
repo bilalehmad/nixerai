@@ -1,26 +1,27 @@
 import {useState,useEffect} from 'react'
 import Modal from './Modal';
 
-const FilterTool = ({isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage}) => {
+const FilterTool = ({category,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage}) => {
     
-    const [posts, setPosts] = useState([]);
+  console.log(category)
+    // const [posts, setPosts] = useState(category);
     const handleButton = (e) => {
         e.preventDefault();
         setIsOpen(true)
     }
 
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const response = await fetch('/api/category');
-            const data = await response.json();
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         const response = await fetch('/api/category');
+    //         const data = await response.json();
 
-            setPosts(data);
+    //         setPosts(data);
 
-        }
-        console.log(posts)
-        fetchPosts()
-    },[]);
+    //     }
+    //     console.log(posts)
+    //     fetchPosts()
+    // },[]);
 
   return (
     <>    
@@ -36,7 +37,7 @@ const FilterTool = ({isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage}) => 
         {isOpen && 
             <Modal 
             setIsOpen={setIsOpen}
-            posts={posts} 
+            data={category} 
             setIsChecked = {setIsChecked}
             isChecked = {isChecked}
             setFilterPage = {setFilterPage}

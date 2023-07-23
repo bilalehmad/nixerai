@@ -27,27 +27,27 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
                 <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
-                      <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
+                      <div className="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
                       </div>
                     </div>
                   </div>
                     <div className="w-full flex flex-col h-[80px]">
                       <div className="w-full flex flex-wrap justify-start">
-                        <div class="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
+                        <div className="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
                         </div>
                         
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
                       </div>
                     </div>
                 </div>
                 
-                <div class="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
-                      <div class="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
+                <div className="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
+                      <div className="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
                       </div>
-                      <div class="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
+                      <div className="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
                       </div>
                     </div>
               </div>
@@ -63,27 +63,27 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
                 <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
-                      <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
+                      <div className="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
                       </div>
                     </div>
                   </div>
                     <div className="w-full flex flex-col h-[80px]">
                       <div className="w-full flex flex-wrap justify-start">
-                        <div class="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
+                        <div className="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
                         </div>
                         
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
                       </div>
                     </div>
                 </div>
                 
-                <div class="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
-                      <div class="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
+                <div className="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
+                      <div className="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
                       </div>
-                      <div class="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
+                      <div className="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
                       </div>
                     </div>
               </div>
@@ -100,27 +100,27 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
                 <div className="antialiased css-84zodg">
                   <div className=" text-gray-800  dark:bg-[#2B3A55] group dark:text-white px-4 pt-4 pr-3 flex justify-center hover:bg-gray-100 dark:hover:bg-gray-600  ">
                     <div className="css-289z9l">
-                      <div class="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
+                      <div className="bg-gray-200 css-sm43lu rounded-xl animate-pulse">
                       </div>
                     </div>
                   </div>
                     <div className="w-full flex flex-col h-[80px]">
                       <div className="w-full flex flex-wrap justify-start">
-                        <div class="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
+                        <div className="w-full bg-gray-200 animate-pulse h-6 mt-2 mr-2 rounded-lg">
                         </div>
                         
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
-                        <div class="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
+                        <div className="w-full h-3 bg-gray-200 animate-pulse mt-2 mr-2 rounded-lg">
                         </div>
                       </div>
                     </div>
                 </div>
                 
-                <div class="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
-                      <div class="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
+                <div className="flex flex-row items-center gap-3 p-4 pb-2 pr-3 justify-center">
+                      <div className="w-20 h-4 bg-gray-200 rounded-lg animate-pulse">
                       </div>
-                      <div class="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
+                      <div className="w-20 h-4 ml-auto bg-gray-200 rounded-lg animate-pulse">
                       </div>
                     </div>
               </div>
@@ -147,7 +147,7 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 }
 
 
-const Feed =  ({data}) => {
+const Feed =  ({data,category}) => {
   console.log(data)
   const [posts, setPosts] = useState(JSON.parse(data))
   // Search states
@@ -370,6 +370,7 @@ const Feed =  ({data}) => {
         setSortPage={setSortPage}
         setSearchPage={setSearchPage}
         setSearching={setSearching}
+        category={category}
         />
             
       </form>

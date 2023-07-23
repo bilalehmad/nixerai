@@ -6,11 +6,18 @@ const fetchFirstPosts = async () => {
 
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`);
     const data = await response.json();
-  return data;
+  return JSON.stringify(data);
+}
+
+const fetchCategory = async () => {
+  const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`);
+  const data = await response.json();
+  return JSON.stringify(data)
 }
 
 const AITool =  async() => {
-  var data = await fetchFirstPosts();
+  const data = await fetchFirstPosts();
+  const category = await fetchCategory();
   return (
     <section className="w-full flex-center flex-col">
     <h1 className="head_text text-center">
@@ -22,7 +29,7 @@ const AITool =  async() => {
     Explore and Use the most Extensive Collection of  AI Tools
     </p>
 
-    <Tool data={JSON.stringify(data)} />
+    <Tool data={data} category={category}  />
 </section>
   )
 }
