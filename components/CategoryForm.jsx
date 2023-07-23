@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-const CategoryForm = ({type, post, setPost, submitting, handleSubmit}) => {
+const CategoryForm = ({type, data, setPost, submitting, handleSubmit}) => {
+  const post = JSON.parse(data);
 
   return (
     <section className='w-full max-w-full flex flex-col'>

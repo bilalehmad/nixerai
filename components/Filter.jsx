@@ -36,7 +36,7 @@ const Filter = ({isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage}) => {
         {isOpen && 
             <Modal 
             setIsOpen={setIsOpen}
-            posts={posts} 
+            data = {JSON.stringify(posts)}
             setIsChecked = {setIsChecked}
             isChecked = {isChecked}
             setFilterPage = {setFilterPage}
