@@ -147,9 +147,7 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 }
 
 const Feed = (props) => {
-  const response = props.data;
-  console.log(response)
-  const data = JSON.parse(response);
+  const data = JSON.parse(props.data);
   const [posts, setPosts] = useState(data)
   // Search states
   const [searchText, setSearchText] = useState("");
