@@ -65,7 +65,7 @@ function CreatePrompt() {
   return (
     <Form 
         type="Create"
-        post = {post}
+        data = {JSON.stringify(post)}
         setPost = {setPost}
         submitting = {submitting}
         handleSubmit  = {createPrompt}
