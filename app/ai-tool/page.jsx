@@ -22,7 +22,7 @@ const AITool = async () => {
     Explore and Use the most Extensive Collection of  AI Tools
     </p>
 
-    <Tool data={data} />
+    <Tool data={JSON.stringify(data)} />
 </section>
   )
 }

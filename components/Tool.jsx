@@ -167,7 +167,10 @@ const ToolCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 
 const Tool = (props) => {
     
-  const [posts, setPosts] = useState(props.data)
+  const response = props.data;
+  const data = JSON.parse(response);
+
+  const [posts, setPosts] = useState(data)
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(false);

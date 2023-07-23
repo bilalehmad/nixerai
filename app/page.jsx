@@ -22,7 +22,7 @@ const Home = async () => {
         </p>
         {/* <SearchFeedBar /> */}
         {/* <PromptCardList data={data} /> */}
-        <Feed data={data} />
+        <Feed data={JSON.stringify(data)} />
     </section>
 
   )
