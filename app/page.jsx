@@ -9,7 +9,7 @@ const fetchFirstPosts = async () => {
 }
 const Home = async () => {
   const data =  await fetchFirstPosts();
-  console.log(data)
+  const result = JSON.stringify(data)
   return (
     <section className="w-full flex-center flex-col">
         <h1 className="head_text text-center">
@@ -22,7 +22,7 @@ const Home = async () => {
         </p>
         {/* <SearchFeedBar /> */}
         {/* <PromptCardList data={data} /> */}
-        <Feed data={JSON.stringify(data)} />
+        <Feed data={result} />
     </section>
 
   )
