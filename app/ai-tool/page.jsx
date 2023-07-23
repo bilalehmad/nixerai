@@ -6,13 +6,13 @@ const fetchFirstPosts = async () => {
 
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`);
     const data = await response.json();
-  return JSON.stringify(data);
+  return data;
 }
 
 const fetchCategory = async () => {
   const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`);
   const data = await response.json();
-  return JSON.stringify(data)
+  return data;
 }
 
 const AITool =  async() => {

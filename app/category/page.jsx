@@ -41,7 +41,7 @@ const AddAITool = () => {
   return (
     <CategoryForm 
     type="Create"
-    data = {JSON.stringify(post)}
+    data = {post}
     setPost = {setPost}
     submitting = {submitting}
     handleSubmit  = {createAITool}

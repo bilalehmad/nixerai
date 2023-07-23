@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const Form = ({type, data, setPost, submitting, handleSubmit}) => {
-  const post = JSON.parse(data);
+  const post = data;
   return (
     <section className='w-full max-w-full flex flex-col'>
       <h1 className='head_text text-left'>

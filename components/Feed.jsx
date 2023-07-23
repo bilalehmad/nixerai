@@ -149,7 +149,7 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 
 const Feed =  ({data,category}) => {
   console.log(data)
-  const [posts, setPosts] = useState(JSON.parse(data))
+  const [posts, setPosts] = useState(data)
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(false);

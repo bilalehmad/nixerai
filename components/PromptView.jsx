@@ -4,7 +4,7 @@ import ChatGPT from "@components/ChatGPT";
 import Image from 'next/image';
 
 function PromptView(props) {
-const post = JSON.parse(props.data);
+const post = props.data;
 const {title,teasor,example,sample} = post;
   return (
     <section className='w-full max-w-full flex justify-between mt-20'>
