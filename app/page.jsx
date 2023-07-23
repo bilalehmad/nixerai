@@ -5,11 +5,10 @@ const fetchFirstPosts = async () => {
 
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`);
   const data = await response.json();
-  return data;
+  return JSON.stringify(data);
 }
 const Home = async () => {
   const data =  await fetchFirstPosts();
-  const result = JSON.stringify(data)
   return (
     <section className="w-full flex-center flex-col">
         <h1 className="head_text text-center">
@@ -22,7 +21,7 @@ const Home = async () => {
         </p>
         {/* <SearchFeedBar /> */}
         {/* <PromptCardList data={data} /> */}
-        <Feed data={result} />
+        <Feed data={data} />
     </section>
 
   )
