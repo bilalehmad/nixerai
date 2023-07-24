@@ -1,5 +1,6 @@
 import Tool from "@components/Tool";
 
+export const dynamic = 'force-dynamic'
 
 const fetchFirstPosts = async () => {
   const queryParam = `page=1&pageSize=10`;

@@ -1,5 +1,7 @@
 import Feed from "@components/Feed";
 
+export const dynamic = 'force-dynamic'
+
 const fetchFirstPosts = async () => {
   const queryParam = `page=1&pageSize=10`;
 
