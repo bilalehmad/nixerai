@@ -7,22 +7,23 @@ const fetchFirstPosts = async () => {
      method: 'GET',
      next: { tags: ['posts'] }
   });
-  const { posts = [] } = await response.json();
+  const posts = await response.json();
   return posts;
 }
 
   const fetchCategory = async () => {
-        const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`,{
-        method: 'GET',
-        next: { tags: ['category'] }
+        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`,{
+        method: 'GET'
       });
-      const { category = [] } = await response.json();
+      const category = await response.json();
+      console.log(category)
         return category;
     }
 
 const Home = async () => {
   const data =  await fetchFirstPosts();
   const category = await fetchCategory();
+  console.log(category)
   return (
     <section className="w-full flex-center flex-col">
         <h1 className="head_text text-center">
