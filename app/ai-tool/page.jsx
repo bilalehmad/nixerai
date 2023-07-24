@@ -4,13 +4,13 @@ import Tool from "@components/Tool";
 const fetchFirstPosts = async () => {
   const queryParam = `page=1&pageSize=10`;
 
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`,{ cache: 'no-store' });
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`);
     const data = await response.json();
   return data;
 }
 
 const fetchCategory = async () => {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`,{ cache: 'no-store' });
+  const response = await fetch(`${process.env.NEXTAUTH_URL}//api/category`);
   const data = await response.json();
   return data;
 }

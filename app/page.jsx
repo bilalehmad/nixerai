@@ -3,13 +3,13 @@ import Feed from "@components/Feed";
 const fetchFirstPosts = async () => {
   const queryParam = `page=1&pageSize=10`;
 
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`,{ cache: 'no-store' });
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`);
   const posts = await response.json();
   return posts;
 }
 
 const fetchCategory = async () => {
-      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`,{ cache: 'no-store' });
+      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`);
       const category = await response.json();
       return category;
   }
