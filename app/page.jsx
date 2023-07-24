@@ -1,6 +1,6 @@
 import Feed from "@components/Feed";
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 const fetchFirstPosts = async () => {
   const queryParam = `page=1&pageSize=10`;
@@ -30,8 +30,6 @@ const Home = async () => {
         <p className="desc text-center">
         Explore  and Use the most Extensive Collection of Prompt
         </p>
-        {/* <SearchFeedBar /> */}
-        {/* <PromptCardList data={data} /> */}
         <Feed data= {data} category={category} />
     </section>
 
