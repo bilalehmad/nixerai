@@ -132,7 +132,7 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
 
     }
   >
-    <div className='mt-16 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4 overflow-hidden'>
+    <div className='w-full mt-16 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4 overflow-hidden'>
       {data.map((post) => (
         <PromptCard 
           key={post._id}
