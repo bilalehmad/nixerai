@@ -11,14 +11,14 @@ const fetchFirstPosts = async () => {
   return posts;
 }
 
-  const fetchCategory = async () => {
-        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`,{
-        method: 'GET'
-      });
-      const category = await response.json();
-      console.log(category)
-        return category;
-    }
+const fetchCategory = async () => {
+      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`,{
+      method: 'GET'
+    });
+    const category = await response.json();
+    console.log(category)
+      return category;
+  }
 
 const Home = async () => {
   const data =  await fetchFirstPosts();
@@ -36,7 +36,7 @@ const Home = async () => {
         </p>
         {/* <SearchFeedBar /> */}
         {/* <PromptCardList data={data} /> */}
-        <Feed data={data} category={category} />
+        <Feed data= {data} category={category} />
     </section>
 
   )

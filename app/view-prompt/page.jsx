@@ -11,7 +11,7 @@ const fetchPosts = async (promptId) => {
   return data;
 }
 
-async function PromptDetail(context) {
+const PromptDetail = async (context) => {
   
   //const [isPageLoading, setPageIsLoading] = useState(false);
   //const searchParams = useSearchParams();

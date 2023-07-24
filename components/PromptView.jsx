@@ -3,7 +3,7 @@
 import ChatGPT from "@components/ChatGPT";
 import Image from 'next/image';
 
-function PromptView(props) {
+const PromptView = (props) => {
 const post = props.data;
 const {title,teasor,example,sample} = post;
   return (
