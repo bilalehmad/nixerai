@@ -1,3 +1,4 @@
+import ChatButton from "@components/ChatButton";
 import Feed from "@components/Feed";
 
 export const revalidate = 0
@@ -19,15 +20,16 @@ const fetchCategory = async () => {
 const Home = async () => {
   const data =  await fetchFirstPosts();
   const category = await fetchCategory();
-  console.log(category)
+  // console.log(category)
   return (
-    <section className="w-full flex-center flex-col">
+    <section className="w-full flex-center flex-col max-w-7xl sm:px-6 px-6">
+      {/* <ChatButton /> */}
         <h1 className="head_text text-center">
             Discover & Share
-            <br className="max-md:hidden" />
-            <span className="orange_gradient text-center">AI-Powered Prompts</span>
+            <br/>
+            <span className="orange_gradient">AI-Powered Prompts</span>
         </h1>
-        <p className="desc text-center">
+        <p className="desc md:text-center">
         Explore  and Use the most Extensive Collection of Prompt
         </p>
         <Feed data= {data} category={category} />

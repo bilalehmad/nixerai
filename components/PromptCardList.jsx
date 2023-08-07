@@ -3,7 +3,7 @@
 import PromptCard from './PromptCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
+const PromptCardList = ({data, setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
  
   return(
     <InfiniteScroll
@@ -131,7 +131,9 @@ const PromptCardList = ({data, handleTagClick, fetchPosts, hasMore}) => {
         <PromptCard 
           key={post._id}
           post={post}
-          handleTagClick={handleTagClick}
+          setTags={setTags}
+          setSearchTag={setSearchTag}
+          setPageTag={setPageTag}
         />
       ))}
 

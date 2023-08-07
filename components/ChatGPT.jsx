@@ -7,7 +7,7 @@ const ChatGPT = ({title,sample}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [prompt, setPrompt] = useState('');
     const [chatLog, setChatLog] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [regenerte, setRegenerte] = useState('');
     const [heading, setHeading] = useState('');
 
     const handleModalButton = () => {
@@ -28,6 +28,22 @@ const ChatGPT = ({title,sample}) => {
         
         
     }
+    const RegenerateResponce = (e) => {
+        e.preventDefault();
+        const newArray = [...chatLog];
+        let lastIndex;
+
+        for (let i = chatLog.length - 1; i >= 0; i--) {
+            if (chatLog[i].type === 'user') {
+                lastIndex = i;
+                break;
+            }
+        }
+        const text = chatLog[lastIndex].message;
+        setRegenerte(text);
+        chatLog.pop();
+        sendMessage(regenerte)
+    }
     const sendMessage = async (message) => {
         // Construct the query parameter using names
         const url = '/api/chatgpt';
@@ -38,25 +54,48 @@ const ChatGPT = ({title,sample}) => {
             model: 'gpt-3.5-turbo-0613',
             messages: [{"role":"user","content": message}]
         }
+        
+        setChatLog((prev) => [...prev, {type: 'bot', message: ''}]);
 
-        setIsLoading(true);
         const response = await fetch(url, {
             method: 'POST', 
             headers: headers, 
             body: JSON.stringify(data), 
           })
+
+        
         .then(response => response.json())
         .then(data => {
             // Handle response data
             //setChatResponce(data.choices[0].message.content);
-            console.log(data.choices[0].message.content)
+            console.log(data)
             console.log(chatLog)
-            setChatLog((prev) => [...prev, {type: 'bot', message: data.choices[0].message.content}]);
-            setIsLoading(false);
+            // setChatLog((prev) => [...prev, {type: 'bot', message: ''}]);
+            let i = 0;
+            var content = '';
+            const timer = setInterval(() => {
+                if (i < data.length) {
+                    content += data[i];
+                    setChatLog((prev) => {
+                        const updatedLog = [...prev];
+                        updatedLog[updatedLog.length - 1] = {type: 'bot', message: content};
+                        return updatedLog;
+                    });
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 50); // Adjust time here
+            // const content = data.join(' '); 
+            // setChatLog((prev) => [...prev, {type: 'bot', message: data}]);
+        //    if(i == data.length){
+        //     const content = array.join(' '); 
+        //     setChatLog((prev) => [...prev, {type: 'bot', message: content}]);
+        //    }
         })
         .catch(error => {
             // Handle error
-            setIsLoading(false);
+           
             console.error(error);
         });
   
@@ -79,10 +118,10 @@ const ChatGPT = ({title,sample}) => {
             prompt = {prompt}
             setPrompt={setPrompt}
             handleGPTaction = {handleGPTaction}
-            isLoading={isLoading}
             chatLog={chatLog}
             isOpen={isOpen}
             heading={heading}
+            RegenerateResponce={RegenerateResponce}
             />
         }
     </div>

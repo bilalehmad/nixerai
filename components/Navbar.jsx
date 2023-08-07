@@ -71,7 +71,7 @@ const Navbar = () => {
                 </div>
             </div>
         )}
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="px-4 py-3 lg:px-7 lg:pl-3">
             <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
                 {/* <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -91,45 +91,45 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="flex items-center">
-            <ul className="flex flex-wrap items-center mt-3 text-sm font-semibold text-[#2B3A55]  dark:text-gray-400 sm:mt-0">
-                <li className='' >
-                    {/* <a href="#" className="mr-4 hover:text-[#2B3A55] p-2 md:mr-6 "  >Submit</a> */}
-                    <button id="dropdownNavbarLink" onClick={OpenDropdown}  data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full  mr-4 hover:text-[#2B3A55] md:mr-6  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#2B3A55] md:p-0 md:w-auto dark:hover:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                        Submit 
-                    </button>
-                    {/* <!-- Dropdown menu --> */}
-                    {hoverState && (
-                        <div id="dropdownNavbar" className="relative right-10 z-10 font-normal bg-white divide-y mx-1 divide-gray-100 shadow  dark:bg-gray-700 dark:divide-gray-600">
-                        
-                            <ul className="absolute z-20 px-3 text-sm text-gray-700 rounded-md dark:bg-gray-700 bg-white shadow dark:text-gray-400 border border-gray-300" aria-labelledby="dropdownLargeButton">
-                                <li className='py-1.5'>
-                                    <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700  hover:stroke-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" className="w-4 h-4 mr-2 -ml-1 dark:stroke-gray-300 stroke-[#2B3A55]" height="20" viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>          
-                                        Prompt
-                                    </a>
-                                </li>
-                                <li className='py-1.5'>
-                                    <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  className="w-4 h-4 mr-2 dark:stroke-gray-300 stroke-[#2B3A55]"  viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
-                                        Tools
-                                    </a>
-                                </li>
+                <ul className="flex flex-wrap items-center mt-3 text-sm font-semibold text-[#2B3A55]  dark:text-gray-400 sm:mt-0">
+                    <li className='' >
+                        {/* <a href="#" className="mr-4 hover:text-[#2B3A55] p-2 md:mr-6 "  >Submit</a> */}
+                        <button id="dropdownNavbarLink" onClick={OpenDropdown}  data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full  mr-4 hover:text-[#2B3A55] md:mr-6  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#2B3A55] md:p-0 md:w-auto dark:hover:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                            Submit 
+                        </button>
+                        {/* <!-- Dropdown menu --> */}
+                        {hoverState && (
+                            <div id="dropdownNavbar" className="relative right-10 z-10 font-normal bg-white divide-y mx-1 divide-gray-100 shadow  dark:bg-gray-700 dark:divide-gray-600">
                             
-                            </ul>
-                        </div>
-                    )}
-                    
-                </li>
-                <li>
-                    <a href="#" className="mr-4 font-semibold hover:text-[#2B3A55] dark:hover:text-gray-50 md:mr-6">News</a>
-                </li>
-                <li>
-                    <a href="#" className="mr-4 font-semibold hover:text-[#2B3A55]  dark:hover:text-gray-50 md:mr-6">Spotlight</a>
-                </li>
-                <li>
-                    <a href="#" className="hover:text-[#2B3A55] font-semibold  dark:hover:text-gray-50">Trendings</a>
-                </li>
-            </ul>
+                                <ul className="absolute z-20 px-3 text-sm text-[#2B3A55] rounded-md dark:bg-gray-700 bg-white shadow dark:text-gray-400 border border-gray-300 dark:border-gray-500" aria-labelledby="dropdownLargeButton">
+                                    <li className='py-1.5'>
+                                        <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700  dark:hover:text-white dark:stroke-gray-400 dark:hover:stroke-white stroke-[#2B3A55] hover:stroke-blue-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" className="w-4 h-4 mr-2 -ml-1" height="20" viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>          
+                                            Prompt
+                                        </a>
+                                    </li>
+                                    <li className='py-1.5'>
+                                        <a href="#" className="rounded-md text-center font-semibold inline-flex items-center px-5 hover:text-blue-700 dark:stroke-gray-400 dark:hover:stroke-white dark:hover:text-white stroke-[#2B3A55] hover:stroke-blue-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  className="w-4 h-4 mr-2 "  viewBox="0 0 24 24" fill="none" stroke="" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                                            Tools
+                                        </a>
+                                    </li>
+                                
+                                </ul>
+                            </div>
+                        )}
+                        
+                    </li>
+                    <li>
+                        <a href="#" className="mr-4 font-semibold hover:text-[#2B3A55] dark:hover:text-gray-50 md:mr-6">News</a>
+                    </li>
+                    <li>
+                        <a href="/pricing" className="mr-4 font-semibold hover:text-[#2B3A55]  dark:hover:text-gray-50 md:mr-6">Pricing</a>
+                    </li>
+                    <li>
+                        <a href="#" className="hover:text-[#2B3A55] font-semibold  dark:hover:text-gray-50">Trendings</a>
+                    </li>
+                </ul>
             </div>
             <div className="flex items-center">
                 <div className="flex items-center ml-3">
@@ -138,36 +138,44 @@ const Navbar = () => {
                         ): (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#FFA41B" stroke="#F86F03" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
                         )}
                     </span>
-                    {/*<div>
-                    <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                        <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                    <div>
+                    {session?.user ? (
+                    <button type="button" className="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                        <Image  width={37} height={37} onClick={() => setToggleDropdown((prev) => !prev)}  className="w-5 h-5 rounded-full" src={session?.user.image} alt="user photo" />
                     </button>
+                    ):(
+                        providers && Object.values(providers).map((providers) => (
+                        <button type='button' key={providers.name} onClick={() => signIn(providers.id)} className="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <Image  width={37} height={37}  className="w-5 h-5 rounded-full" src="/assets/images/google.svg" alt="user photo" />
+                        </button>
+                        ))
+                    )}
                     </div>
-                    <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                    <div className="px-4 py-3" role="none">
-                        <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        Neil Sims
-                        </p>
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@flowbite.com
-                        </p>
-                    </div>
-                    <ul className="py-1" role="none">
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
-                        </li>
-                    </ul>
-                    </div> */}
+                    {toggleDropdown && (
+                    <div className="fixed z-50 top-[70px] right-6 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                        {/* <div className="px-4 py-3" role="none">
+                            <p className="text-sm text-gray-900 dark:text-white" role="none">
+                            Neil Sims
+                            </p>
+                            <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                            neil.sims@flowbite.com
+                            </p>
+                        </div> */}
+                        <ul className="py-2 px-4" role="none">
+                            {/* <li>
+                            <a href="#" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                            </li>
+                            <li>
+                            <a href="#" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                            </li>
+                            <li>
+                            <a href="#" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
+                            </li> */}
+                            <li>
+                            <button  onClick={() => {setToggleDropdown(false);signOut();}} className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</button>
+                            </li>
+                        </ul>
+                    </div>)}
                 </div>
                 </div>
             </div>

@@ -37,11 +37,11 @@ const SearchTool = ({category,setSearching, setSearchPage, setSortPage, setSearc
       <div className="w-full -order-1 md:order-none mb-2 sm:mb-0">
           <label htmlFor="default-search" className=" text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative border border-gray-200  dark:border-gray-400 rounded-md">
-              <input type="search" onChange={handleSearchInputChange} className="block w-full p-2.5 pl-10 text-sm text-gray-900 rounded-md focus:outline-none  bg-white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white " placeholder="Search for Prompts..." required />
+              <input type="search" onChange={handleSearchInputChange} className="block w-full p-1.5 md:p-2.5 pl-10 text-sm text-gray-900 rounded-md focus:outline-none  bg-white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white " placeholder="Search for Prompts..." required />
               
               <button 
               onClick={handleSearchChange}
-              className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-gray-700 rounded-r-md border-l border-gray-200  dark:border-gray-400 hover:bg-gray-200 focus:outline-none  dark:bg-[#2B3A55] dark:hover:bg-blue-700 "
+              className="absolute top-0 right-0 p-1.5 md:p-2.5 text-sm font-medium text-white bg-gray-700 rounded-r-md border-l border-gray-200  dark:border-gray-400 hover:bg-gray-200 focus:outline-none  dark:bg-[#2B3A55] dark:hover:bg-blue-700 "
               >
                 <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span className="sr-only">Search</span>

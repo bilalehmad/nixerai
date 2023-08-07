@@ -1,4 +1,5 @@
 import Tool from "@components/Tool";
+import ChatButton from "@components/ChatButton";
 
 export const revalidate = 0
 
@@ -20,11 +21,12 @@ const AITool =  async() => {
   const data = await fetchFirstPosts();
   const category = await fetchCategory();
   return (
-    <section className="w-full flex-center flex-col">
+    <section className="w-full flex-center flex-col max-w-7xl sm:px-6 px-6">
+    {/* <ChatButton /> */}
     <h1 className="head_text text-center">
         Discover & Share
-        <br className="max-md:hidden" />
-        <span className="orange_gradient text-center">AI-Powered Tools</span>
+        <br />
+        <span className="orange_gradient">AI-Powered Tools</span>
     </h1>
     <p className="desc text-center">
     Explore and Use the most Extensive Collection of  AI Tools

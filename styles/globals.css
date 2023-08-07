@@ -129,6 +129,39 @@
   opacity: 0.15;
 } */
 
+.btn {
+  align-items: center;
+  border-color: transparent;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  display: inline-flex;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  pointer-events: auto;
+}
+.btn-neutral {
+  border-color: rgba(0,0,0,.1);
+  border-width: 1px;
+  font-size: .875rem;
+  line-height: 1.25rem;
+}
+.cursorBlink{
+  font-weight:100;
+  font-size:30px;
+  color:black;
+  width:5px;
+  height: 15px;
+  overflow:hidden;
+  animation:blink 1s steps(5,start) infinite
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @media screen and (max-width: 640px) {
   .main {
     padding: 0;
@@ -140,7 +173,7 @@ body{
   @apply dark:bg-[#1A202c] bg-[#fff]
 }
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-6 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col mx-auto ;
 }
 
 .black_btn {
@@ -152,7 +185,7 @@ body{
 }
 
 .head_text {
-  @apply mt-24 text-5xl font-extrabold leading-[1.15] text-[#2B3A55] dark:text-white sm:text-6xl;
+  @apply mt-24 text-3xl md:text-5xl font-extrabold leading-[1.15] text-[#2B3A55] dark:text-white sm:text-5xl;
 }
 
 .orange_gradient {
@@ -168,7 +201,7 @@ body{
 }
 
 .desc {
-  @apply mt-5 text-lg text-gray-800 dark:text-gray-300 sm:text-xl max-w-2xl;
+  @apply mt-5 text-xs md:text-lg text-gray-800 dark:text-gray-300 sm:text-xl max-w-2xl;
 }
 
 .search_input {

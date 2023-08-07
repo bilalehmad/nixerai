@@ -48,7 +48,8 @@ const AIToolSchema = new Schema({
     tag: {
         type: "String",
         required: [true, "Tag is Required."]
-    }
+    },
+    timestamps: { type : Date}
 })
 
 const AITool = models.AITool || model("AITool", AIToolSchema);

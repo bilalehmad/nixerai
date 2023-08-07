@@ -49,7 +49,7 @@ const Dropdown = ({optionValue, setOptionValue,setSortPage}) => {
 
   return (
     <div className='relative flex flex-col items-center w-1/2 sm:w-[400px] rounded-sm'>
-        <button onClick={handleButton} className='border border-gray-200  dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:bg-gray-700 active:border-gray-200 dark:active:border-gray-400 duration-300 active:text-white bg-white p-2 w-full flex item-center justify-between font-medium rounded-md tracking-wider'>
+        <button onClick={handleButton} className='border border-gray-200  dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:bg-gray-700 active:border-gray-200 dark:active:border-gray-400 duration-300 active:text-white bg-white p-1 md:p-2 w-full flex item-center justify-between font-medium rounded-md tracking-wider'>
         
          {optionValue ? (<span className='flex justify-start'> <span className='px-1'>{optionImage}</span> {optionValue}</span>) : ('Sort By')}
         {isOpen ? (

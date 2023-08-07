@@ -5,7 +5,7 @@ import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import GoogleButton from 'react-google-button';
 
-const UserLogin = () => {
+const Login = () => {
   
 
   const { data: session } = useSession();
@@ -27,4 +27,4 @@ const UserLogin = () => {
   )
 }
 
-export default UserLogin
+export default Login

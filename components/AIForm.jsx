@@ -4,7 +4,7 @@ import Image from 'next/image'
 const AIForm = ({type, post, setPost, submitting, handleSubmit, handleImage, image}) => {
 
   return (
-    <section className='w-full max-w-full flex flex-col'>
+    <section className='w-full flex flex-col max-w-7xl sm:px-6 px-6'>
     <h1 className='head_text text-left'>
       <span className='blue_gradient'>{type} Post</span>
     </h1>
