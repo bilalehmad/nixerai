@@ -1,5 +1,8 @@
 import BlogList from '@components/BlogList';
-import React from 'react'
+import React from 'react';
+
+export const revalidate = 0;
+
 const fetchBlogs = async () => {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/blogs`);
     const blogs = await response.json();

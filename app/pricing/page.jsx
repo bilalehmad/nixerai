@@ -1,6 +1,7 @@
 
 import Pakages from '@components/Pakages';
 import React from 'react'
+export const revalidate = 0;
 
 const fetchPakages = async () => {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pakages`);
