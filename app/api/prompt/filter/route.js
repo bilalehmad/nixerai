@@ -13,7 +13,7 @@ export const GET = async (request) => {
 
     // Access the array of names
     const names = searchParams.get("names").split(',') || [];
-    console.log('name:', names, 'page:', page);
+    // console.log('name:', names, 'page:', page);
 
 
     try {
@@ -22,7 +22,7 @@ export const GET = async (request) => {
         const prompts = await Prompt.find({ tag: { $in: names } })
         .skip((page - 1) * pageSize)
         .limit(pageSize)
-        .populate('creator');
+        // .populate('creator');
 
         return new Response(JSON.stringify(prompts), { status: 200 });
     } catch (error) {

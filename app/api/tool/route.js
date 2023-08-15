@@ -19,7 +19,7 @@ export const GET = async (request) => {
         const aitool = await AITool.find({})
         .skip((page - 1) * pageSize)
         .limit(pageSize)
-        .populate('creator')
+        // .populate('creator')
 
         
         return new Response(JSON.stringify(aitool), { status: 200 })

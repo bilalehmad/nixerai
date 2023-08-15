@@ -1,15 +1,17 @@
 "use client";
 
 import {useEffect, useState} from 'react';
+import { useSession } from "next-auth/react";
 import ToolCard from './ToolCard';
 import Link from 'next/link';
 import SearchTool from './SearchTool';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const ToolCardList = ({data,setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
+const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPosts, hasMore}) => {
   
     const [isOpen, setIsOpen] = useState(false);
     const [youtubeURL, setYoutubeURL] = useState(null);
+    const [UserReactions, setUserReactions] = useState(reactions);
 
   const handleModalStateChange = (val) => {
     setYoutubeURL(val)
@@ -51,7 +53,6 @@ const ToolCardList = ({data,setTags,setPageTag, setSearchTag, fetchPosts, hasMor
         document.addEventListener('mousedown', handleOutsideClick);
     };
   }, [isOpen]);
-
    
     return(
     <InfiniteScroll
@@ -140,6 +141,9 @@ const ToolCardList = ({data,setTags,setPageTag, setSearchTag, fetchPosts, hasMor
             setSearchTag={setSearchTag}
             onModalStateChange = {handleModalStateChange}
             onShareModalStateChane = {handleShareModalStateChange}
+            // reactions={reactions.map((obj) => {obj.find((element) => { console.log(obj);return element.find(obj2 => obj2._id === post._id)})})}
+            reactions={UserReactions.map((obj) => {return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
+
           />
         ))}
         <div>
@@ -167,9 +171,9 @@ const ToolCardList = ({data,setTags,setPageTag, setSearchTag, fetchPosts, hasMor
     )
   }
 
-const Tool = ({data,category})=> {
+const Tool = ({data,category,reactions})=> {
   // const data = JSON.parse(data);
-
+  const {data: session} = useSession();
   const [posts, setPosts] = useState(data)
   // Search states
   const [searchText, setSearchText] = useState("");
@@ -189,6 +193,11 @@ const Tool = ({data,category})=> {
   const [searching, setSearching] = useState(false);
   const [searchPage, setSearchPage] = useState(1);
   const [searchTag, setSearchTag] = useState(false);
+  const [getReactions, setGetReactions] = useState(()=> {
+    const result = reactions == true ? []: JSON.parse(reactions);
+    return result;
+  })
+  const [UserReactions, setUserReactions] = useState(getReactions);
 
   useEffect(() => {
     if (optionValue !== null) {
@@ -290,6 +299,19 @@ const Tool = ({data,category})=> {
     setSearchTag(false)
 
   }
+
+  // const fetchUserReaction = async (ids) => {
+  //   const queryParam = `names=${ids}`;
+  //   try {
+  //     const response = await fetch(`/api/reaction/tool?${queryParam}`);
+  //     const data = await response.json();
+  //     setUserReactions([]);
+  //     setUserReactions(data);
+  //     return data;
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const fetchSortPosts =  async() => {
     // Construct the query parameter using names optionValue,sortPage
@@ -470,6 +492,7 @@ const Tool = ({data,category})=> {
           fetchPosts={fetchSortPosts}
           setTags={setTags}
           setSearchTag={setSearchTag}
+          reactions={UserReactions}
         />
       )}
       {isFilter && (
@@ -480,6 +503,7 @@ const Tool = ({data,category})=> {
             fetchPosts={fetchFilterPosts}
             setTags={setTags}
             setSearchTag={setSearchTag}
+            reactions={UserReactions}
           />
       )}
       {searchTimeout && (
@@ -490,6 +514,7 @@ const Tool = ({data,category})=> {
               fetchPosts={fetchSearchPosts}
               setTags={setTags}
               setSearchTag={setSearchTag}
+              reactions={UserReactions}
             />
       )}
       {searchTag && (
@@ -500,6 +525,7 @@ const Tool = ({data,category})=> {
               fetchPosts={fetchTagPosts}
               setTags={setTags}
               setSearchTag={setSearchTag}
+              reactions={UserReactions}
             />
       )}
      { !isSort &&  !isFilter && !searchTimeout && !searchTag && (
@@ -509,7 +535,8 @@ const Tool = ({data,category})=> {
         hasMore = {hasMore}
         fetchPosts={fetchPosts}
         setTags={setTags}
-        setSearchTag={setSearchTag} />
+        setSearchTag={setSearchTag}
+        reactions={UserReactions} />
       )}
 
     </section>

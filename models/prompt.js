@@ -18,21 +18,10 @@ const PromptSchema = new Schema({
         type: 'String',
         required: [true, "Sample is Required."]
     },
-    example: {
-        type: 'String',
-        required: [true, "Example is Required."]
-    },
-    output1: {
-        type: 'String',
-    },
-    output2: {
-        type: 'String',
-    },
     status: {
         type: 'String',
-        required: [true, "Status is Required."]
     },
-    type: {
+    accessLevel: {
         type: 'String',
     },
     image: {
@@ -50,6 +39,9 @@ const PromptSchema = new Schema({
     tag: {
         type: "String",
         required: [true, "Tag is Required."]
+    },
+    price: {
+        type: 'number',
     },
     timestamps: { type : Date }
 })

@@ -8,7 +8,7 @@ import mql from "@microlink/mql";
 
 const cheerio = require('cheerio');
 
-const ToolCard = ({post, handleEdit, handleDelete, setPageTag, setTags,setSearchTag, onModalStateChange,onShareModalStateChane}) => {
+const ToolCard = ({post,key, handleEdit,reactions, handleDelete, setPageTag, setTags,setSearchTag, onModalStateChange,onShareModalStateChane}) => {
   const {data: session} = useSession();
   const [thumbnail, setThumbnail] = useState('');
   const [isNativeShare, setNativeShare] = useState(false);
@@ -49,16 +49,40 @@ const ToolCard = ({post, handleEdit, handleDelete, setPageTag, setTags,setSearch
 
 //   tumbnailFun(post.url);
 // }, [thumbnail])
+
+
+
+// const fetchAllReaction = async () => {
+//   try {
+//     const response = await fetch(`/api/reaction`)
+//     if (response.ok) {
+//       const data = await response.json();
+//       console.log("Reactions Data", data);
+//       return data;
+//     }
+//     else{
+//       return false;
+//     }
+//   } catch (error) {
+//     return error;
+//   }
+// }
 const likeHandle = () => {
   if (session?.user) {
     const responce = fetchReaction("Like");
     if(responce)
     {
-      setPostStates((prevStates) => ({
-        ...prevStates,
-        [post._id]: { liked: true, disliked: false }
-      }));
-  
+      setPostStates((prevStates) => {
+        const isCurrentlyLiked = prevStates[post._id]?.liked;
+        
+        return {
+          ...prevStates,
+          [post._id]: { 
+            liked: !isCurrentlyLiked, 
+            disliked: false 
+          }
+        };
+      });
     }
    
   }
@@ -73,10 +97,17 @@ const dislikeHandle = () => {
     const responce = fetchReaction("Dislike");
     if(responce)
     {
-      setPostStates((prevStates) => ({
-        ...prevStates,
-        [post._id]: { liked: false, disliked: true }
-      }));
+      setPostStates((prevStates) => {
+        const isCurrentlyDisliked = prevStates[post._id]?.disliked;
+        
+        return {
+          ...prevStates,
+          [post._id]: { 
+            liked: false,
+            disliked: !isCurrentlyDisliked 
+          }
+        };
+      });
   
     }
   }
@@ -88,7 +119,7 @@ const dislikeHandle = () => {
 const fetchReaction = async (react) => {
   const postID = post._id;
   try {
-    const response = await fetch(`/api/reaction/tool`,{
+    const response = await fetch(`/api/reaction/tool/new`,{
       method :'POST',
       body : JSON.stringify({
           post: postID,
@@ -160,11 +191,43 @@ useEffect(() => {
     {
       setBadge(true)
     }
+    // if (session?.user) {
+    //   // (async() => {await fetchAllReaction();})();
+    //   fetchAllReaction()
+    // }
+    // console.log(reactions,"-------------------Card")
+    if(reactions.length > 0)
+    {
+      console.log(reactions)
+      reactions.map(element => {
+        if(element.reaction == 'Like')
+        {
+          setPostStates((prevStates) => ({
+            ...prevStates,
+            [post._id]: { 
+              ...prevStates[post._id], 
+              liked: true, 
+              disliked: false 
+            }
+          }));
+        }
+        else{
+          setPostStates((prevStates) => ({
+            ...prevStates,
+            [post._id]: { 
+              ...prevStates[post._id], 
+              liked: false, 
+              disliked: true 
+            }
+          }));
+        }
+      })
+    }
   }, []);
 
  
   return (
-    <div className="container px-5 py-4 mx-auto  ">
+    <div key={key} className="container px-5 py-4 mx-auto  ">
           <div className="flex flex-wrap -m-5 ">
             <div className=" py-2 w-full">
               <div className="h-full rounded-xl shadow-cla-blue bg-gradient-to-r overflow-hidden shadow-md  border border-gray-200 dark:border-none">
@@ -178,18 +241,19 @@ useEffect(() => {
                               <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="https://flow-prompt-covers.s3.us-west-1.amazonaws.com/icon/illustrative/illus_5.png" alt="" />
                             )}
                             <div className="w-full flex flex-col h-[120px] md:h-[130px] md:gap-1 pl-3 overflow-hidden css-0">
-                                <div className="inline-flex justify-between ">
-                                    <p className="text-[13px] md:text-lg mt-1 font-semibold tracking-wide line-clamp-1 break-words css-0 w-[200px]">{post.title}</p>
-                                    {!badge && (
-                                 
-                                 <svg viewBox="0 0 48 48"  height="30" xmlns="http://www.w3.org/2000/svg"  fill="#2B3A55" className='dark:fill-white fill-blue-500'><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>new-rectangle</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M44,14H4a2,2,0,0,0-2,2V32a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V16A2,2,0,0,0,44,14ZM17.3,29H14.8l-3-5-.7-1.3h0V29H8.7V19h2.5l3,5,.6,1.3h.1s-.1-1.2-.1-1.6V19h2.5Zm9.1,0H18.7V19h7.6v2H21.2v1.8h4.4v2H21.2v2.1h5.2Zm10.9,0H34.8l-1-4.8c-.2-.8-.4-1.9-.4-1.9h0s-.2,1.1-.3,1.9L32,29H29.6L26.8,19h2.5l1,4.2a20.1,20.1,0,0,1,.5,2.5h0l.5-2.4,1-4.3h2.3l.9,4.3.5,2.4h0l.5-2.5,1-4.2H40Z"></path> </g> </g> </g></svg>
-                              )}
-                                </div>
-                                <div className="w-full css-k008qs h-[40px]">
-                                    <p className="w-full text-[10px] md:text-[12px] text-gray-500 dark:text-gray-400 2xl:text-md sm:mb-2 line-clamp-2 md:line-clamp-3 font-medium md:break-words css-0">{post.description}</p>
-                                </div>
+                                <Link href={post.url} target="_blank" className=" cursor-pointer">
+                                    <div className="w-full inline-flex justify-between ">
+                                        <p className="text-[13px] md:text-lg mt-1 font-semibold tracking-wide line-clamp-1 break-words css-0 w-[200px]">{post.title}</p>
+                                        {!badge && (
+                                    
+                                          <svg viewBox="0 0 48 48"  height="30" xmlns="http://www.w3.org/2000/svg"  fill="#2B3A55" className='dark:fill-white fill-blue-500'><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>new-rectangle</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M44,14H4a2,2,0,0,0-2,2V32a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V16A2,2,0,0,0,44,14ZM17.3,29H14.8l-3-5-.7-1.3h0V29H8.7V19h2.5l3,5,.6,1.3h.1s-.1-1.2-.1-1.6V19h2.5Zm9.1,0H18.7V19h7.6v2H21.2v1.8h4.4v2H21.2v2.1h5.2Zm10.9,0H34.8l-1-4.8c-.2-.8-.4-1.9-.4-1.9h0s-.2,1.1-.3,1.9L32,29H29.6L26.8,19h2.5l1,4.2a20.1,20.1,0,0,1,.5,2.5h0l.5-2.4,1-4.3h2.3l.9,4.3.5,2.4h0l.5-2.5,1-4.2H40Z"></path> </g> </g> </g></svg>
+                                        )}
+                                    </div>
+                                    <div className="w-full css-k008qs h-[40px]">
+                                        <p className="w-full text-[10px] md:text-[12px] text-gray-500 dark:text-gray-400 2xl:text-md sm:mb-2 line-clamp-2 md:line-clamp-3 font-medium md:break-words css-0">{post.description}</p>
+                                    </div>
                                 
-                                
+                                </Link>
                                 <div className="w-full flex flex-col md:flex-row md:inline-flex justify-end md:justify-between text-sm h-[40px]  md:h-[80px] ">
                                     <div className="inline-flex w-full items-end justify-start p-0.5 md:mr-2 overflow-hidden text-sm font-medium transition-all rounded-sm  ease-in duration-75  ">
                                         {/* <span onClick={openModal} target="_blank" className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
@@ -216,8 +280,8 @@ useEffect(() => {
                                         </span>
                                     </div>
                                     <div className="inline-flex -order-1 md:order-none justify-start  md:justify-end items-end w-full dark:text-gray-400 text-[10px] md:text-xs md:p-0.5 mr-2">
-                                    {postTags.map((value) => (
-                                        <span className="chakra-text css-0 cursor-pointer mr-1" onClick={() => handleTagClick && handleTagClick(value)}>#{value}</span> 
+                                    {postTags.map((value,key) => (
+                                        <span key={key} className="chakra-text css-0 cursor-pointer mr-1" onClick={() => handleTagClick && handleTagClick(value)}>#{value}</span> 
 
                                     ))}
                                     </div> 

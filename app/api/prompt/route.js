@@ -3,7 +3,6 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 export const GET = async (request) => {
-      
     const url = new URL(request.url);
     const query = url.searchParams;
     const searchParams = new URLSearchParams(query);
@@ -18,8 +17,8 @@ export const GET = async (request) => {
 
         const prompts = await Prompt.find({})
         .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .populate('creator')
+        .limit(pageSize);
+        // .populate('creator')
 
         return new Response(JSON.stringify(prompts), { status: 200 })
     } catch (error) {

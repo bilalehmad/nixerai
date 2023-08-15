@@ -103,15 +103,16 @@ const ChatGPT = ({title,sample}) => {
     }
 
   return (
-    <div className='px-5'>
-        <h5 className='text-gray-700 py-2  dark:text-white font-staoshi font-semibold text-sm'>
-            Play It on Chat GPT
-        </h5>
+    <div className='px-5 py-5 inline-flex'>
+       
         
         <button className='cursor-pointer' onClick={handleModalButton}>
             <Image alt="chatgpt image" src='/assets/images/chatgpt.png' width={30} height={30} />
             {/* <svg className=' fill-white mt-1 ml-1.5' width='18' version="1.1" viewBox="0 0 24 24" ><g id="info"/><g id="icons"><path d="M3.9,18.9V5.1c0-1.6,1.7-2.6,3-1.8l12,6.9c1.4,0.8,1.4,2.9,0,3.7l-12,6.9C5.6,21.5,3.9,20.5,3.9,18.9z" id="play"/></g></svg> */}
         </button>
+        <h5 className='text-gray-700 py-2 px-2  dark:text-white font-staoshi font-semibold text-sm'>
+            Try this Prompt with Nixer GPT
+        </h5>
         {isOpen && 
             <ChatModal 
             setIsOpen = {setIsOpen}

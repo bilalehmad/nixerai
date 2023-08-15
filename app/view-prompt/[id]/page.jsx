@@ -11,13 +11,13 @@ const fetchPosts = async (promptId) => {
   return data;
 }
 
-const PromptDetail = async (context) => {
+const PromptDetail = async ({params}) => {
   
   //const [isPageLoading, setPageIsLoading] = useState(false);
   //const searchParams = useSearchParams();
   //const promptId = searchParams.get('id')
-  console.log(context)
-  const data= await fetchPosts(context.searchParams.id);
+  console.log(params.id)
+  const data= await fetchPosts(params.id);
 //   const [post, setPost] = useState({
 //     title: '',
 //     teasor: '',

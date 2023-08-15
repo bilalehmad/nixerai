@@ -73,7 +73,7 @@ const ChatModal = ({setIsOpen,prompt,setPrompt,handleGPTaction,chatLog,isOpen,he
                                             ) : (
                                             <div className='relative left-2'>
                                                 <div className='relative p-1 rounded-full border border-gray-600 h-[30px] w-[30px] text-white flex items-center justify-center '>
-                                                    <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="256" width="256"/><circle cx="128" cy="96" fill="none" r="64" stroke="#000" stroke-miterlimit="10" stroke-width="16"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>                                                
+                                                    <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="256" width="256"/><circle cx="128" cy="96" fill="none" r="64" stroke="#000" stroke-miterlimit="10" strokeWidth="16"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/></svg>                                                
                                                 </div>                                       
                                             </div>
                                             )}

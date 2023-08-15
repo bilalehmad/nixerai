@@ -11,7 +11,7 @@ export const GET = async (request) => {
     const q = searchParams.get('q');
     const page = parseInt(searchParams.get("page")) || 1;
     const pageSize = parseInt(searchParams.get("pageSize")) || 10;
-    console.log(q);
+    // console.log(q);
     try {
         await connectToDB()
 
@@ -21,8 +21,8 @@ export const GET = async (request) => {
               ] }
         )
         .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .populate('creator');
+        .limit(pageSize);
+        // .populate('creator');
         if(!aitool) return new Response("Prompt not found", {status : 404})
         return new Response(JSON.stringify(aitool), { status: 200 })
     } catch (error) {

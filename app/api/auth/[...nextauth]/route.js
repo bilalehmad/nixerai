@@ -9,8 +9,11 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      
     })
+    
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
       // store the user id from MongoDB to session
@@ -22,16 +25,18 @@ export const authOptions = {
     async signIn({ account, profile, user, credentials }) {
       try {
         await connectToDB();
-
         // check if user already exists
         const userExists = await User.findOne({ email: profile.email });
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
+          console.log(profile)
           await User.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
             image: profile.picture,
+            role:"client",
+            subscriptionStatus:"Free"
           });
         }
 

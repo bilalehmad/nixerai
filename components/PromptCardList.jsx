@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from 'react';
 import PromptCard from './PromptCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const PromptCardList = ({data, setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
+const PromptCardList = ({data,reactions, setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
  
+  const [UserReactions, setUserReactions] = useState(reactions);
   return(
     <InfiniteScroll
     dataLength={data.length}
@@ -134,6 +136,8 @@ const PromptCardList = ({data, setTags,setPageTag, setSearchTag, fetchPosts, has
           setTags={setTags}
           setSearchTag={setSearchTag}
           setPageTag={setPageTag}
+          reactions={UserReactions.map((obj) => {return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
+
         />
       ))}
 

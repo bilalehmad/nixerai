@@ -121,13 +121,13 @@ const Navbar = () => {
                         
                     </li>
                     <li>
-                        <a href="#" className="mr-4 font-semibold hover:text-[#2B3A55] dark:hover:text-gray-50 md:mr-6">News</a>
+                        <a href="/newsletter" className="mr-4 font-semibold hover:text-[#2B3A55] dark:hover:text-gray-50 md:mr-6">News</a>
                     </li>
                     <li>
                         <a href="/pricing" className="mr-4 font-semibold hover:text-[#2B3A55]  dark:hover:text-gray-50 md:mr-6">Pricing</a>
                     </li>
                     <li>
-                        <a href="#" className="hover:text-[#2B3A55] font-semibold  dark:hover:text-gray-50">Trendings</a>
+                        <a href="/blogs" className="hover:text-[#2B3A55] font-semibold  dark:hover:text-gray-50">Blogs</a>
                     </li>
                 </ul>
             </div>

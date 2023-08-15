@@ -19,25 +19,25 @@ const {title,teasor,example,sample} = post;
                     </h1>
                     <hr className='my-4'/>
                     <p className='text-gray-900 dark:text-white font-semibold text-sm'>{teasor}</p>
-                    <div className='py-5'>
+                        {/* <div className='py-5'>
                             <h5 className='font-staoshi font-bold text-sm py-5'>
                                 <span className=' text-gray-900 dark:text-white  text-left'>Example</span>
                             </h5>
                             <p className='text-gray-900 dark:text-white font-semibold text-sm pb-5'>{example}</p>
-                        </div>
+                        </div> */}
                  </div>
-                 <div className='col-span-1 py-5 w-full '>
+                 <div className='col-span-1 py-5  w-full '>
                     <div className=' text-gray-900 dark:text-white border-2 w-full rounded-md'>
                         <div className='px-5 pt-5'>
                             <h1 className='font-staoshi font-semibold text-xl '>
-                                <span className=' text-gray-900 dark:text-white text-left'>Prompt Detail</span>
+                                <span className=' text-gray-900 dark:text-white text-left'>Prompt</span>
                             </h1>
                         </div>
-                        <div className=' px-5 py-2 scroll-m-2 '>
-                            <h5 className='font-staoshi font-semibold text-sm py-5'>
+                        <div className=' px-5 py-5 scroll-m-2 '>
+                            {/* <h5 className='font-staoshi font-semibold text-sm py-5'>
                                 <span className=' text-gray-900 dark:text-white  text-left'>Sample</span>
-                            </h5>
-                            <div className='h-250px] overflow-x-auto'>
+                            </h5> */}
+                            <div className='h-[250px] overflow-x-auto'>
                                 <p className='text-gray-900 dark:text-white font-semibold text-sm pb-5'>{sample}</p>
                             </div>
                         </div>

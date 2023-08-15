@@ -4,7 +4,7 @@ import Category from "@models/category";
 
 export const POST = async (req) => {
     const name = await req.json();
-console.log(name)
+// console.log(name)
     try {
         await connectToDB();
         const newCategory = new Category(name)

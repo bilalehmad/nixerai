@@ -13,7 +13,14 @@ const UserSchema = new Schema({
     },
     image: {
         type: String,
-    }
+    },
+    role: {
+        type: String,
+        required: [true, "Role is Required."]
+    },
+    subscriptionStatus :{
+        type: String
+    },
 
 });
 

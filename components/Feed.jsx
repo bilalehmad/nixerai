@@ -6,7 +6,7 @@ import Link from 'next/link';
 import SearchFeed from './SearchFeed';
 import PromptCardList from './PromptCardList';
 
-const Feed =  ({data,category}) => {
+const Feed =  ({data,category,reactions}) => {
   // console.log(data)
   const [posts, setPosts] = useState(data)
   // Search states
@@ -27,6 +27,11 @@ const Feed =  ({data,category}) => {
   const [searchTag, setSearchTag] = useState(false);
   const [pageTag, setPageTag] = useState(1);
   const [tags, setTags] = useState("");
+  const [getReactions, setGetReactions] = useState(()=> {
+    const result = reactions == true ? []: JSON.parse(reactions);
+    return result;
+  })
+  const [UserReactions, setUserReactions] = useState(getReactions);
 
   // const firstfetch = props.data;
   // console.log(firstfetch)
@@ -293,6 +298,7 @@ const Feed =  ({data,category}) => {
           setTags={setTags}
           setSearchTag={setSearchTag}
           setPageTag={setPageTag}
+          reactions={UserReactions}
         />
       )}
       {isFilter && (
@@ -303,6 +309,7 @@ const Feed =  ({data,category}) => {
             setTags={setTags}
             setSearchTag={setSearchTag}
             setPageTag={setPageTag}
+            reactions={UserReactions}
           />
       )}
       {searchTimeout && (
@@ -313,6 +320,7 @@ const Feed =  ({data,category}) => {
               setTags={setTags}
               setSearchTag={setSearchTag}
               setPageTag={setPageTag}
+              reactions={UserReactions}
             />
       )}
       {searchTag && (
@@ -323,6 +331,7 @@ const Feed =  ({data,category}) => {
               fetchPosts={fetchTagPosts}
               setTags={setTags}
               setSearchTag={setSearchTag}
+              reactions={UserReactions}
             />
       )}
       {!isSort && !isFilter && !searchTimeout && !searchTag && (
@@ -333,6 +342,7 @@ const Feed =  ({data,category}) => {
         setTags={setTags}
         setSearchTag={setSearchTag}
         setPageTag={setPageTag}
+        reactions={UserReactions}
       />
       
       )}

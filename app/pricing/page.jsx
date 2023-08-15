@@ -1,6 +1,15 @@
+
+import Pakages from '@components/Pakages';
 import React from 'react'
 
-const Pricing = () => {
+const fetchPakages = async () => {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pakages`);
+    const data = await response.json();
+    return data;
+  }
+  
+const Pricing = async () => {
+    const data = await fetchPakages();
   return (
     <div className="antialiased w-full h-full text-gray-400 font-inter p-10 mt-10">
     <div className="container px-4 mx-auto">
@@ -12,9 +21,10 @@ const Pricing = () => {
           </p>
         </div>
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-evenly gap-10 pt-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-evenly gap-10 pt-10"
         >
-          <div id="plan"
+            <Pakages data={data} />
+          {/* <div id="plan"
             className="rounded-lg border border-gray-300 overflow-hidden w-full text-center transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in"
           >
             <div className="px-6 py-4 ">
@@ -233,7 +243,7 @@ const Pricing = () => {
                         Choose plan
                     </button>
                 </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

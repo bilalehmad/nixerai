@@ -17,12 +17,37 @@ export const POST = async (req) => {
     //     redirect('/')
     // }
     const userId = session?.user.id;
+    console.log(reaction)
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-    console.log(today)
     try {
         await connectToDB();
-        const newReaction = new PromptReaction({
+        const user = await PromptReaction.findOne({ creator: userId,post:post });
+        if (user) {
+            console.log('Found user:', user);
+            if(user.reaction == reaction)
+            {
+                const delt = await PromptReaction.findOneAndDelete({ _id: user._id, reaction: reaction });
+                console.log('Delete user:', delt);
+                return new Response(JSON.stringify(user), {status : 201})
+
+            }
+            else
+            {
+                console.log('User updated.');
+                const newReaction = await PromptReaction.findOneAndUpdate({
+                    _id: user._id
+                },{
+                    $set: {
+                        reaction: reaction
+                    }
+                },{ new: true } )
+                return new Response(JSON.stringify(newReaction), {status : 201})
+            }
+            
+        } else {
+            console.log('User not found.');
+            const newReaction = new PromptReaction({
             creator: userId,
             post,
             reaction,
@@ -30,8 +55,9 @@ export const POST = async (req) => {
         })
 
         await newReaction.save();
-        console.log(newReaction)
         return new Response(JSON.stringify(newReaction), {status : 201})
+        }
+        
     } catch (error) {
         return new Response("Failed to create a new Reaction!", {status : 500})
     }

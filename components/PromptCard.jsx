@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearchTag}) => {
+const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTags,setSearchTag}) => {
   const {data: session} = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -20,15 +20,22 @@ const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearc
       setcopied("")
     }, 3000);
   }
-  const likeHandle = () => {
+  const likeHandle =  () => {
     if (session?.user) {
-      const responce = fetchReaction("Like");
+      const responce =  fetchReaction("Like");
       if(responce)
       {
-        setPostStates((prevStates) => ({
-          ...prevStates,
-          [post._id]: { liked: true, disliked: false }
-        }));
+        setPostStates((prevStates) => {
+          const isCurrentlyLiked = prevStates[post._id]?.liked;
+          
+          return {
+            ...prevStates,
+            [post._id]: { 
+              liked: !isCurrentlyLiked, 
+              disliked: false 
+            }
+          };
+        });
     
       }
      
@@ -41,13 +48,20 @@ const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearc
   
   const dislikeHandle = () => {
     if (session?.user) { 
-      const responce = fetchReaction("Dislike");
+      const responce =  fetchReaction("Dislike");
       if(responce)
       {
-        setPostStates((prevStates) => ({
-          ...prevStates,
-          [post._id]: { liked: false, disliked: true }
-        }));
+        setPostStates((prevStates) => {
+          const isCurrentlyDisliked = prevStates[post._id]?.disliked;
+          
+          return {
+            ...prevStates,
+            [post._id]: { 
+              liked: false,
+              disliked: !isCurrentlyDisliked 
+            }
+          };
+        });
     
       }
     }
@@ -78,7 +92,7 @@ const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearc
     }
   }
   const promptView = () => {
-    router.push(`/view-prompt?id=${post._id}`)
+    router.push(`/view-prompt/${post._id}`)
   }
   useEffect(() => {
 
@@ -103,6 +117,33 @@ const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearc
     if(todate > afterDays)
     {
       setBadge(true)
+    }
+    if(reactions.length > 0)
+    {
+      console.log(reactions)
+      reactions.map(element => {
+        if(element.reaction == 'Like')
+        {
+          setPostStates((prevStates) => ({
+            ...prevStates,
+            [post._id]: { 
+              ...prevStates[post._id], 
+              liked: true, 
+              disliked: false 
+            }
+          }));
+        }
+        else{
+          setPostStates((prevStates) => ({
+            ...prevStates,
+            [post._id]: { 
+              ...prevStates[post._id], 
+              liked: false, 
+              disliked: true 
+            }
+          }));
+        }
+      })
     }
   }, [])
   
@@ -134,7 +175,7 @@ const PromptCard = ({post, handleEdit, handleDelete,setPageTag, setTags,setSearc
                               )} */}
                               {!badge && (
                                  <span className="relative bottom-[5px] p-0.5 dark:fill-white fill-blue-500 ">
-                                 <svg viewBox="0 0 48 48"  height="30" xmlns="http://www.w3.org/2000/svg" className='w-6 h-6 md:w-7 md:h-7 '><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>new-rectangle</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M44,14H4a2,2,0,0,0-2,2V32a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V16A2,2,0,0,0,44,14ZM17.3,29H14.8l-3-5-.7-1.3h0V29H8.7V19h2.5l3,5,.6,1.3h.1s-.1-1.2-.1-1.6V19h2.5Zm9.1,0H18.7V19h7.6v2H21.2v1.8h4.4v2H21.2v2.1h5.2Zm10.9,0H34.8l-1-4.8c-.2-.8-.4-1.9-.4-1.9h0s-.2,1.1-.3,1.9L32,29H29.6L26.8,19h2.5l1,4.2a20.1,20.1,0,0,1,.5,2.5h0l.5-2.4,1-4.3h2.3l.9,4.3.5,2.4h0l.5-2.5,1-4.2H40Z"></path> </g> </g> </g></svg>
+                                 <svg viewBox="0 0 48 48"  height="30" xmlns="http://www.w3.org/2000/svg" className='w-6 h-6 md:w-7 md:h-7 '><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>new-rectangle</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M44,14H4a2,2,0,0,0-2,2V32a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V16A2,2,0,0,0,44,14ZM17.3,29H14.8l-3-5-.7-1.3h0V29H8.7V19h2.5l3,5,.6,1.3h.1s-.1-1.2-.1-1.6V19h2.5Zm9.1,0H18.7V19h7.6v2H21.2v1.8h4.4v2H21.2v2.1h5.2Zm10.9,0H34.8l-1-4.8c-.2-.8-.4-1.9-.4-1.9h0s-.2,1.1-.3,1.9L32,29H29.6L26.8,19h2.5l1,4.2a20.1,20.1,0,0,1,.5,2.5h0l.5-2.4,1-4.3h2.3l.9,4.3.5,2.4h0l.5-2.5,1-4.2H40Z"></path> </g> </g> </g></svg>
                                </span>
                               )}
                           </div>

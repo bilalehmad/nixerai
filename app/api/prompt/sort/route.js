@@ -11,15 +11,16 @@ export const GET = async (request) => {
     const page = parseInt(searchParams.get("page")) || 1;
     const pageSize = parseInt(searchParams.get("pageSize")) || 10;
     const status = searchParams.get("status")||[];
-    console.log(page)
+    // console.log(page)
 
     try {
         await connectToDB()
 
         const prompts = await Prompt.find({status: status})
         .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .populate('creator');
+        .limit(pageSize);
+        
+        // .populate('creator');
         if(!prompts) return new Response("Prompt not found", {status : 404})
         //console.log(prompts)
         return new Response(JSON.stringify(prompts), { status: 200 })
