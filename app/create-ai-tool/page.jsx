@@ -4,7 +4,7 @@
 import {useState} from 'react'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import AIForm from '@components/AIForm';
+import AIForm from '@components/forms/AIForm';
 
 const AddAITool = () => {
     const router = useRouter();

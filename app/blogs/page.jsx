@@ -1,4 +1,4 @@
-import BlogList from '@components/BlogList';
+import BlogList from '@components/blogs/BlogList';
 import React from 'react';
 
 export const revalidate = 0;

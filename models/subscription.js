@@ -1,14 +1,14 @@
 import mongoose, { Schema, model, models } from "mongoose";
 
-const PromptReactionSchema = new Schema({
+const SubscriptionSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref : 'User',
 
     },
-    pakage: {
+    package: {
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'Pakages',
+        ref: 'Bundle'
 
     },
     status: {
@@ -16,9 +16,9 @@ const PromptReactionSchema = new Schema({
         required: [true, "Status is Required."]
     },
     start_timestamps: { type : Date},
-    start_timestamps: { type : Date}
+    end_timestamps: { type : Date}
 })
 
-const PromptReaction = models.PromptReaction || model("PromptReaction", PromptReactionSchema);
+const Subscription = models.Subscription || model("Subscription", SubscriptionSchema);
 
-export default PromptReaction;
+export default Subscription;

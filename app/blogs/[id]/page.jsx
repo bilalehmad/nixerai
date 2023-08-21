@@ -1,4 +1,4 @@
-import PostArticle from '@components/PostArticle';
+import PostArticle from '@components/blogs/PostArticle';
 import React from 'react'
 
 

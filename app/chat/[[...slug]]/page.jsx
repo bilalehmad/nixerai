@@ -2,8 +2,8 @@ import React from 'react'
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../../api/auth/[...nextauth]/route'
 import { redirect } from 'next/navigation';
-import ChatSidebar from '@components/ChatSidebar';
-import ChatBody from '@components/ChatBody';
+import ChatSidebar from '@components/chat/ChatSidebar';
+import ChatBody from '@components/chat/ChatBody';
 
 const Chat = async () => {
   const session = await getServerSession(authOptions);

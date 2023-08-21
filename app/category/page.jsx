@@ -4,7 +4,7 @@
 import {useState} from 'react'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import CategoryForm from '@components/CategoryForm';
+import CategoryForm from '@components/forms/CategoryForm';
 
 const AddAITool = () => {
     const router = useRouter();

@@ -1,4 +1,4 @@
-import ConfirmPakage from '@components/ConfirmPakage';
+import ConfirmPakage from '@components/pricing/ConfirmPakage';
 
 const fetchPakage = async (pkgid) => {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pakages/${pkgid}`);
@@ -14,8 +14,8 @@ const Pricing = async ({params}) => {
     <div className="container px-4 mx-auto">
       <div>
         <div id="title" className="text-center my-10">
-          <h1 className="font-bold text-4xl text-gray-700">Confirm Subscription</h1>
-          <p className="text-light text-gray-500 text-xl">
+          <h1 className="font-bold text-4xl dark:text-white text-gray-700">Confirm Subscription</h1>
+          <p className="text-light dark:text-gray-400 text-gray-500 text-xl">
             The Subscription details associated with the plan.
           </p>
         </div>

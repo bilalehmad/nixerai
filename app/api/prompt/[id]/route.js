@@ -7,7 +7,7 @@ export const GET = async (request, {params}) => {
     // console.log(request)
     try {
         await connectToDB()
-        const prompts = await Prompt.findById(params.id).populate('creator');
+        const prompts = await Prompt.findById(params.id)
         // console.log(prompts)
         if(!prompts) return new Response("Prompt not found", {status : 404})
         return new Response(JSON.stringify(prompts), { status: 200 })
@@ -18,10 +18,11 @@ export const GET = async (request, {params}) => {
 
 //PATCH (update)
 export const PATCH = async (request, {params}) => {
-    const {title,
+    const {
+         title,
          teasor,
           sample,
-          example,
+          accessLevel,
           output1,
           output2,
           status,
@@ -40,16 +41,16 @@ export const PATCH = async (request, {params}) => {
         existingPrompt.title = title;
         existingPrompt.teasor = teasor;
         existingPrompt.sample = sample;
-        existingPrompt.example = example;
-        existingPrompt.output1 = output1;
-        existingPrompt.output2 = output2;
+        existingPrompt.accessLevel = accessLevel;
         existingPrompt.status = status;
+        existingPrompt.tag = tag;
+        // existingPrompt.output1 = output1;
+        // existingPrompt.output2 = output2;
         //existingPrompt.type = type;
-        existingPrompt.image = image;
+        // existingPrompt.image = image;
         // existingPrompt.likes = likes;
         // existingPrompt.views = views;
         // existingPrompt.wishlisted = wishlisted;
-        existingPrompt.tag = tag;
         
         await existingPrompt.save();
 

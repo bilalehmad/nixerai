@@ -1,7 +1,7 @@
-import Tool from "@components/Tool";
+import Tool from "@components/tool/Tool";
 import { connectToDB } from "@utils/database";
 import AIToolReaction from "@models/aitooltreaction";
-import ChatButton from "@components/ChatButton";
+import ChatButton from "@components/chat/ChatButton";
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../api/auth/[...nextauth]/route';
 

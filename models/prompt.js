@@ -24,6 +24,9 @@ const PromptSchema = new Schema({
     accessLevel: {
         type: 'String',
     },
+    category: {
+        type: 'String',
+    },
     image: {
         type: 'String',
     },

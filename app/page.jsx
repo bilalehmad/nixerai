@@ -1,5 +1,5 @@
-import ChatButton from "@components/ChatButton";
-import Feed from "@components/Feed";
+import ChatButton from "@components/chat/ChatButton";
+import Feed from "@components/prompt/Feed";
 import { connectToDB } from "@utils/database";
 import PromptReaction from "@models/promptreaction";
 import { getServerSession  } from 'next-auth/next';
@@ -40,12 +40,12 @@ const Home = async () => {
   const category = await fetchCategory();
   const usrRect = await fetchAllReaction();
   return (
-    <section className="w-full flex-center flex-col max-w-7xl sm:px-6 px-6">
+    <section className="w-full h-auto flex-center flex-col max-w-7xl sm:px-6 px-6">
       {/* <ChatButton /> */}
         <h1 className="head_text text-center">
         Uncover & Share
             <br/>
-            <span className="orange_gradient"> AI-Powered Prompts</span>
+            <span className="orange_gradient text-[#F05454]"> AI-Powered Prompts</span>
         </h1>
         <p className="desc md:text-center">
         Explore  and Use the most Extensive Collection of Prompt

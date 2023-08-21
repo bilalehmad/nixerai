@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from './Navbar'
-import Aside from './Aside'
+import Aside from './dashboard/Aside'
 import Nav from "@components/Nav"
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";

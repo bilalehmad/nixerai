@@ -16,7 +16,7 @@ export const GET = async (request) => {
     try {
         await connectToDB()
 
-        const prompts = await Prompt.find({status: status})
+        const prompts = await Prompt.find({accessLevel: status})
         .skip((page - 1) * pageSize)
         .limit(pageSize);
         

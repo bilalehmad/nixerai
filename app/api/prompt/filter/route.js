@@ -18,8 +18,8 @@ export const GET = async (request) => {
 
     try {
         await connectToDB();
-
-        const prompts = await Prompt.find({ tag: { $in: names } })
+        console.log(names)
+        const prompts = await Prompt.find({ category: { $regex: new RegExp(names.join("|"), 'i') } })
         .skip((page - 1) * pageSize)
         .limit(pageSize)
         // .populate('creator');

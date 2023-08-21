@@ -155,7 +155,52 @@
   overflow:hidden;
   animation:blink 1s steps(5,start) infinite
 }
-
+.css-1vzolaf {
+  text-align: center;
+  border-radius: calc(0.75rem);
+  border: calc(0.0625rem) solid rgba(87, 139, 254, 0.6);
+}
+.css-1s5o8wz {
+  color: rgb(255, 255, 255);
+}
+.css-14w9rsj {
+  font-weight: 500;
+  font-size: calc(0.75rem);
+  color: #9094a6;
+}
+.css-1ko8k8q {
+  opacity: 0.6;
+  border-width: 0px 0px 1px;
+  border-image: initial;
+  border-style: solid;
+  width: 100%;
+  border-color: #03000024;
+}
+.css-ywqc9 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: row;
+}
+.css-1bf7e4w {
+  align-self: flex-start;
+}
+.css-ywqc9 > :not(style) ~ :not(style) {
+  margin-top: 0px;
+  margin-inline: 0.5rem 0px;
+  margin-bottom: 0px;
+}
+.css-ywqc9 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: row;
+}
+.css-763daw {
+  font-weight: 500;
+  text-align: left;
+  font-size: calc(0.875rem);
+}
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0; }
@@ -187,7 +232,9 @@ body{
 .head_text {
   @apply mt-24 text-3xl md:text-5xl font-extrabold leading-[1.15] text-[#2B3A55] dark:text-white sm:text-5xl;
 }
-
+.logo_color {
+  @apply bg-[#FF6F3C]
+}
 .orange_gradient {
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
@@ -231,7 +278,7 @@ body{
 
 /* Form Component */
 .form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
+  @apply w-full flex rounded-lg h-[100px] mt-2 p-3 text-sm text-gray-500 outline-0;
 }
 
 .form_input {

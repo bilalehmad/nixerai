@@ -1,3 +1,4 @@
+"use client";
 import {useState,useEffect} from 'react'
 
 import { RiCloseLine } from "react-icons/ri";
@@ -69,15 +70,15 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
     setSearchedResults(searchResult);
   };
   return (
-    <div className="modal z-20" >
-      <div className="modal-content w-[780px] rounded-none  border dark:border-gray-400">
+    <div className="modal z-50" >
+      <div className="modal-content w-[780px]  rounded-none  border dark:border-gray-400">
             <div className='modalHeader flex justify-between px-5 dark:bg-[#1A202c] '>
                 <h5 className='heading dark:text-gray-200'>Filter</h5>
                 
                 <RiCloseLine className='mt-4 cursor-pointer' onClick={() => setIsOpen(false)} />
             </div>
             
-            <div className='modalContent h-60 overflow-auto bg-white dark:bg-[#1A202c] border dark:border-gray-400 dark:text-gray-200 ' >
+            <div className='modalContent h-80 overflow-auto bg-white dark:bg-[#1A202c] border dark:border-gray-400 dark:text-gray-200 ' >
                 {setIsOpen && (
                     <>
                     <div className="w-full flex justify-center -order-1 md:order-none mb-2 sm:mb-0">
@@ -89,44 +90,34 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
                             
                         </div>
                     </div> 
-                    <div className='grid grid-cols-4 justify-center mt-4'> 
+                    <div className='grid grid-cols-2 justify-center mt-4'> 
                                                         
-                        {filtered && searchtext && (Object.entries(filtered).map(([letter, users]) => (
-                            <div key={letter} className='px-4 py-2'>
-                                 <h2 className='font-medium text-white bg-gray-500 rounded-full text-center'>{letter}</h2>
-                                 
-                                {users.map((user) => (
-                                <div key={user._id} className='flex flex-wrap w-full px-5 py-1 justify-start'>
-                                    
+                        {filtered && searchtext && (data.map((value) => (
+                            
+                            <div key={value._id} className='flex flex-wrap w-full px-5 py-1 justify-start'>  
                                 <input 
                                 type='checkbox' 
-                                value={user.name}
+                                value={value.name}
                                 onChange={handleCheckboxChange}
-                                checked={isChecked.includes(user.name)}
+                                checked={isChecked.includes(value.name)}
                                 />
-                                <h3 className='px-1'>{user.name}</h3>
+                                <h3 className='px-1'>{value.name}</h3>
                                     {/* display other user info here */}
-                                    </div>
-                                ))}
                             </div>
                         )))}
-                        {!searchtext && (Object.entries(groupedCategory).map(([letter, users]) => (
-                            <div key={letter} className='px-4 py-2'>
-                                 <h2 className='font-medium text-white bg-gray-500 rounded-full text-center'>{letter}</h2>
-                                {users.map((user) => (
-                                <div key={user._id} className='flex flex-wrap w-full px-5 py-1 justify-start'>
+                        
+                        {!searchtext && (data.map((value) => (
+                                <div key={value._id} className='inline-flex w-full px-5 py-1 justify-start'>
                                     
                                 <input 
                                 type='checkbox' 
-                                value={user.name}
+                                value={value.name}
                                 onChange={handleCheckboxChange}
-                                checked={isChecked.includes(user.name)}
+                                checked={isChecked.includes(value.name)}
                                 />
-                                <h3 className='px-1'>{user.name}</h3>
+                                <h3 className='px-1'>{value.name}</h3>
                                     {/* display other user info here */}
                                     </div>
-                                ))}
-                            </div>
                         )))}
                     </div>  
                     </>

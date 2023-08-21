@@ -14,9 +14,8 @@ const AIToolSchema = new Schema({
         type: 'String',
         required: [true, "URL is Required."]
     },
-    accessibility: {
+    verified:{
         type: 'String',
-        required: [true, "Accessibility is Required."]
     },
     star: {
         type: 'Number'
@@ -37,6 +36,9 @@ const AIToolSchema = new Schema({
         required: [true, "Status is Required."]
     },
     likes: {
+        type: 'number',
+    },
+    dislikes: {
         type: 'number',
     },
     views: {

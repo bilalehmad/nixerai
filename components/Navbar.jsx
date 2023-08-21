@@ -82,7 +82,7 @@ const Navbar = () => {
                 </button> */}
                 <Link  href="/" className='flex gap-1 flex-center'>
                     <Image
-                    src="/assets/images/logo.png"
+                    src="/assets/images/logo.svg"
                     alt='Promptopia Logo' 
                     width={22} 
                     height={22} 
@@ -167,10 +167,18 @@ const Navbar = () => {
                             </li>
                             <li>
                             <a href="#" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                            </li>
+                            </li>*/}
+                            {session?.user.role === "client" && (
                             <li>
-                            <a href="#" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                            </li> */}
+                            <a href="/profile" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                            </li> 
+                            )}
+                            {session?.user.role === "admin" && (
+                            <li>
+                            <a href="/dashboard" className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                            </li> 
+                            )}
+                            
                             <li>
                             <button  onClick={() => {setToggleDropdown(false);signOut();}} className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</button>
                             </li>

@@ -1,5 +1,5 @@
 
-import Pakages from '@components/Pakages';
+import Pakages from '@components/pricing/Pakages';
 import React from 'react'
 export const revalidate = 0;
 
@@ -12,17 +12,17 @@ const fetchPakages = async () => {
 const Pricing = async () => {
     const data = await fetchPakages();
   return (
-    <div className="antialiased w-full h-full text-gray-400 font-inter p-10 mt-10">
+    <div className="antialiased w-full h-full text-gray-400  font-inter p-10 mt-10">
     <div className="container px-4 mx-auto">
       <div>
         <div id="title" className="text-center my-10">
-          <h1 className="font-bold text-4xl text-gray-700">Pricing Plans</h1>
-          <p className="text-light text-gray-500 text-xl">
+          <h1 className="font-bold text-4xl dark:text-gray-200 text-gray-700">Pricing Plans</h1>
+          <p className="text-light dark:text-[#9094a6] text-gray-500 text-xl">
             Here are our pricing plans
           </p>
         </div>
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-evenly gap-10 pt-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-evenly gap-5 pt-10"
         >
             <Pakages data={data} />
           {/* <div id="plan"
