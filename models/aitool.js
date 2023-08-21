@@ -14,7 +14,7 @@ const AIToolSchema = new Schema({
         type: 'String',
         required: [true, "URL is Required."]
     },
-    verified:{
+    confirmation:{
         type: 'String',
     },
     star: {

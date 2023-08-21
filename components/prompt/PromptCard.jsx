@@ -140,27 +140,29 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
     {
       setBadge(true)
     }
-    if(session?.user) {
-      if(session?.user.subscriptionStatus == "Free")
+
+    if(post.accessLevel == "Paid")
       {
-        setAccessLevel(true);
-      }
-      else{
-        setAccessLevel(false);
-      }
-    }
-    else
-    {
-      if(post.accessLevel == "Paid")
-      {
-        setAccessLevel(true);
+        if(session?.user) {
+          if(session?.user.subscriptionStatus == "Free")
+          {
+            setAccessLevel(true);
+          }
+          else{
+            setAccessLevel(false);
+          }
+        }
+        else
+        {
+          setAccessLevel(true);
+        }
         
       }
       else
       {
       setAccessLevel(false);
       }
-    }
+    
     
     if(reactions.length > 0)
     {

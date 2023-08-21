@@ -13,7 +13,7 @@ const PromptCardList = ({data,reactions, setTags,setPageTag, setSearchTag, fetch
     next={fetchPosts}
     hasMore={hasMore}
     loader={
-      <div className='w-full grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-4 overflow-hidden py-4'>
+      <div className='w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4 overflow-hidden py-4'>
           
         <div className="container px-5 py-4 w-full">
           <div className="flex flex-wrap -m-5 ">

@@ -175,19 +175,13 @@ useEffect(() => {
     })
 
     const date = new Date();
-    date.setDate(date.getDate() - 10);
-    let number = date.getMonth()+1;
-    let stringNumber = number.toString().padStart(2, '0');
-    const afterDays = date.getDate()+'/'+ stringNumber +'/'+date.getFullYear();
+    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    const today = new Date(date).toLocaleDateString('en-US', options);
     
     const getDate = post.timestamp.toString();
-    const postDate = getDate.split('T',1);
-    const setDate = postDate[0].split('-');
-    const day = setDate[0];
-    const month = setDate[1];
-    const year = setDate[2];
-    const todate = year + "/" + month + "/" + day;
-    if(todate > afterDays)
+    const todate = new Date(getDate).toLocaleDateString('en-US', options);
+    // console.log(afterDays,todate);
+    if(todate < today)
     {
       setBadge(true)
     }
@@ -244,7 +238,7 @@ useEffect(() => {
                                 <Link href={post.url} target="_blank" className=" cursor-pointer">
                                     <div className="w-full inline-flex justify-between ">
                                         <p className="text-[13px] md:text-lg mt-1 font-semibold tracking-wide line-clamp-1 break-words css-0 w-[200px]">{post.title}</p>
-                                        {!badge && (
+                                        {badge && (
                                     
                                           <svg viewBox="0 0 48 48"  height="30" xmlns="http://www.w3.org/2000/svg"  fill="#2B3A55" className='dark:fill-white fill-blue-500'><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>new-rectangle</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M44,14H4a2,2,0,0,0-2,2V32a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V16A2,2,0,0,0,44,14ZM17.3,29H14.8l-3-5-.7-1.3h0V29H8.7V19h2.5l3,5,.6,1.3h.1s-.1-1.2-.1-1.6V19h2.5Zm9.1,0H18.7V19h7.6v2H21.2v1.8h4.4v2H21.2v2.1h5.2Zm10.9,0H34.8l-1-4.8c-.2-.8-.4-1.9-.4-1.9h0s-.2,1.1-.3,1.9L32,29H29.6L26.8,19h2.5l1,4.2a20.1,20.1,0,0,1,.5,2.5h0l.5-2.4,1-4.3h2.3l.9,4.3.5,2.4h0l.5-2.5,1-4.2H40Z"></path> </g> </g> </g></svg>
                                         )}
