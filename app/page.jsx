@@ -2,6 +2,7 @@ import ChatButton from "@components/chat/ChatButton";
 import Feed from "@components/prompt/Feed";
 import { connectToDB } from "@utils/database";
 import PromptReaction from "@models/promptreaction";
+import Wishlist from "@models/wishlist";
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from './api/auth/[...nextauth]/route';
 
@@ -21,13 +22,33 @@ const fetchCategory = async () => {
       return category;
   }
 
+  const fetchWishList = async () => {
+
+    const session = await getServerSession(authOptions);
+    if (!session) return true;
+    try {
+      await connectToDB();
+      const wish = await Wishlist.find({ user: session?.user.id});
+      if (wish) {
+        const data = JSON.stringify(wish) 
+        return data?data:true;
+      }
+      else
+      {
+        return {wishlisted: false}
+      }
+      
+  } catch (error) {
+      return error;
+  }
+  }
   const fetchAllReaction = async () =>{
 
     const session = await getServerSession(authOptions);
     if (!session) return true;
     try {
       await connectToDB();
-      const allReaction = await PromptReaction.find({ creator: session?.user.id,});
+      const allReaction = await PromptReaction.find({ creator: session?.user.id});
       const data = JSON.stringify(allReaction) 
       return data?data:true;
       
@@ -39,6 +60,7 @@ const Home = async () => {
   const data =  await fetchFirstPosts();
   const category = await fetchCategory();
   const usrRect = await fetchAllReaction();
+  const wishlist = await fetchWishList();
   return (
     <section className="w-full h-auto flex-center flex-col max-w-7xl sm:px-6 px-6">
       {/* <ChatButton /> */}
@@ -50,7 +72,7 @@ const Home = async () => {
         <p className="desc md:text-center">
         Explore  and Use the most Extensive Collection of Prompt
         </p>
-        <Feed data= {data} category={category} reactions={usrRect} />
+        <Feed data= {data} category={category} reactions={usrRect} wishies={wishlist} />
     </section>
 
   )

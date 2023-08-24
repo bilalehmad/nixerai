@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTags,setSearchTag}) => {
+const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTags,setSearchTag,wishing}) => {
   const {data: session} = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -13,6 +13,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
   const [accessLevel, setAccessLevel] = useState(false)
   const [postTags, setPostTags] = useState([]);
   const [postStates, setPostStates] = useState({});
+  const [wishlist, setWishlist] = useState({});
   const [copied, setcopied] = useState("");
   const handleCopy = () => {
     setcopied(post.prompt)
@@ -92,6 +93,60 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
       return error;
     }
   }
+
+  
+  const fetchWishlist = async (id) => {
+    const postID = post._id;
+    try {
+      const response = await fetch(`/api/prompt/wishlist`,{
+        method :'POST',
+        body : JSON.stringify({
+            post: postID,
+            user: id
+        })
+      })
+      const data= await response.json();
+      const {whishlisted} = data;
+      if (whishlisted) {
+        return true;
+      }
+      else{
+        return false;
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+  const handleWishlist = async () => {
+    if (session?.user) { 
+        const responce = await fetchWishlist(post._id);
+        if(responce)
+        {
+            setWishlist((prevStates) => ({
+                ...prevStates,
+                [post._id]: { 
+                  ...prevStates[post._id], 
+                  wishlisted: true,
+                }
+            }));
+        }
+        else{
+            setWishlist((prevStates) => ({
+                ...prevStates,
+                [post._id]: { 
+                  ...prevStates[post._id], 
+                  wishlisted: false,
+                }
+            }));
+        }
+      }
+      else
+      {
+        alert("Login Please")
+      }
+  }
+  
+
   const promptView = () => {
   //   if (session?.user.subscriptionStatus == "Free") {
   //     router.push(`/view-prompt/${post._id}`)
@@ -163,6 +218,21 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
       setAccessLevel(false);
       }
     
+      if(wishing.length > 0)
+      {
+          wishing.map(element => {
+              if(element.post == post._id)
+              {
+                  setWishlist((prevStates) => ({
+                  ...prevStates,
+                  [post._id]: { 
+                    ...prevStates[post._id], 
+                    wishlisted: true
+                  }
+                }));
+              }
+            })
+      }
     
     if(reactions.length > 0)
     {
@@ -193,9 +263,12 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
   }, [])
   
   const handleTagClick = (tagName) => {
-    setTags(tagName);
-    setPageTag(1);
-    setSearchTag(true);
+    if(pathName !== '/profile')
+    {
+      setTags(tagName);
+      setPageTag(1);
+      setSearchTag(true);
+    }
   }
   return (
     <div className="container px-5 py-4 md:w-full">
@@ -237,19 +310,21 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
                       <div className=" mt-5 text-gray-500 dark:text-gray-400 text-xs  css-k008qs">
                         <div className="flex flex-row justify-between gap-2   ">
                           <div className="flex flex-row  mt-[1px]">
-                          <span className="relative px-0.5 md:px-1 py-0.5 cursor-pointer  ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
-                              <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 md:w-3.5 md:h-3.5 stroke-gray-600 dark:stroke-gray-400" fill="none"  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>                                        
+                          <span 
+                            onClick={handleWishlist}
+                            className={`${wishlist[post._id]?.wishlisted ? 'fill-red-700 ' : 'fill-gray-700 dark:stroke-gray-400' } relative px-0.5 md:px-1 py-0.5 cursor-pointer  ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0`}>
+                              <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 md:w-3.5 md:h-3.5 "  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>                                        
                           </span>
                           <span 
                           onClick={likeHandle}
                           className={`${postStates[post._id]?.liked ? 'fill-green-500' : 'fill-gray-500'} relative px-0.5 md:px-1 py-0.5 cursor-pointer  ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0`}>
-                            <svg viewBox="0 0 512 512" width="18" height="18"  className=" w-3.5 h-3.5 md:w-4 md:h-4 "   xmlns="http://www.w3.org/2000/svg"><title/><g data-name="1" id="_1"><path d="M348.45,432.7H261.8a141.5,141.5,0,0,1-49.52-8.9l-67.5-25.07a15,15,0,0,1,10.45-28.12l67.49,25.07a111.79,111.79,0,0,0,39.08,7h86.65a14.21,14.21,0,1,0,0-28.42,15,15,0,0,1,0-30H368.9a14.21,14.21,0,1,0,0-28.42,15,15,0,0,1,0-30h20.44a14.21,14.21,0,0,0,10.05-24.26,14.08,14.08,0,0,0-10.05-4.16,15,15,0,0,1,0-30h20.45a14.21,14.21,0,0,0,10-24.26,14.09,14.09,0,0,0-10-4.17H268.15A15,15,0,0,1,255,176.74a100.2,100.2,0,0,0,9.2-29.33c3.39-21.87-.79-41.64-12.42-58.76a12.28,12.28,0,0,0-22.33,7c.49,51.38-23.25,88.72-68.65,108a15,15,0,1,1-11.72-27.61c18.72-8,32.36-19.75,40.55-35.08,6.68-12.51,10-27.65,9.83-45C199.31,77,211,61,229.18,55.34s36.81.78,47.45,16.46c24.71,36.36,20.25,74.1,13.48,97.21H409.79a44.21,44.21,0,0,1,19.59,83.84,44.27,44.27,0,0,1-20.44,58.42,44.27,44.27,0,0,1-20.45,58.43,44.23,44.23,0,0,1-40,63Z"/><path d="M155,410.49H69.13a15,15,0,0,1-15-15V189.86a15,15,0,0,1,15-15H155a15,15,0,0,1,15,15V395.49A15,15,0,0,1,155,410.49Zm-70.84-30H140V204.86H84.13Z"/></g></svg>
-                          </span>
+                            <svg viewBox="0 0 512 512"  width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M128 447.1V223.1c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64C113.7 479.1 128 465.6 128 447.1zM512 224.1c0-26.5-21.48-47.98-48-47.98h-146.5c22.77-37.91 34.52-80.88 34.52-96.02C352 56.52 333.5 32 302.5 32c-63.13 0-26.36 76.15-108.2 141.6L178 186.6C166.2 196.1 160.2 210 160.1 224c-.0234 .0234 0 0 0 0L160 384c0 15.1 7.113 29.33 19.2 38.39l34.14 25.59C241 468.8 274.7 480 309.3 480H368c26.52 0 48-21.47 48-47.98c0-3.635-.4805-7.143-1.246-10.55C434 415.2 448 397.4 448 376c0-9.148-2.697-17.61-7.139-24.88C463.1 347 480 327.5 480 304.1c0-12.5-4.893-23.78-12.72-32.32C492.2 270.1 512 249.5 512 224.1z"/></svg>                          
+                            </span>
                           <span 
                           onClick={dislikeHandle} 
                           className={`${postStates[post._id]?.disliked  ? 'fill-red-500' : 'fill-gray-500'} relative px-0.5 md:px-1 py-0.5 cursor-pointer  ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0`}>
-                            <svg viewBox="0 0 512 512" width="18" height="18"  className=" w-3.5 h-3.5 md:w-4 md:h-4 "   xmlns="http://www.w3.org/2000/svg"><title/><g data-name="1" id="_1"><path d="M242.28,427.39a43.85,43.85,0,0,1-13.1-2c-18.22-5.69-29.87-21.64-29.69-40.62.16-17.35-3.15-32.5-9.83-45-8.19-15.33-21.83-27.13-40.55-35.08A15,15,0,1,1,160.83,277c45.4,19.26,69.14,56.6,68.65,108a12.28,12.28,0,0,0,22.33,7c28.34-41.71,3.47-87.63,3.22-88.09a15,15,0,0,1,13.12-22.27H409.79a14.22,14.22,0,0,0,0-28.43H389.34a15,15,0,1,1,0-30,14.2,14.2,0,0,0,14.21-14.21,14.23,14.23,0,0,0-14.21-14.21H368.9a15,15,0,0,1,0-30,14.21,14.21,0,1,0,0-28.42H348.45a15,15,0,0,1,0-30,14.21,14.21,0,1,0,0-28.42H261.8a111.69,111.69,0,0,0-39.07,7l-67.5,25.07A15,15,0,0,1,144.78,82l67.5-25.07A141.5,141.5,0,0,1,261.8,48h86.65a44.25,44.25,0,0,1,40,63,44.27,44.27,0,0,1,20.45,58.43,44.27,44.27,0,0,1,20.44,58.42,44.21,44.21,0,0,1-19.59,83.84H290.11c6.77,23.11,11.23,60.85-13.48,97.22A41.21,41.21,0,0,1,242.28,427.39Z"/><path d="M155,305.85H69.13a15,15,0,0,1-15-15V85.21a15,15,0,0,1,15-15H155a15,15,0,0,1,15,15V290.85A15,15,0,0,1,155,305.85Zm-70.84-30H140V100.21H84.13Z"/></g></svg>
-                          </span>
+                            <svg viewBox="0 0 512 512" width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M96 32.04H32c-17.67 0-32 14.32-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V64.03C128 46.36 113.7 32.04 96 32.04zM467.3 240.2C475.1 231.7 480 220.4 480 207.9c0-23.47-16.87-42.92-39.14-47.09C445.3 153.6 448 145.1 448 135.1c0-21.32-14-39.18-33.25-45.43C415.5 87.12 416 83.61 416 79.98C416 53.47 394.5 32 368 32h-58.69c-34.61 0-68.28 11.22-95.97 31.98L179.2 89.57C167.1 98.63 160 112.9 160 127.1l.1074 160c0 0-.0234-.0234 0 0c.0703 13.99 6.123 27.94 17.91 37.36l16.3 13.03C276.2 403.9 239.4 480 302.5 480c30.96 0 49.47-24.52 49.47-48.11c0-15.15-11.76-58.12-34.52-96.02H464c26.52 0 48-21.47 48-47.98C512 262.5 492.2 241.9 467.3 240.2z"/></svg>                          
+                            </span>
                           </div>
                           <div className="flex flex-row justify-end mt-[1px] text-[10px] md:text-xs">
                             {postTags.map((value) => (
@@ -259,7 +334,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
                           </div>
                         </div>
                       </div>
-                        {session?.user.id === post.creator._id && pathName === '/profile' && (
+                        {/* {session?.user.id === post.creator._id && pathName === '/profile' && (
                           <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
                             <p
                             className="font-inter text-sm green_gradient cursor-pointer"
@@ -274,7 +349,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
                               Delete
                             </p>
                           </div>
-                        )}
+                        )} */}
                     </div>
                   </div>
                 </div>

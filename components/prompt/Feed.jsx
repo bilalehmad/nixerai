@@ -6,7 +6,7 @@ import Link from 'next/link';
 import SearchFeed from './SearchFeed';
 import PromptCardList from './PromptCardList';
 
-const Feed =  ({data,category,reactions}) => {
+const Feed =  ({data,category,reactions,wishies}) => {
   // console.log(data)
   const [posts, setPosts] = useState(data)
   // Search states
@@ -30,9 +30,13 @@ const Feed =  ({data,category,reactions}) => {
   const [getReactions, setGetReactions] = useState(()=> {
     const result = reactions == true ? []: JSON.parse(reactions);
     return result;
-  })
+  });
+  const [wishing, setWishing] = useState(()=> {
+      const result = wishies == true ? []: JSON.parse(wishies);
+      return result;
+    });
   const [UserReactions, setUserReactions] = useState(getReactions);
-
+  const [UserWishList, setUserWishList] = useState(wishing)
   // const firstfetch = props.data;
   // console.log(firstfetch)
 
@@ -121,7 +125,7 @@ const Feed =  ({data,category,reactions}) => {
     
   const fetchSortPosts =  async() => {
     // Construct the query parameter using names optionValue,sortPage
-    const queryParam = `status=${optionValue}&page=${sortPage}&pageSize=10`;
+    const queryParam = `status=${optionValue}&filter=${isChecked.join(',')}&search=${searchText}&page=${sortPage}&pageSize=10`;
     setSortPage((prevSortPage) => prevSortPage + 1)
     try {
       const response = await fetch(`/api/prompt/sort?${queryParam}`)
@@ -149,7 +153,7 @@ const Feed =  ({data,category,reactions}) => {
 
   const fetchFilterPosts = async () => {
     // Construct the query parameter using names
-    const queryParam = `names=${isChecked.join(',')}&page=${filterPage}&pageSize=10`;
+    const queryParam = `names=${isChecked.join(',')}&sort=${optionValue}&search=${searchText}&page=${filterPage}&pageSize=10`;
     // Increment the page number for the next data fetch
     try {
       setFilterPage((prevSortPage) => prevSortPage + 1)
@@ -179,7 +183,8 @@ const Feed =  ({data,category,reactions}) => {
 
   const fetchSearchPosts = async () => {
     // Construct the query parameter using names
-    const queryParam = `q=${searchText}&page=${searchPage}&pageSize=10`;
+
+    const queryParam = `q=${searchText}&sort=${optionValue}&filter=${isChecked.join(',')}&page=${searchPage}&pageSize=10`;
     try {
       // Increment the page number for the next data fetch
       setSearchPage((prevSortPage) => prevSortPage + 1)
@@ -212,7 +217,7 @@ const Feed =  ({data,category,reactions}) => {
     const queryParam = `q=${tags}&page=${pageTag}&pageSize=10`;
     try {
       // Increment the page number for the next data fetch
-      setSearchPage((prevSortPage) => prevSortPage + 1)
+      setPageTag((prevSortPage) => prevSortPage + 1)
       const response = await fetch(`/api/prompt/tag?${queryParam}`);
       const data = await response.json();
 
@@ -222,9 +227,7 @@ const Feed =  ({data,category,reactions}) => {
       // Determine if there's more data to fetch
       if (data.length === 0) {
         setHasMore(false);
-        setSearching(false);
-        setTags("");
-        setSearchTag(false);
+        setTags("")
       }
 
       setIsFilter(false);
@@ -303,6 +306,7 @@ const Feed =  ({data,category,reactions}) => {
           setSearchTag={setSearchTag}
           setPageTag={setPageTag}
           reactions={UserReactions}
+          WishList = {UserWishList}
         />
       )}
       {isFilter && (
@@ -314,6 +318,7 @@ const Feed =  ({data,category,reactions}) => {
             setSearchTag={setSearchTag}
             setPageTag={setPageTag}
             reactions={UserReactions}
+            WishList = {UserWishList}
           />
       )}
       {searchTimeout && (
@@ -325,6 +330,7 @@ const Feed =  ({data,category,reactions}) => {
               setSearchTag={setSearchTag}
               setPageTag={setPageTag}
               reactions={UserReactions}
+              WishList = {UserWishList}
             />
       )}
       {searchTag && (
@@ -336,6 +342,7 @@ const Feed =  ({data,category,reactions}) => {
               setTags={setTags}
               setSearchTag={setSearchTag}
               reactions={UserReactions}
+              WishList = {UserWishList}
             />
       )}
       {!isSort && !isFilter && !searchTimeout && !searchTag && (
@@ -347,6 +354,7 @@ const Feed =  ({data,category,reactions}) => {
         setSearchTag={setSearchTag}
         setPageTag={setPageTag}
         reactions={UserReactions}
+        WishList = {UserWishList}
       />
       
       )}

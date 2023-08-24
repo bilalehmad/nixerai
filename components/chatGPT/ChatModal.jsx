@@ -49,7 +49,7 @@ const ChatModal = ({setIsOpen,prompt,setPrompt,handleGPTaction,chatLog,isOpen,he
     <div className="modal z-50 " >
       <div className="modal-content w-[780px] rounded-lg overflow-hidden border dark:border-gray-400">
             <div className='modalHeader flex justify-between px-5 dark:bg-[#1A202c] '>
-                <h5 className='heading dark:text-white'>{heading}</h5>
+                <h5 className='heading line-clamp-1 dark:text-white'>{heading}</h5>
                 
                 <RiCloseLine className='mt-4 cursor-pointer text-gray-900 dark:text-gray-50' onClick={() => setIsOpen(false)} />
             </div>
@@ -59,10 +59,10 @@ const ChatModal = ({setIsOpen,prompt,setPrompt,handleGPTaction,chatLog,isOpen,he
                 <div className='container mx-auto  '>
                     <div className='flex flex-col h-[500px] '>
                         <div className='flex flex-grow overflow-y-scroll'>
-                            <div className='group w-full  text-gray-800 dark:text-gray-100 '>
+                            <div className='group w-full  text-gray-800 dark:text-gray-50 '>
 
                             {chatLog.map((message,index) => (
-                                <div key={index} className={`px-6 text-sm flex ${message.type == 'user' ? ' bg-white': ' bg-gray-50 '} p-4 gap-4 text-base md:gap-6 md:max-w-2xl lg:max-w-[38rem] xl:max-w-3xl md:py-6 lg:px-0 m-auto border-b border-black/10 `}>
+                                <div key={index} className={`px-6 text-sm flex ${message.type == 'user' ? ' bg-white dark:bg-gray-800': ' bg-gray-50 dark:bg-gray-700'} p-4 gap-4 text-base md:gap-6 md:max-w-2xl lg:max-w-[38rem] xl:max-w-3xl md:py-6 lg:px-0 m-auto border-b border-black/10 `}>
              
                                         {message.type == 'bot' ? (
                                             <div className='relative left-2'>
@@ -72,7 +72,7 @@ const ChatModal = ({setIsOpen,prompt,setPrompt,handleGPTaction,chatLog,isOpen,he
                                             </div>
                                             ) : (
                                             <div className='relative left-2'>
-                                                <div className='relative p-1 rounded-full border border-gray-600 h-[30px] w-[30px] text-white flex items-center justify-center '>
+                                                <div className='relative p-1 rounded-full border border-gray-600 dark:border-gray-200 h-[30px] w-[30px] text-white flex items-center justify-center text-xs md:text-sm '>
                                                     <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="256" width="256"/><circle cx="128" cy="96" fill="none" r="64" stroke="#000" stroke-miterlimit="10" strokeWidth="16"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/></svg>                                                
                                                 </div>                                       
                                             </div>
@@ -86,9 +86,9 @@ const ChatModal = ({setIsOpen,prompt,setPrompt,handleGPTaction,chatLog,isOpen,he
                             ))}
                             <div className='h-16'></div>
                             
-                            <div id='responceBtn' className='fixed w-full md:w-1/2 py-3 flex flex-1 justify-center items-center md:flex-col'>
+                            <div id='responceBtn' className='fixed w-full md:w-1/2 pb-8 flex flex-1 justify-center items-center md:flex-col'>
                                     <div className="flex ml-1 md:w-full md:m-auto  gap-0 md:gap-2 justify-center">
-                                        <button onClick={RegenerateResponce} className="btn relative btn-neutral bg-white h-8 -z-0 border-0 md:border" as="button">
+                                        <button onClick={RegenerateResponce} className="btn relative btn-neutral bg-white dark:bg-[#2B3A55] h-8 -z-0 border-0 md:border" as="button">
                                             <div className="flex w-full gap-2 items-center justify-center">
                                                 <svg stroke="currentColor" fill="none" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 flex-shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline>
                                                     <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>

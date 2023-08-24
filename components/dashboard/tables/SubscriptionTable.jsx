@@ -1,7 +1,10 @@
 import Timestamp from '@components/others/Timestamp'
 import React from 'react'
+import { usePathname, useRouter } from "next/navigation";
 
 const SubscriptionTable = ({post}) => {
+    const pathName = usePathname();
+    const router = useRouter();
   return (
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     
@@ -16,6 +19,9 @@ const SubscriptionTable = ({post}) => {
     {post.package.duration}
     </td>
     <td class="px-6 py-4 capitalize">
+    {post.package.title}
+    </td>
+    <td class="px-6 py-4 capitalize">
         <Timestamp date={post.start_timestamps} />
     </td>
     <td class="px-6 py-4">
@@ -24,9 +30,12 @@ const SubscriptionTable = ({post}) => {
             <Timestamp date={post.end_timestamps} />
         </div>
     </td>
-    <td class="px-6 py-4">
-        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-    </td>
+    
+    {pathName !== '/profile/subscription' && (
+        <td class="px-6 py-4">
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+        </td>
+    )}
 </tr>
   )
 }

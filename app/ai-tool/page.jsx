@@ -4,6 +4,7 @@ import AIToolReaction from "@models/aitooltreaction";
 import ChatButton from "@components/chat/ChatButton";
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../api/auth/[...nextauth]/route';
+import AIWishlist from "@models/aiwishlist";
 
 export const revalidate = 0
 
@@ -20,7 +21,26 @@ const fetchCategory = async () => {
   const data = await response.json();
   return data;
 }
+const fetchWishList = async () => {
 
+  const session = await getServerSession(authOptions);
+  if (!session) return true;
+  try {
+    await connectToDB();
+    const wish = await AIWishlist.find({ user: session?.user.id});
+    if (wish) {
+      const data = JSON.stringify(wish) 
+      return data?data:true;
+    }
+    else
+    {
+      return {wishlisted: false}
+    }
+    
+} catch (error) {
+    return error;
+}
+}
 const fetchAllReaction = async () =>{
 
   const session = await getServerSession(authOptions);
@@ -40,6 +60,7 @@ const AITool =  async() => {
   const data = await fetchFirstPosts();
   const category = await fetchCategory();
   const usrRect = await fetchAllReaction();
+  const wishlist = await fetchWishList();
   // console.log(usrRect)
   return (
     <section className="w-full flex-center flex-col max-w-7xl sm:px-6 px-6">
@@ -53,7 +74,7 @@ const AITool =  async() => {
     Explore and Use the most Extensive Collection of  AI Tools
     </p>
 
-    <Tool data={data} category={category} reactions={usrRect} />
+    <Tool data={data} category={category} reactions={usrRect} wishies={wishlist} />
 </section>
   )
 }

@@ -7,12 +7,13 @@ import Link from 'next/link';
 import SearchTool from './SearchTool';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPosts, hasMore}) => {
+const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPosts, hasMore,WishList}) => {
   
     const [isOpen, setIsOpen] = useState(false);
     const [youtubeURL, setYoutubeURL] = useState(null);
     const [UserReactions, setUserReactions] = useState(reactions);
-
+    const [UserWishList, setUserWishList] = useState(WishList)
+console.log(data)
   const handleModalStateChange = (val) => {
     setYoutubeURL(val)
     setIsOpen(true);
@@ -143,6 +144,7 @@ const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPos
             onShareModalStateChane = {handleShareModalStateChange}
             // reactions={reactions.map((obj) => {obj.find((element) => { console.log(obj);return element.find(obj2 => obj2._id === post._id)})})}
             reactions={UserReactions.map((obj) => {return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
+            wishing={UserWishList.map((obj) => { return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
 
           />
         ))}
@@ -171,7 +173,7 @@ const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPos
     )
   }
 
-const Tool = ({data,category,reactions})=> {
+const Tool = ({data,category,reactions,wishies})=> {
   // const data = JSON.parse(data);
   const {data: session} = useSession();
   const [posts, setPosts] = useState(data)
@@ -197,7 +199,12 @@ const Tool = ({data,category,reactions})=> {
     const result = reactions == true ? []: JSON.parse(reactions);
     return result;
   })
+  const [wishing, setWishing] = useState(()=> {
+      const result = wishies == true ? []: JSON.parse(wishies);
+      return result;
+    });
   const [UserReactions, setUserReactions] = useState(getReactions);
+  const [UserWishList, setUserWishList] = useState(wishing)
 
   useEffect(() => {
     if (optionValue !== null) {
@@ -238,36 +245,7 @@ const Tool = ({data,category,reactions})=> {
     } 
   }, [searching]);
 
-  const fetchFilterPosts = async () => {
-    // Construct the query parameter using names
-    const queryParam = `names=${isChecked.join(',')}&page=${filterPage}&pageSize=10`;
-    // Increment the page number for the next data fetch
-    try {
-      setFilterPage((prevSortPage) => prevSortPage + 1)
-      const response = await fetch(`/api/tool/filter?${queryParam}`);
-      const data = await response.json();
-      console.log(data)
-      // Update the items state with the new data
-      setSearchedResults((prev) => [...prev, ...data]);
-        
-      // Determine if there's more data to fetch
-      if (data.length === 0) {
-        setHasMore(false);
-        }
-
-      setIsFilter(true);
-      setIsSort(false);
-      setSearchTimeout(false);
-      setSearching(false);
-      setSearchTag(false);
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      //final code
-    }
-  }
-  
+ 
   // useEffect(() => {
   //   (async () => {
   //     setHasMore(true);
@@ -296,7 +274,8 @@ const Tool = ({data,category,reactions})=> {
     setIsSort(false);
     setSearchTimeout(false);
     setSearching(false);
-    setSearchTag(false)
+    setSearchTag(false);
+
 
   }
 
@@ -312,10 +291,39 @@ const Tool = ({data,category,reactions})=> {
   //     console.log(error)
   //   }
   // }
+  const fetchFilterPosts = async () => {
+    // Construct the query parameter using names
+    const queryParam = `names=${isChecked.join(',')}&sort=${optionValue}&search=${searchText}&page=${filterPage}&pageSize=10`;
+    // Increment the page number for the next data fetch
+    try {
+      setFilterPage((prevSortPage) => prevSortPage + 1)
+      const response = await fetch(`/api/tool/filter?${queryParam}`);
+      const data = await response.json();
+      console.log(data)
+      // Update the items state with the new data
+      setSearchedResults((prev) => [...prev, ...data]);
+        
+      // Determine if there's more data to fetch
+      if (data.length === 0) {
+        setHasMore(false);
+        }
 
+      setIsFilter(true);
+      setIsSort(false);
+      setSearchTimeout(false);
+      setSearching(false);
+      setSearchTag(false);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      //final code
+    }
+  }
+  
   const fetchSortPosts =  async() => {
     // Construct the query parameter using names optionValue,sortPage
-    const queryParam = `status=${optionValue}&page=${sortPage}&pageSize=10`;
+    const queryParam = `status=${optionValue}&filter=${isChecked.join(',')}&search=${searchText}&page=${sortPage}&pageSize=10`;
     setSortPage((prevSortPage) => prevSortPage + 1)
     try {
       const response = await fetch(`/api/tool/sort?${queryParam}`)
@@ -331,7 +339,7 @@ const Tool = ({data,category,reactions})=> {
       setIsSort(true);
       setSearchTimeout(false);
       setSearching(false);
-      setSearchTag(false)
+      setSearchTag(false);
   } catch (error) {
     console.error('Error fetching data:', error);
   } finally {
@@ -342,7 +350,7 @@ const Tool = ({data,category,reactions})=> {
   
   const fetchSearchPosts = async () => {
     // Construct the query parameter using names
-    const queryParam = `q=${searchText}&page=${searchPage}&pageSize=10`;
+    const queryParam = `q=${searchText}&sort=${optionValue}&filter=${isChecked.join(',')}&page=${searchPage}&pageSize=10`;
     try {
       // Increment the page number for the next data fetch
       setSearchPage((prevSortPage) => prevSortPage + 1)
@@ -361,7 +369,7 @@ const Tool = ({data,category,reactions})=> {
       setIsFilter(false);
       setIsSort(false);
       setSearchTimeout(true);
-      setSearchTag(false)
+      setSearchTag(false);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -375,7 +383,7 @@ const Tool = ({data,category,reactions})=> {
     const queryParam = `q=${tags}&page=${pageTag}&pageSize=10`;
     try {
       // Increment the page number for the next data fetch
-      setSearchPage((prevSortPage) => prevSortPage + 1)
+      setPageTag((prevSortPage) => prevSortPage + 1)
       const response = await fetch(`/api/tool/tag?${queryParam}`);
       const data = await response.json();
 
@@ -385,16 +393,14 @@ const Tool = ({data,category,reactions})=> {
       // Determine if there's more data to fetch
       if (data.length === 0) {
         setHasMore(false);
-        setSearching(false);
-        setTags("");
-        setSearchTag(false);
+        setTags("")
       }
 
       setIsFilter(false);
       setIsSort(false);
       setSearchTimeout(false);
       setSearching(false);
-      setSearchTag(true)
+      setSearchTag(true);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -427,7 +433,7 @@ const Tool = ({data,category,reactions})=> {
   //   );
   // };
   useEffect(() => {
-    if(tags)
+    if(tags != "")
     {
       (async () => {
         setSearchedResults([]);
@@ -493,6 +499,7 @@ const Tool = ({data,category,reactions})=> {
           setTags={setTags}
           setSearchTag={setSearchTag}
           reactions={UserReactions}
+          WishList = {UserWishList}
         />
       )}
       {isFilter && (
@@ -504,6 +511,7 @@ const Tool = ({data,category,reactions})=> {
             setTags={setTags}
             setSearchTag={setSearchTag}
             reactions={UserReactions}
+            WishList = {UserWishList}
           />
       )}
       {searchTimeout && (
@@ -515,6 +523,7 @@ const Tool = ({data,category,reactions})=> {
               setTags={setTags}
               setSearchTag={setSearchTag}
               reactions={UserReactions}
+              WishList = {UserWishList}
             />
       )}
       {searchTag && (
@@ -526,6 +535,7 @@ const Tool = ({data,category,reactions})=> {
               setTags={setTags}
               setSearchTag={setSearchTag}
               reactions={UserReactions}
+              WishList = {UserWishList}
             />
       )}
      { !isSort &&  !isFilter && !searchTimeout && !searchTag && (
@@ -536,7 +546,10 @@ const Tool = ({data,category,reactions})=> {
         fetchPosts={fetchPosts}
         setTags={setTags}
         setSearchTag={setSearchTag}
-        reactions={UserReactions} />
+        reactions={UserReactions}
+        WishList = {UserWishList}
+        
+        />
       )}
 
     </section>

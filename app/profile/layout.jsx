@@ -8,7 +8,6 @@ import ClientAside from '@components/profile/ClientAside';
 const ProfileLayout = async ({ children }) => {
 
     const session = await getServerSession(authOptions);
-    console.log(session)
     if(session?.user)
     {
       if (session?.user.role !== "client") {
