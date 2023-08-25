@@ -3,11 +3,11 @@ import React, {useState, useEffect } from 'react'
 
 const ToolPagination = ({ currentPage, setCurrentPage,totalItems,toPage,pages }) => {
   return (
-    <ul class="inline-flex -space-x-px text-sm h-8">
+    <ul className="inline-flex -space-x-px text-sm h-8">
     <li>
         <button type="button" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
         disabled={currentPage === 1} 
-        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
         Previous
         </button>
@@ -29,7 +29,7 @@ const ToolPagination = ({ currentPage, setCurrentPage,totalItems,toPage,pages })
         type="button"
         onClick={() => setCurrentPage(prev => prev + 1)} 
         disabled={toPage === totalItems}
-        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
         Next
         </button>

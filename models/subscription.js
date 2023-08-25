@@ -15,9 +15,10 @@ const SubscriptionSchema = new Schema({
         type: 'String',
         required: [true, "Status is Required."]
     },
-    start_timestamps: { type : Date},
-    end_timestamps: { type : Date}
-})
+    expireAt: { type : Date}
+}, {
+    timestamps: true
+});
 
 const Subscription = models.Subscription || model("Subscription", SubscriptionSchema);
 

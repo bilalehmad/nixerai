@@ -243,11 +243,11 @@ const ChatBody = (props) => {
                   value={message}
                   tabIndex={0}
                   data-id="root"
-                  style={{
-                    height: "24px",
-                    maxHeight: "200px",
-                    overflowY: "hidden",
-                  }}
+                  // style={{
+                  //   height: "24px",
+                  //   maxHeight: "200px",
+                  //   overflowY: "hidden",
+                  // }}
                   // rows={1}
                   placeholder="Send a message..."
                   className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-7 focus:outline-none dark:bg-transparent pl-2 md:pl-0"

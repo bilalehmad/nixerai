@@ -164,6 +164,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
         }
         else
         {
+          alert("true")
           router.push(`/view-prompt/${post._id}`)
         }
       }
@@ -271,7 +272,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
     }
   }
   return (
-    <div className="container px-5 py-4 md:w-full">
+    <div key={post._id} className="container px-5 py-4 md:w-full">
           <div className="flex flex-wrap -m-5 ">
             <div className="cursor-pointer py-2 w-full">
               <div className="h-full rounded-xl border border-gray-200 dark:border-none overflow-hidden shadow-cla-blue bg-gradient-to-r shadow-md dark:from-black dark:to-blue-950  ">

@@ -30,20 +30,15 @@ const ViewPromptLayout = async ({ children}) => {
             }
             else
             {
+              console.log("subscription is valid")
               const date = new Date();
               const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
               const today = new Date(date).toLocaleDateString('en-US', options);
               
-              const startDate = data[0].start_timestamps.toString();
-              const endDate = data[0].end_timestamps.toString();
-              const fromodate = new Date(startDate).toLocaleDateString('en-US', options);
-              const todate = new Date(endDate).toLocaleDateString('en-US', options);
-              console.log(fromodate,todate,today)
-              if(fromodate >= today && today <= todate)
-              {
-                console.log("Subscribtion is valid!!");
-              }
-              else
+              const expireAt = data[0].expireAt.toString();
+              const expireDate = new Date(expireAt).toLocaleDateString('en-US', options);
+
+              if( today >= expireDate)
               {
                 redirect('/pricing')
               }
