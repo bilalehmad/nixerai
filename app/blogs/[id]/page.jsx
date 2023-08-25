@@ -1,6 +1,7 @@
 import PostArticle from '@components/blogs/PostArticle';
 import React from 'react'
 
+export const revalidate = 0;
 
 const fetchBlogs = async (id) => {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/blogs/${id}`);

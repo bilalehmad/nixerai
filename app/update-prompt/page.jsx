@@ -4,6 +4,8 @@ import {useState, useEffect} from 'react';
 import { useRouter,  useSearchParams } from 'next/navigation';
 import Form from '@components/forms/Form';
 
+export const revalidate = 0
+
 const EditPrompt = () => {
     const router = useRouter();
     const searchParams = useSearchParams();

@@ -2,6 +2,7 @@ import ToolDetail from '@components/dashboard/ToolDetail';
 import { connectToDB } from "@utils/database";
 import AITool from '@models/aitool';
 
+export const revalidate = 0;
 
 const fetchTotal = async () => {
   try {

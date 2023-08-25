@@ -1,5 +1,7 @@
 import ConfirmPakage from '@components/pricing/ConfirmPakage';
 
+export const revalidate = 0;
+
 const fetchPakage = async (pkgid) => {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pakages/${pkgid}`);
   const category = await response.json();

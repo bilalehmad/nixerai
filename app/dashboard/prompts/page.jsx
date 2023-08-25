@@ -2,6 +2,8 @@ import PromptDetail from '@components/dashboard/PromptDetail'
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
+export const revalidate = 0;
+
 const fetchFirstPosts = async () => {
     const queryParam = `page=1&pageSize=10`;
   

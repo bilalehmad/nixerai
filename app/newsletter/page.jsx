@@ -1,6 +1,8 @@
 import NewsletterForm from '@components/forms/NewsletterForm'
 import React from 'react'
 
+export const revalidate = 0;
+
 const Newsletter = () => {
   return (
     <section className="bg-white dark:bg-gray-900 container px-4 mx-auto h-screen">

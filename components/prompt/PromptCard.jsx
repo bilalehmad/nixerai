@@ -5,7 +5,8 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
 const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTags,setSearchTag,wishing}) => {
-  const {data: session} = useSession();
+  const {data: session, status } = useSession();
+
   const pathName = usePathname();
   const router = useRouter();
 

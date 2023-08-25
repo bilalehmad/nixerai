@@ -5,6 +5,7 @@ import Wishlist from "@models/wishlist";
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../../api/auth/[...nextauth]/route';
 
+export const revalidate = 0
 
 const fetchPosts = async (promptId) => {
   const query = `/api/prompt/${promptId}`;

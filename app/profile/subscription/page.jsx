@@ -5,6 +5,7 @@ import {authOptions} from '../../api/auth/[...nextauth]/route';
 import { ObjectId } from 'mongodb';
 import Bundle from '@models/bundle';
 
+export const revalidate = 0
 
 const fetchMySubscription = async () =>{
 

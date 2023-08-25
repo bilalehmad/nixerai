@@ -1,6 +1,8 @@
 import BlogDetail from '@components/dashboard/BlogDetail';
 import React from 'react'
 
+export const revalidate = 0;
+
 const fetchFirstPosts = async () => {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/blogs`);
     const posts = await response.json();

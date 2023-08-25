@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import ChatSidebar from '@components/chat/ChatSidebar';
 import ChatBody from '@components/chat/ChatBody';
 
+export const revalidate = 0;
+
 const Chat = async () => {
   const session = await getServerSession(authOptions);
   if(!session?.user){

@@ -1,6 +1,8 @@
 import PackageDetail from '@components/dashboard/PackageDetail';
 import React from 'react'
 
+export const revalidate = 0;
+
 const fetchFirstPosts = async () => {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pakages`);
     const posts = await response.json();
