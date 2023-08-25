@@ -2,6 +2,7 @@
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../api/auth/[...nextauth]/route'
 import { redirect } from 'next/navigation';
+import Subscription from "@models/subscription";
 
 const ViewPromptLayout = async ({ children}) => {
 
@@ -19,11 +20,12 @@ const ViewPromptLayout = async ({ children}) => {
         {
           if (session?.user.subscriptionStatus !== "Premium") {
 
-            const url = `${process.env.NEXTAUTH_URL}/api/subscription/${session?.user.id}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            console.log(data.length)
-            if(data.length === 0)
+            // const url = `${process.env.NEXTAUTH_URL}/api/subscription/${session?.user.id}`;
+            // const response = await fetch(url);
+            // const data = await response.json();
+            const subscription = await Subscription.find({user: session?.user.id})
+            //console.log(subscription)
+            if(subscription.length === 0)
             {
               console.log("second")
               redirect('/pricing')
@@ -35,7 +37,7 @@ const ViewPromptLayout = async ({ children}) => {
               const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
               const today = new Date(date).toLocaleDateString('en-US', options);
               
-              const expireAt = data[0].expireAt.toString();
+              const expireAt = subscription[0].expireAt.toString();
               const expireDate = new Date(expireAt).toLocaleDateString('en-US', options);
 
               if( today >= expireDate)
