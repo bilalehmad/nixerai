@@ -4,13 +4,63 @@ import PromptReaction from "@models/promptreaction";
 import Wishlist from "@models/wishlist";
 import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../../api/auth/[...nextauth]/route';
+import Subscription from "@models/subscription";
+import Prompt from "@models/prompt";
 
 export const revalidate = 0
 
 const fetchPosts = async (promptId) => {
+  try {
+      await connectToDB()
+      const prompts = await Prompt.find({_id : promptId,accessLevel : "Paid"})
+      console.log(prompts)
+  } catch (error) {
+    
+  }
   const query = `/api/prompt/${promptId}`;
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${promptId}`);
   const data = await response.json();
+  
+  const session = await getServerSession(authOptions);
+  if(session?.user)
+    {
+      if (session?.user.subscriptionStatus == "Free") {
+        redirect(`/pricing`)
+
+      }
+      else
+      {
+        if (session?.user.subscriptionStatus !== "Premium") {
+
+          // const url = `${process.env.NEXTAUTH_URL}/api/subscription/${session?.user.id}`;
+          // const response = await fetch(url);
+          // const data = await response.json();
+          const subscription = await Subscription.find({user: session?.user.id})
+          //console.log(subscription)
+          if(subscription.length === 0)
+          {
+            console.log("second")
+            redirect('/pricing')
+          }
+          else
+          {
+            console.log("subscription is valid")
+            const date = new Date();
+            const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+            const today = new Date(date).toLocaleDateString('en-US', options);
+            
+            const expireAt = subscription[0].expireAt.toString();
+            const expireDate = new Date(expireAt).toLocaleDateString('en-US', options);
+
+            if( today >= expireDate)
+            {
+              redirect('/pricing')
+            }
+            
+          }
+        }
+      }
+    }
   return data;
 }
 
