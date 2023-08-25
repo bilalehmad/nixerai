@@ -164,7 +164,6 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
         }
         else
         {
-          alert("true")
           router.push(`/view-prompt/${post._id}`)
         }
       }
