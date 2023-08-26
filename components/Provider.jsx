@@ -3,12 +3,14 @@ import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes';
 
 const Provider = ({children}) => {
+  console.log(session,"usersession")
   return (
-   <ThemeProvider attribute="class">
+    
     <SessionProvider>
-      {children}
+      <ThemeProvider attribute="class">
+          {children}
+      </ThemeProvider>
     </SessionProvider>
-    </ThemeProvider>
   )
 }
 
