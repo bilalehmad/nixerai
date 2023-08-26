@@ -2,11 +2,10 @@
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes';
 
-const Provider = ({children,session}) => {
+const Provider = ({children}) => {
   return (
    <ThemeProvider attribute="class">
-    <SessionProvider session={session} refetchOnWindowFocus={true}>
-    
+    <SessionProvider>
       {children}
     </SessionProvider>
     </ThemeProvider>
