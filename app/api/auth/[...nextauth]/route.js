@@ -13,22 +13,32 @@ export const authOptions = {
     })
     
   ],
+  // session: {
+
+  //   strategy: 'jwt',
+
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+
+  //   updateAge: 24 * 60 * 60, // 24 hours
+  // },
   secret: process.env.NEXTAUTH_SECRET ,
   callbacks: {
-    // async jwt({ token, account }) {
-    //   // Persist the OAuth access_token to the token right after signin
-    //   if (account) {
-    //     token.accessToken = account.access_token
-    //   }
-    //   return token
-    // },
-    async session({ session }) {
+    async jwt({ token, account }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (account) {
+        console.log(account,"jwt")
+        token.accessToken = account.access_token
+      }
+      return token
+    },
+    async session({ session, token }) {
       // store the user id from MongoDB to session
+      console.log(token)
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
       session.user.role = sessionUser.role.toString();
       session.user.subscriptionStatus = sessionUser.subscriptionStatus.toString();
-      // session.accessToken = token.accessToken
+      session.accessToken = token.accessToken
       return session;
     },
     async signIn({ account, profile, user, credentials }) {

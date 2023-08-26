@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes';
 const Provider = ({children}) => {
   return (
     
-    <SessionProvider>
+    <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
       <ThemeProvider attribute="class">
           {children}
       </ThemeProvider>
