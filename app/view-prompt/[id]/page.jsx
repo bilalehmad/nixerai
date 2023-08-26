@@ -57,12 +57,12 @@ const fetchPosts = async (promptId) => {
       const query = `/api/prompt/${promptId}`;
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${promptId}`);
       const data = await response.json();
+      return data;
       
   } catch (error) {
     
   }
   
-  return data;
 }
 
 const fetchWishList = async (id) => {
