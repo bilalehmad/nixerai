@@ -10,17 +10,28 @@ export const revalidate = 0
 
 const fetchFirstPosts = async () => {
   
-  const queryParam = `page=1&pageSize=10`;
-
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`);
-  const posts = await response.json();
-  return posts;
+  try {
+    const queryParam = `page=1&pageSize=10`;
+  
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`);
+    const posts = await response.json();
+    return posts;
+    
+  } catch (error) {
+    console.log("Error on Fetching Post", error)
+  }
 }
 
 const fetchCategory = async () => {
+    try {
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/category`);
       const category = await response.json();
       return category;
+      
+    } catch (error) {
+      console.log("Error on Fetching Post", error)
+      
+    }
   }
 
   const fetchWishList = async () => {
