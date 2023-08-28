@@ -1,4 +1,4 @@
-export default function Loading() {
+const Loading = () => {
     // You can add any UI inside Loading, including a Skeleton.
     return (
         <div role="status" className='h-screen flex '>
@@ -6,3 +6,4 @@ export default function Loading() {
 </div>
     )
   }
+export default Loading;
