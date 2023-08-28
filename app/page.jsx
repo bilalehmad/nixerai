@@ -9,6 +9,7 @@ import {authOptions} from './api/auth/[...nextauth]/route';
 export const revalidate = 0
 
 const fetchFirstPosts = async () => {
+  
   const queryParam = `page=1&pageSize=10`;
 
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt?${queryParam}`);
