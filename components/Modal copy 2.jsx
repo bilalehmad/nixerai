@@ -125,7 +125,7 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
             </div>
             <div className='modalContent bg-white dark:bg-[#1A202c] '>
                 <div className='z-10 flex justify-end items-center'>
-                    <button className='deleteBtn text-[#2B3A55] bg-gradient-to-br from-[#FF6F3C] to-amber-400 focus:outline-none rounded-md' onClick={handleFilter}>
+                    <button className='deleteBtn text-[#2B3A55] group bg-gradient-to-br from-red-500 to-yellow-400 group-hover:from-pink-900 group-hover:to-orange-400 focus:outline-none rounded-md' onClick={handleFilter}>
                     Apply Filter
                     </button>
                     {/* <button

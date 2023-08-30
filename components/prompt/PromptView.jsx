@@ -247,11 +247,11 @@ useEffect(() => {
   }, [])
   
   return (
-        <div className="container px-5 py-4 mx-auto">
+        <div className="container px-5 py-4 mx-auto h-screen">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className='col-span-1 p-5'>
                     <div className='flex flex-wrap'>
-                        <Image alt="prompt image" height={200} width={100} src="https://flow-prompt-covers.s3.us-west-1.amazonaws.com/icon/illustrative/illus_5.png" className="rounded-md opacity-90 transition-all h-60 w-full group-hover:opacity-100  object-cover" />
+                        <Image alt="prompt image" height={200} width={100} src="/assets/images/nixerai.png" className="rounded-md opacity-90 transition-all h-60 w-full group-hover:opacity-100  object-cover" />
                     </div>
                     <h1 className='font-staoshi font-semibold text-xl md:text-2xl mt-2'>
                         <span className='text-gray-900 dark:text-white  text-left'>{post.title}</span>
@@ -322,7 +322,7 @@ useEffect(() => {
                                 <p className='text-gray-900 dark:text-white font-semibold text-xs md:text-sm pb-5'>{post.sample}</p>
                             </div>
                         </div>
-                        <ChatGPT title={post.title} sample={post.sample}/>
+                        {/* <ChatGPT title={post.title} sample={post.sample}/> */}
                     </div>
                  </div>
             </div>

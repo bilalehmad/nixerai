@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import SearchFeed from './SearchFeed';
 import PromptCardList from './PromptCardList';
+import LoginModal from '@components/LoginModal';
 
 const Feed =  ({data,category,reactions,wishies}) => {
   // console.log(data)
@@ -27,6 +28,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
   const [searchTag, setSearchTag] = useState(false);
   const [pageTag, setPageTag] = useState(1);
   const [tags, setTags] = useState("");
+  const [loginModal, setLoginModal] = useState(false)
   const [getReactions, setGetReactions] = useState(()=> {
     const result = reactions == true ? []: JSON.parse(reactions);
     return result;
@@ -80,6 +82,13 @@ const Feed =  ({data,category,reactions,wishies}) => {
      
     } 
   }, [searching]);
+  
+  useEffect(() => {
+    if(loginModal == true )
+    {
+
+    }
+  }, [loginModal])
   
   
   useEffect(() => {
@@ -265,7 +274,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
     <section className='feed'>
       
       <div className='inline-flex mb-5'>
-      <Link href='/' className="text-[#2B3A55] group bg-gradient-to-br from-red-500 to-yellow-400 group-hover:from-pink-900 group-hover:to-orange-400 focus:outline-none  font-bold rounded-md text-xs md:text-sm px-5 py-1 md:px-10 md:py-2.5 text-center inline-flex items-center mr-2 ">
+      <Link href='/' className="text-[#2B3A55] group bg-gradient-to-br from-[#FF6F3C] to-amber-400  focus:outline-none  font-bold rounded-md text-xs md:text-sm px-5 py-1 md:px-10 md:py-2.5 text-center inline-flex items-center mr-2 ">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" className="w-3.5 h-3.5 md:w-5 md:h-5 mr-2 -ml-1" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B3A55" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>          
           20,000+ Prompt
       </Link>
@@ -307,6 +316,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
           setPageTag={setPageTag}
           reactions={UserReactions}
           WishList = {UserWishList}
+          setLoginModal={setLoginModal}
         />
       )}
       {isFilter && (
@@ -319,6 +329,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
             setPageTag={setPageTag}
             reactions={UserReactions}
             WishList = {UserWishList}
+            setLoginModal={setLoginModal}
           />
       )}
       {searchTimeout && (
@@ -331,6 +342,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
               setPageTag={setPageTag}
               reactions={UserReactions}
               WishList = {UserWishList}
+              setLoginModal={setLoginModal}
             />
       )}
       {searchTag && (
@@ -343,6 +355,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
               setSearchTag={setSearchTag}
               reactions={UserReactions}
               WishList = {UserWishList}
+              setLoginModal={setLoginModal}
             />
       )}
       {!isSort && !isFilter && !searchTimeout && !searchTag && (
@@ -355,8 +368,12 @@ const Feed =  ({data,category,reactions,wishies}) => {
         setPageTag={setPageTag}
         reactions={UserReactions}
         WishList = {UserWishList}
+        setLoginModal={setLoginModal}
       />
       
+      )}
+      {loginModal && (
+        <LoginModal setLoginModal={setLoginModal} />
       )}
        {/* {isLoading && <div>Loading...</div>} */}
     </section>

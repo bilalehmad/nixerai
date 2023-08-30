@@ -4,7 +4,7 @@ import { useState } from 'react';
 import PromptCard from './PromptCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const PromptCardList = ({data,reactions,WishList, setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
+const PromptCardList = ({data,reactions,WishList,setLoginModal, setTags,setPageTag, setSearchTag, fetchPosts, hasMore}) => {
  
   const [UserReactions, setUserReactions] = useState(reactions);
   const [UserWishList, setUserWishList] = useState(WishList)
@@ -139,7 +139,7 @@ const PromptCardList = ({data,reactions,WishList, setTags,setPageTag, setSearchT
           setPageTag={setPageTag}
           reactions={UserReactions.map((obj) => {return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
           wishing={UserWishList.map((obj) => { return obj.post.toString() == post._id.toString()  ? obj : undefined}).filter(Boolean)}
-
+          setLoginModal={setLoginModal}
         />
       ))}
 

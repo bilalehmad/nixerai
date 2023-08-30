@@ -8,14 +8,14 @@ const Pakages = ({data}) => {
       const router = useRouter();
 
 
-    useEffect(() => {
-      if(choosePlan)
-      {
-        router.push(`/pricing/${choosePlan}`)
+    // useEffect(() => {
+    //   if(choosePlan)
+    //   {
+    //     router.push(`/pricing/${choosePlan}`)
 
-      }
+    //   }
       
-    }, [choosePlan])
+    // }, [choosePlan])
     
   return (
     <>

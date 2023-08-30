@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTags,setSearchTag,wishing}) => {
+const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setPageTag, setTags,setSearchTag,wishing}) => {
   const {data: session, status } = useSession();
 
   const pathName = usePathname();
@@ -149,34 +149,34 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
   
 
   const promptView = () => {
-  //   if (session?.user.subscriptionStatus == "Free") {
-  //     router.push(`/view-prompt/${post._id}`)
-  //  }
-  //  else{
-  //   router.push(`/pricing`)
-  //  }
-  if(post.accessLevel == "Paid")
+    if(session?.user)
     {
-      if(session?.user)
-      {
-        if (session?.user.subscriptionStatus == "Free") 
-        {
-          router.push(`/pricing`)
-        }
-        else
-        {
-          router.push(`/view-prompt/${post._id}`)
-        }
-      }
-      else
-      {
-        alert("Login Please")
-      }
-  }
-  else
-  {
-    router.push(`/view-prompt/${post._id}`)
-  }
+      router.push(`/view-prompt/${post._id}`)
+      
+    }
+    else
+    {
+      setLoginModal(true)
+    }
+  // if(post.accessLevel == "Paid")
+  //   {
+  //     if(session?.user)
+  //     {
+  //       if (session?.user.subscriptionStatus == "Free") 
+  //       {
+  //         router.push(`/pricing`)
+  //       }
+        
+  //     }
+  //     else
+  //     {
+  //       router.push(`/view-prompt/${post._id}`)
+  //     }
+  // }
+  // else
+  // {
+  //   router.push(`/view-prompt/${post._id}`)
+  // }
 }
   useEffect(() => {
 
@@ -197,27 +197,27 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
       setBadge(true)
     }
 
-    if(post.accessLevel == "Paid")
-      {
-        if(session?.user) {
-          if(session?.user.subscriptionStatus == "Free")
-          {
-            setAccessLevel(true);
-          }
-          else{
-            setAccessLevel(false);
-          }
-        }
-        else
-        {
-          setAccessLevel(true);
-        }
+    // if(post.accessLevel == "Paid")
+    //   {
+    //     if(session?.user) {
+    //       if(session?.user.subscriptionStatus == "Free")
+    //       {
+    //         setAccessLevel(true);
+    //       }
+    //       else{
+    //         setAccessLevel(false);
+    //       }
+    //     }
+    //     else
+    //     {
+    //       setAccessLevel(true);
+    //     }
         
-      }
-      else
-      {
-      setAccessLevel(false);
-      }
+    //   }
+    //   else
+    //   {
+    //   setAccessLevel(false);
+    //   }
     
       if(wishing.length > 0)
       {
@@ -281,7 +281,7 @@ const PromptCard = ({post,reactions, handleEdit, handleDelete,setPageTag, setTag
                     <div>
                       <div className="  antialiased cursor-pointer css-84zodg" onClick={promptView} >
                         <div className="css-289z9l">
-                          <Image alt="prompt image" height={50} width={50} src="https://flow-prompt-covers.s3.us-west-1.amazonaws.com/icon/illustrative/illus_5.png" className="rounded-md opacity-90  group-hover:opacity-100  object-cover css-sm43lu" />
+                          <Image alt="prompt image" height={50} width={50} src="/assets/images/logo.png" className="rounded-md opacity-90  group-hover:opacity-100  object-cover css-sm43lu" />
                         </div>
                         <div className=" flex flex-col h-[80px] gap-1 pl-1  css-0">
                           <div className="inline-flex justify-start css-k008qs">

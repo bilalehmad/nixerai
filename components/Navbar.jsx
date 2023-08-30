@@ -82,10 +82,10 @@ const Navbar = () => {
                 </button> */}
                 <Link  href="/" className='flex gap-1 flex-center'>
                     <Image
-                    src="/assets/images/logo.svg"
+                    src="/assets/images/logo.png"
                     alt='Promptopia Logo' 
-                    width={22} 
-                    height={22} 
+                    width={24} 
+                    height={24} 
                     className='object-contain' /> 
                     <p className='logo_text'>NixerAI</p> 
                 </Link>
