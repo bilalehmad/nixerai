@@ -178,6 +178,9 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
   //   router.push(`/view-prompt/${post._id}`)
   // }
 }
+function isDateBetween(targetDate, startDate, endDate) {
+  return targetDate >= startDate && targetDate <= endDate;
+}
   useEffect(() => {
 
     setPostTags(() => {
@@ -185,14 +188,16 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
       return res;
     })
 
-    const date = new Date();
     const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
-    const today = new Date(date).toLocaleDateString('en-US', options);
-    
+    const targetDate = new Date().toLocaleDateString('en-US', options);
+    const date = new Date();
+    const startDate = new Date(date.setDate(date.getDate() - 10)).toLocaleDateString('en-US', options);
+    console.log(targetDate)
     const getDate = post.timestamp.toString();
-    const todate = new Date(getDate).toLocaleDateString('en-US', options);
+    const endDate = new Date(getDate).toLocaleDateString('en-US', options);
+    //console.log(todate)
     // console.log(afterDays,todate);
-    if(todate < today)
+    if(isDateBetween(targetDate, startDate, endDate))
     {
       setBadge(true)
     }

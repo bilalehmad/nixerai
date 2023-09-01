@@ -1,5 +1,5 @@
 "use client";
-import { useState ,useEffect} from "react";
+import { useState ,useEffect, Suspense} from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +18,9 @@ const ToolCard = ({post,key, handleEdit,reactions, handleDelete, setPageTag, set
   const [postStates, setPostStates] = useState({});
   const [verification, setVerification] = useState(false);
   const [wishlist, setWishlist] = useState({});
+  const defaultImage = '/assets/images/logo.png';
+  const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}.png`);
+
 
   // const router = useRouter();
   // const promptView = () => {
@@ -69,6 +72,13 @@ const ToolCard = ({post,key, handleEdit,reactions, handleDelete, setPageTag, set
 //     return error;
 //   }
 // }
+
+
+const handleImageError = () => {
+  setCurrentImage(defaultImage);
+};
+
+
 const likeHandle = () => {
   if (session?.user) {
     const responce = fetchReaction("Like");
@@ -201,21 +211,24 @@ const handleTagClick = (tagName) => {
 
   }
 }
-useEffect(() => {
-  // Fetch the HTML of the website
-  fetch(post.url)
-    .then(response => response.text())
-    .then(html => {
+function isDateBetween(targetDate, startDate, endDate) {
+  return targetDate >= startDate && targetDate <= endDate;
+}
+// useEffect(() => {
+//   // Fetch the HTML of the website
+//   fetch(post.url)
+//     .then(response => response.text())
+//     .then(html => {
       
-        const $ = cheerio.load(html);
-        const ogImageURL = $('meta[property="og:image"]').attr('content');
-        console.log(ogImageURL)
-        setThumbnail(ogImageURL)
+//         const $ = cheerio.load(html);
+//         const ogImageURL = $('meta[property="og:image"]').attr('content');
+//         console.log(ogImageURL)
+//         setThumbnail(ogImageURL)
 
-    })
-    .catch(error => console.error('Error fetching or parsing the HTML:', error));
+//     })
+//     .catch(error => console.error('Error fetching or parsing the HTML:', error));
 
-}, [thumbnail])
+// }, [thumbnail])
   const openModal = () => {
     onModalStateChange(post.youtubeUrl);
   } 
@@ -233,14 +246,16 @@ useEffect(() => {
       return res;
     })
 
-    const date = new Date();
     const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
-    const today = new Date(date).toLocaleDateString('en-US', options);
-    
+    const targetDate = new Date().toLocaleDateString('en-US', options);
+    const date = new Date();
+    const startDate = new Date(date.setDate(date.getDate() - 10)).toLocaleDateString('en-US', options);
+    console.log(targetDate)
     const getDate = post.timestamp.toString();
-    const todate = new Date(getDate).toLocaleDateString('en-US', options);
+    const endDate = new Date(getDate).toLocaleDateString('en-US', options);
+    //console.log(todate)
     // console.log(afterDays,todate);
-    if(todate < today)
+    if(isDateBetween(targetDate, startDate, endDate))
     {
       setBadge(true)
     }
@@ -313,11 +328,18 @@ useEffect(() => {
                   <div className=" overflow-hidden">
                     <div>
                         <div className="flex items-center rounded-lg shadow md:max-w-xl " >
-                            {thumbnail ? (
-                            <Image width={50} height={50} className="object-cover w-[120px] h-[120px] md:h:36 rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={thumbnail} alt="" />
+                        {/* <Image width={60} onError={handleImageError}  height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={currentImage} alt={`${post.title}-NixerAI`} /> */}
+
+                          {currentImage ? (
+                             <Image width={60} onError={handleImageError}  height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={currentImage} alt={`${post.title}-NixerAI`} />
                             ): (
-                              <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="https://flow-prompt-covers.s3.us-west-1.amazonaws.com/icon/illustrative/illus_5.png" alt="" />
+                              <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="/assets/images/logo.png" alt={`${post.title}-NixerAI`} />
                             )}
+                            {/* {!imageExists && thumbnail  ?(
+                                <Image width={50}   height={50} className="object-cover w-[120px] h-[120px] md:h:36 rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={thumbnail} alt={`${post.title}-NixerAI`} />
+                                ):(
+                                  <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="/assets/images/logo.png" alt={`${post.title}-NixerAI`} />
+                                )} */}
                             <div className="w-full flex flex-col h-[120px] md:h-[130px] md:gap-1 pl-3 overflow-hidden css-0">
                                 <Link href={post.url} target="_blank" className=" cursor-pointer">
                                     <div className="w-full inline-flex justify-between ">
