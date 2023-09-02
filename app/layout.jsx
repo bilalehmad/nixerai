@@ -5,6 +5,7 @@ import Sidebar from "@components/Sidebar"
 import Footer from '@components/Footer';
 import Navbar from '@components/Navbar';
 import Image from 'next/image'
+import Script from 'next/script';
 
 export const metadata = {
     title: "NixerAI",
@@ -19,7 +20,6 @@ const RootLayout = async ({children}) => {
     <html>
         <Head>
         <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-        <script type="text/javascript" src="https://2pay-js.2checkout.com/v1/2pay.js"></script>
         </Head>
         <body>
             <Provider>
@@ -27,6 +27,21 @@ const RootLayout = async ({children}) => {
                     <div className='gradient' />
                 </div>
                     <main className='app'>
+                        
+                    <Script
+                    strategy='afterInteractive'
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+                    />
+                    <Script id='google-analytics' strategy='afterInteractive'>
+                    {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+            
+                    gtag('config', 'G-${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+                    `}
+                    </Script>
+
                         <Navbar />
                         {children}
                         <Footer />
