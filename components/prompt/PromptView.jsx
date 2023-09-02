@@ -23,8 +23,8 @@ const [badge, setBadge] = useState(false)
 const [accessLevel, setAccessLevel] = useState(false);
 const [wishlist, setWishlist] = useState({});
 const handleCopy = () => {
-    setcopied(post.prompt)
-    navigator.clipboard.writeText(post.prompt);
+    setcopied(post.sample)
+    navigator.clipboard.writeText(post.sample);
     setTimeout(() => {
       setcopied("")
     }, 3000);
@@ -306,7 +306,7 @@ useEffect(() => {
                                 height={12}
                                 alt="tick"
                             /> */}
-                            {copied === post.prompt ? (
+                            {copied === post.sample ? (
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
 
                             ):(
