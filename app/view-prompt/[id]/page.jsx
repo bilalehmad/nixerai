@@ -12,46 +12,46 @@ export const revalidate = 0
 const fetchPosts = async (promptId) => {
   try {
       await connectToDB()
-      const prompts = await Prompt.find({_id : promptId,accessLevel : "Paid"})
-      if(prompts.length > 0)
-      {
-        const session = await getServerSession(authOptions);
-        if(session?.user)
-          {
-            if (session?.user.subscriptionStatus == "Free") {
-              redirect(`/pricing`)
+      // const prompts = await Prompt.find({_id : promptId,accessLevel : "Paid"})
+      // if(prompts.length > 0)
+      // {
+      //   const session = await getServerSession(authOptions);
+      //   if(session?.user)
+      //     {
+      //       if (session?.user.subscriptionStatus == "Free") {
+      //         redirect(`/pricing`)
 
-            }
-            else
-            {
-              if (session?.user.subscriptionStatus !== "Premium") {
-                const subscription = await Subscription.find({user: session?.user.id})
-                //console.log(subscription)
-                if(subscription.length === 0)
-                {
-                  redirect('/pricing')
-                }
-                else
-                {
-                  console.log("subscription is valid")
-                  const date = new Date();
-                  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
-                  const today = new Date(date).toLocaleDateString('en-US', options);
+      //       }
+      //       else
+      //       {
+      //         if (session?.user.subscriptionStatus !== "Premium") {
+      //           const subscription = await Subscription.find({user: session?.user.id})
+      //           //console.log(subscription)
+      //           if(subscription.length === 0)
+      //           {
+      //             redirect('/pricing')
+      //           }
+      //           else
+      //           {
+      //             console.log("subscription is valid")
+      //             const date = new Date();
+      //             const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+      //             const today = new Date(date).toLocaleDateString('en-US', options);
                   
-                  const expireAt = subscription[0].expireAt.toString();
-                  const expireDate = new Date(expireAt).toLocaleDateString('en-US', options);
+      //             const expireAt = subscription[0].expireAt.toString();
+      //             const expireDate = new Date(expireAt).toLocaleDateString('en-US', options);
 
-                  if( today >= expireDate)
-                  {
-                    redirect('/pricing')
-                  }
+      //             if( today >= expireDate)
+      //             {
+      //               redirect('/pricing')
+      //             }
                   
-                }
-              }
-            }
-          }
+      //           }
+      //         }
+      //       }
+      //     }
           
-      }
+      // }
 
       
       const query = `/api/prompt/${promptId}`;

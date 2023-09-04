@@ -247,7 +247,7 @@ useEffect(() => {
   }, [])
   
   return (
-        <div className="container px-5 py-4 mx-auto h-screen">
+        <div className="container px-5 py-4 mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className='col-span-1 p-5'>
                     <div className='flex flex-wrap'>
