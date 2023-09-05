@@ -105,7 +105,7 @@ const ChatBody = (props) => {
         //   { content: message, role: "user" },
         //   { content: data.choices[0].message.content, role: "system" },
         // ]);
-        console.log(conversation)
+        //console.log(conversation)
       } else {
         console.error(response);
         setErrorMessage(response.statusText);

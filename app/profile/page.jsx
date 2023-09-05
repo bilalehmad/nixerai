@@ -52,7 +52,7 @@ const fetchToolWishList = async () => {
   if (!session) return true;
   try {
     await connectToDB();
-    console.log(session?.user.id)
+    //console.log(session?.user.id)
     const wish = await AIWishlist.find({ user: session?.user.id}).populate({ path: 'post', model: AITool });
     if (wish) {
       const data = JSON.stringify(wish) ;

@@ -10,7 +10,7 @@ export const GET = async (request, {params}) => {
         await connectToDB()
         const subscription = await Subscription.find({user: user}).populate({ path: 'package', model: Bundle }).populate("user");
         
-        console.log(subscription)
+        //console.log(subscription)
         if(!subscription) return new Response("Subscription not found", {status : 404})
         return new Response(JSON.stringify(subscription), { status: 200 })
     } catch (error) {

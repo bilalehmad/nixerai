@@ -13,13 +13,13 @@ export const GET = async (request) => {
     const pageSize = parseInt(searchParams.get("pageSize")) || 10;
     const sort = searchParams.get("sort") || "";
     const filter = searchParams.get("filter").split(',') || [];
-    console.log(q, sort, filter)
+    //console.log(q, sort, filter)
     try {
         await connectToDB();
 
         if(sort != "null" && q != "null")
         {
-            console.log("first search")
+            //console.log("first search")
             const prompts = await Prompt.find(
                 { $or: [
                     { title: { $regex: q, $options: 'i' } },
@@ -37,7 +37,7 @@ export const GET = async (request) => {
         }
         else if(filter.length > 0 && q != "null")
         {
-            console.log("second search")
+            //console.log("second search")
             const prompts = await Prompt.find(
                 { $or: [
                     { title: { $regex: q, $options: 'i' } },
@@ -55,7 +55,7 @@ export const GET = async (request) => {
         }
         else if (filter.length > 0 && sort != "null" && q != "null")
         {
-            console.log("third search")
+            //console.log("third search")
             const prompts = await Prompt.find(
                 { $or: [
                     { title: { $regex: q, $options: 'i' } },
@@ -74,7 +74,7 @@ export const GET = async (request) => {
         }
         else
         {
-            console.log("last search")
+            //console.log("last search")
             const prompts = await Prompt.find(
                 { $or: [
                     { title: { $regex: q, $options: 'i' } },

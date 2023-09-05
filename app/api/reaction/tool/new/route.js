@@ -20,14 +20,14 @@ export const POST = async (req) => {
     const today = new Date(timeElapsed);
     try {
         await connectToDB();
-        console.log(today)
+        //console.log(today)
         const user = await AIToolReaction.findOne({ creator: userId,post:post,reaction: reaction });
         if (user) {
-            console.log('Found user:', user);
+            //console.log('Found user:', user);
             if(user.reaction == reaction)
             {
                 const delt = await AIToolReaction.findOneAndDelete({ _id: user._id, reaction: reaction });
-                console.log('Delete user:', delt);
+                //console.log('Delete user:', delt);
                 return new Response(JSON.stringify(user), {status : 201})
 
             }
@@ -46,7 +46,7 @@ export const POST = async (req) => {
             }
             
         } else {
-            console.log('User not found.');
+            //console.log('User not found.');
             const newReaction = new AIToolReaction({
             creator: userId,
             post,

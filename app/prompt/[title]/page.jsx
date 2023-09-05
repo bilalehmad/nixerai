@@ -8,6 +8,16 @@ import Subscription from "@models/subscription";
 import Prompt from "@models/prompt";
 
 export const revalidate = 0
+const fetchId = async (name) => {
+  const prompt = await Prompt.find({ title: name });
+
+  if (prompt.length === 0) {
+    redirect(`/`)
+    console.log("No prompts found with the given title.");
+  } else {
+    return prompt[0]._id;
+  }
+}  
 
 const fetchPosts = async (promptId) => {
   try {
@@ -102,11 +112,13 @@ const fetchAllReaction = async (id) =>{
 }
 
 const PromptDetail = async ({params}) => {
-  // console.log(params.id)
-  const data= await fetchPosts(params.id);
-  const usrRect = await fetchAllReaction(params.id);
-  const wishlist = await fetchWishList(params.id);
-  console.log(wishlist)
+  const para = params.title;
+  const title = para.replace(/-/g, ' ');
+  const getId = await fetchId(title)
+  const data= await fetchPosts(getId);
+  const usrRect = await fetchAllReaction(getId);
+  const wishlist = await fetchWishList(getId);
+  //console.log(wishlist)
   return (
     <PromptView
     data = {data}

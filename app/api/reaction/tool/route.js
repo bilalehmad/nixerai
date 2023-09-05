@@ -24,7 +24,7 @@ export const GET = async (request) => {
     try {
         await connectToDB();
         const allReaction = await AIToolReaction.find({ creator: session?.user.id,post: { $in: names }});
-        console.log(allReaction)
+        //console.log(allReaction)
        
         return new Response(JSON.stringify(allReaction), {status : 201})
         

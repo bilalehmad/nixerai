@@ -21,13 +21,13 @@ export const POST = async (req) => {
         await connectToDB();
         const wish = await Wishlist.findOne({ user: userId,post:post });
         if (wish) {
-            console.log('Found user:', wish);
+            //console.log('Found user:', wish);
             const delt = await Wishlist.findOneAndDelete({ _id: wish._id});
-                console.log('Delete user:', delt);
+                //console.log('Delete user:', delt);
                 return new Response(JSON.stringify({whishlisted: false}), {status : 201})
         } else {
-            console.log('wishlist not found.');
-            console.log(post)
+            //console.log('wishlist not found.');
+            //console.log(post)
             const newWish = new Wishlist({
                 user: userId,
                 post,

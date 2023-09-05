@@ -17,24 +17,24 @@ export const POST = async (req) => {
     //     redirect('/')
     // }
     const userId = session?.user.id;
-    console.log(reaction)
+    //console.log(reaction)
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     try {
         await connectToDB();
         const user = await PromptReaction.findOne({ creator: userId,post:post });
         if (user) {
-            console.log('Found user:', user);
+            //console.log('Found user:', user);
             if(user.reaction == reaction)
             {
                 const delt = await PromptReaction.findOneAndDelete({ _id: user._id, reaction: reaction });
-                console.log('Delete user:', delt);
+                //console.log('Delete user:', delt);
                 return new Response(JSON.stringify(user), {status : 201})
 
             }
             else
             {
-                console.log('User updated.');
+                //console.log('User updated.');
                 const newReaction = await PromptReaction.findOneAndUpdate({
                     _id: user._id
                 },{
@@ -46,7 +46,7 @@ export const POST = async (req) => {
             }
             
         } else {
-            console.log('User not found.');
+            //console.log('User not found.');
             const newReaction = new PromptReaction({
             creator: userId,
             post,

@@ -17,7 +17,7 @@ export const GET = async (request) => {
     const search = searchParams.get("search") || "";
     // console.log('name:', names, 'page:', page);
 
-    console.log(names)
+    //console.log(names)
 
     try {
         await connectToDB();
@@ -33,7 +33,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
             else if(sort === "New")
@@ -45,7 +45,7 @@ export const GET = async (request) => {
                 tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
                 tenDaysAgo.setHours(0, 0, 0, 0);
     
-                console.log(tenDaysAgo)
+                //console.log(tenDaysAgo)
                 const aitool = await AITool.find({ 
                     tag: { $regex: new RegExp(names.join("|"), 'i') } ,
                     createdAt: { $gte: tenDaysAgo ,$lte: today} })
@@ -54,7 +54,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
             else
@@ -65,7 +65,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
             // const aitool = await AITool.find({ 
@@ -109,7 +109,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
             else if(sort === "New")
@@ -121,7 +121,7 @@ export const GET = async (request) => {
                 tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
                 tenDaysAgo.setHours(0, 0, 0, 0);
     
-                console.log(tenDaysAgo)
+                //console.log(tenDaysAgo)
                 const aitool = await AITool.find({ 
                     $or: [
                         { title: { $regex: search, $options: 'i' } },
@@ -135,7 +135,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
             else
@@ -152,7 +152,7 @@ export const GET = async (request) => {
     
                 // .populate('creator');
                 if(!aitool) return new Response("Prompt not found", {status : 404})
-                console.log(aitool)
+                //console.log(aitool)
                 return new Response(JSON.stringify(aitool), { status: 200 })
             }
         }

@@ -53,7 +53,7 @@ useEffect(() => {
   const getPromptDetails = async () => {
     const response = await fetch(`/api/tool/${toolId}`);
     const data = await response.json();
-    console.log(data)
+    //console.log(data)
     setEditPost({
         title: data.title,
         url: data.url,
@@ -72,7 +72,7 @@ useEffect(() => {
 const updatePrompt = async (e) => {
   e.preventDefault();
   setsubmitting(true);
-  console.log(editPost)
+  //console.log(editPost)
 
   if(!toolId) return alert('Prompt ID Not Found');
   try {

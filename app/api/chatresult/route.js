@@ -18,8 +18,8 @@ export const POST = async (req) => {
         const { model,messages } = await req.json();
             const reqUrl = new URL(req.url);
             const origin = reqUrl.origin;
-            console.log(origin,"------------------------origin")
-            console.log(messages,"-------------------Request")
+            //console.log(origin,"------------------------origin")
+            //console.log(messages,"-------------------Request")
             const _url = `${origin}/api/chat/new`;
             const userId = session?.user.id;
             const _data = {
@@ -37,7 +37,7 @@ export const POST = async (req) => {
             })
 
             const _result = await _response.json();
-            console.log(_result._id)
+            //console.log(_result._id)
             const chatID = _result._id;
             var data = {
                 model: model,
@@ -100,7 +100,7 @@ export const POST = async (req) => {
             })
 
             const result_ = await response_.json();
-            console.log(result_)
+            //console.log(result_)
             // const result = await response.json()
             return new Response(JSON.stringify(result), { status: 200 })
         

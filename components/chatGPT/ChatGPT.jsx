@@ -68,8 +68,8 @@ const ChatGPT = ({title,sample}) => {
         .then(data => {
             // Handle response data
             //setChatResponce(data.choices[0].message.content);
-            console.log(data)
-            console.log(chatLog)
+            //console.log(data)
+            //console.log(chatLog)
             // setChatLog((prev) => [...prev, {type: 'bot', message: ''}]);
             let i = 0;
             var content = '';

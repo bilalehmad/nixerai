@@ -13,7 +13,7 @@ const ToolCardList = ({data,setTags,setPageTag,reactions, setSearchTag, fetchPos
     const [youtubeURL, setYoutubeURL] = useState(null);
     const [UserReactions, setUserReactions] = useState(reactions);
     const [UserWishList, setUserWishList] = useState(WishList)
-console.log(data)
+    //console.log(data)
   const handleModalStateChange = (val) => {
     setYoutubeURL(val)
     setIsOpen(true);
@@ -27,7 +27,7 @@ console.log(data)
           text: 'Shared Text',
           url: val,
         });
-        console.log('Content shared successfully!');
+        //console.log('Content shared successfully!');
       } catch (error) {
         console.error('Error sharing content:', error);
       }
@@ -299,7 +299,7 @@ const Tool = ({data,category,reactions,wishies})=> {
       setFilterPage((prevSortPage) => prevSortPage + 1)
       const response = await fetch(`/api/tool/filter?${queryParam}`);
       const data = await response.json();
-      console.log(data)
+      //console.log(data)
       // Update the items state with the new data
       setSearchedResults((prev) => [...prev, ...data]);
         
@@ -328,7 +328,7 @@ const Tool = ({data,category,reactions,wishies})=> {
     try {
       const response = await fetch(`/api/tool/sort?${queryParam}`)
       const data = await  response.json()
-      console.log(data);
+      //console.log(data);
       setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
       setIsSort(true);
       if(data.length === 0)

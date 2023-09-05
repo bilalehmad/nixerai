@@ -19,7 +19,7 @@ export const GET = async (request) => {
         await connectToDB()
         if(status != "null" && filter.length > 0)
         {
-            console.log("first sort")
+            //console.log("first sort")
             const prompts = await Prompt.find({
                 accessLevel: status,
                 category: { $regex: new RegExp(filter.join("|"), 'i') } 
@@ -34,7 +34,7 @@ export const GET = async (request) => {
         }
         else if(status != "null" && search != "null")
         {
-            console.log("second sort")
+            //console.log("second sort")
             const prompts = await Prompt.find({
                 accessLevel: status,
                 $or: [
@@ -53,7 +53,7 @@ export const GET = async (request) => {
         }
         else if(status != "null" && search != "null" && filter.length > 0)
         {
-            console.log("third sort")
+            //console.log("third sort")
             const prompts = await Prompt.find({
                 accessLevel: status,
                 category: { $regex: new RegExp(filter.join("|"), 'i') } ,
@@ -73,7 +73,7 @@ export const GET = async (request) => {
         }
         else
         {
-            console.log("last sort")
+            //console.log("last sort")
             const prompts = await Prompt.find({accessLevel: status,})
             .skip((page - 1) * pageSize)
             .limit(pageSize);

@@ -16,7 +16,7 @@ const fetchMySubscription = async () =>{
         {
             await connectToDB();
             const subscrip = await Bundle.find({_id : new ObjectId("64de02d467350c3109c57e9f") })
-            console.log(subscrip)
+            //console.log(subscrip)
             const data = [
                 {
                     "_id":"64e761c8295c74e313623799",

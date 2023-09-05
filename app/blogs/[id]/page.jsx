@@ -11,7 +11,7 @@ const fetchBlogs = async (id) => {
 const Article = async ({params}) => {
     const {id} = params;
     const data =  await fetchBlogs(id);
-    console.log(data)
+    //console.log(data)
 
   return (
     <section className='mx-auto max-w-screen-xl '>

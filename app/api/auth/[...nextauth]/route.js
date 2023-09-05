@@ -26,14 +26,14 @@ export const authOptions = {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
-        console.log(account,"jwt")
+        //console.log(account,"jwt")
         token.accessToken = account.access_token
       }
       return token
     },
     async session({ session, token }) {
       // store the user id from MongoDB to session
-      console.log(token)
+      //console.log(token)
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
       session.user.role = sessionUser.role.toString();

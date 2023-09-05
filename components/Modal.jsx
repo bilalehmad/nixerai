@@ -32,7 +32,7 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
         }
     };
     const handleFilter = () => {
-        console.log('Selected checkboxes:', isChecked);
+        //console.log('Selected checkboxes:', isChecked);
 
         if(isChecked.length > 0)
         {

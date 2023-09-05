@@ -250,7 +250,7 @@ function isDateBetween(targetDate, startDate, endDate) {
     const targetDate = new Date().toLocaleDateString('en-US', options);
     const date = new Date();
     const startDate = new Date(date.setDate(date.getDate() - 10)).toLocaleDateString('en-US', options);
-    console.log(targetDate)
+    //console.log(targetDate)
     const getDate = post.timestamp.toString();
     const endDate = new Date(getDate).toLocaleDateString('en-US', options);
     //console.log(todate)
@@ -291,7 +291,7 @@ function isDateBetween(targetDate, startDate, endDate) {
 
     if(reactions.length > 0)
     {
-      console.log(reactions)
+      //console.log(reactions)
       reactions.map(element => {
         if(element.reaction == 'Like')
         {

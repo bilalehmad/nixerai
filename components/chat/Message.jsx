@@ -4,7 +4,7 @@ import { TbCursorText } from "react-icons/tb";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const Message = (props) => {
-    console.log(props)
+    //console.log(props)
   const {role, message: text  } = props;
 //   const { role, content: text } = message;
   const isUser = role === "user";

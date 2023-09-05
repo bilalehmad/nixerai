@@ -12,7 +12,7 @@ export const GET = async (req) => {
         redirect('/')
     }
     const userId = session?.user.id;
-    console.log(userId)
+    //console.log(userId)
     try {
         await connectToDB();
 
@@ -24,7 +24,7 @@ export const GET = async (req) => {
             }).sort({
                 _id: -1
             });
-            console.log(chats)
+            //console.log(chats)
         return new Response(JSON.stringify(chats), {status : 201})
     } catch (error) {
         return new Response("Failed to create a new Prompt!", {status : 500})

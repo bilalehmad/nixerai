@@ -20,10 +20,10 @@ export const GET = async (request) => {
 
     try {
         await connectToDB();
-        console.log(names.length , typeof sort);
+        //console.log(names.length , typeof sort);
         if(names.length > 0 && sort != "null")
         {
-            console.log("first filter")
+            //console.log("first filter")
             const prompts = await Prompt.find({ 
                 accessLevel: sort,
                 category: { $regex: new RegExp(names.join("|"), 'i') } 
@@ -36,7 +36,7 @@ export const GET = async (request) => {
         }
         else if(names.length > 0 && search != "null")
         {
-            console.log("second filter")
+            //console.log("second filter")
             const prompts = await Prompt.find({ 
                 $or: [
                     { title: { $regex: search, $options: 'i' } },
@@ -53,7 +53,7 @@ export const GET = async (request) => {
         }
         else if(names.length > 0 && search != "null" && sort != "null")
         {
-            console.log("third filter")
+            //console.log("third filter")
             const prompts = await Prompt.find({ 
                 $or: [
                     { title: { $regex: search, $options: 'i' } },
@@ -71,7 +71,7 @@ export const GET = async (request) => {
         }
         else
         { 
-            console.log("last filter")
+            //console.log("last filter")
             const prompts = await Prompt.find({ 
                 category: { $regex: new RegExp(names.join("|"), 'i') } 
                 })

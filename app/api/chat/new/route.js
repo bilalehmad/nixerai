@@ -18,7 +18,7 @@ export const POST = async (req) => {
     //     redirect('/')
     // }
     // const userId = session?.user.id;
-    console.log(session,"-------------------------User ID in New")
+    //console.log(session,"-------------------------User ID in New")
     try {
         await connectToDB();
         const newChat = await Chat({
@@ -28,7 +28,7 @@ export const POST = async (req) => {
         })
 
         await newChat.save();
-        console.log(newChat,"-------------------------------------------Responce New Chat");
+        //console.log(newChat,"-------------------------------------------Responce New Chat");
         return new Response(JSON.stringify(newChat), {status : 201})
     } catch (error) {
         return new Response("Failed to create a new Prompt!", {status : 500})

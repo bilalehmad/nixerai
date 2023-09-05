@@ -11,7 +11,7 @@ import { ObjectId } from "mongodb";
 export const POST = async (req) => {
     const {chatID,role,content,userId} = await req.json();
     const session = await getServerSession(authOptions);
-    console.log(chatID,"-------------------- Send Requerst Chat ID");
+    //console.log(chatID,"-------------------- Send Requerst Chat ID");
     // if(!session?.user){
     //     redirect('/')
     // }
@@ -20,7 +20,7 @@ export const POST = async (req) => {
         content,
         role
     }
-    console.log(data,"------------------------------ User ID")
+    //console.log(data,"------------------------------ User ID")
     try {
         await connectToDB();
         
@@ -33,7 +33,7 @@ export const POST = async (req) => {
             }
         },{ new: true } )
         
-        console.log(chats);
+        //console.log(chats);
         return new Response(JSON.stringify(chats), {status : 201})
     
     } catch (error) {

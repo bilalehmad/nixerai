@@ -43,7 +43,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
   // console.log(firstfetch)
 
  useEffect(() => {
-  console.log('status', optionValue,'status page', filterPage);
+  //console.log('status', optionValue,'status page', filterPage);
  }, [optionValue,filterPage])
  
   
@@ -139,7 +139,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
     try {
       const response = await fetch(`/api/prompt/sort?${queryParam}`)
       const data = await  response.json()
-      console.log(data);
+      //console.log(data);
       setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
       setIsSort(true);
       if(data.length === 0)
@@ -168,7 +168,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
       setFilterPage((prevSortPage) => prevSortPage + 1)
       const response = await fetch(`/api/prompt/filter?${queryParam}`);
       const data = await response.json();
-      console.log(data)
+      //console.log(data)
       // Update the items state with the new data
       setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
         

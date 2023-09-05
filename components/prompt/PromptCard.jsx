@@ -45,7 +45,7 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
     }
     else
     {
-      alert("Login Please")
+      setLoginModal(true)
     }
   }
   
@@ -70,7 +70,7 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
     }
     else
     {
-      alert("Login Please")
+      setLoginModal(true)
     }
   }
   const fetchReaction = async (react) => {
@@ -143,7 +143,7 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
       }
       else
       {
-        alert("Login Please")
+        setLoginModal(true)
       }
   }
   
@@ -151,7 +151,8 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
   const promptView = () => {
     if(session?.user)
     {
-      router.push(`/view-prompt/${post._id}`)
+      const title = post.title.replace(/ /g, '-');
+      router.push(`/prompt/${title}`)
       
     }
     else
@@ -192,7 +193,7 @@ function isDateBetween(targetDate, startDate, endDate) {
     const targetDate = new Date().toLocaleDateString('en-US', options);
     const date = new Date();
     const startDate = new Date(date.setDate(date.getDate() - 10)).toLocaleDateString('en-US', options);
-    console.log(targetDate)
+    //console.log(targetDate)
     const getDate = post.timestamp.toString();
     const endDate = new Date(getDate).toLocaleDateString('en-US', options);
     //console.log(todate)
