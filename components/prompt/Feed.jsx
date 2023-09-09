@@ -1,28 +1,30 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from 'next/link';
 import SearchFeed from './SearchFeed';
 import PromptCardList from './PromptCardList';
 import LoginModal from '@components/LoginModal';
 
-const Feed =  ({data,category,reactions,wishies}) => {
+const Feed =  ({data,category,reactions,tag,wishies,search,sort,filters}) => {
   // console.log(data)
   const [posts, setPosts] = useState(data)
   // Search states
   const [searchText, setSearchText] = useState("");
+  const [searchBy, setSearchBy] = useState(search);
   const [searchTimeout, setSearchTimeout] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [optionValue, setOptionValue] = useState(null);
+  const [sortBy, setSortBy] = useState(sort);
   const [isSort, setIsSort] = useState(false);
   const [page, setPage] = useState(2);
   const [sortPage, setSortPage] = useState(1);
   const [filterPage, setFilterPage] = useState(1);
-  const [searchPage, setSearchPage] = useState(1);
+  const [searchPage, setSearchPage] = useState(2);
   const [hasMore, setHasMore] = useState(true);
   const [searching, setSearching] = useState(false);
   const [searchTag, setSearchTag] = useState(false);
@@ -38,70 +40,121 @@ const Feed =  ({data,category,reactions,wishies}) => {
       return result;
     });
   const [UserReactions, setUserReactions] = useState(getReactions);
-  const [UserWishList, setUserWishList] = useState(wishing)
+  const [UserWishList, setUserWishList] = useState(wishing);
+  const router = useRouter();
+  const searchParams = useSearchParams();
   // const firstfetch = props.data;
   // console.log(firstfetch)
 
- useEffect(() => {
-  //console.log('status', optionValue,'status page', filterPage);
- }, [optionValue,filterPage])
- 
-  
   useEffect(() => {
-    if (optionValue !== null) {
-      (async () => {
-        //setSortPage(1);
+    // Update the state when the data prop changes
+    setHasMore(true);
+    setPosts(data);
+  }, [data]);
+
+  useEffect(() => {
+    // Update the state when the data prop changes
+    const check = typeof filters
+    if(check !== 'undefined')
+    {
+      const arr = filters.split(",");
+      setIsChecked(arr);
+
+    }
+    else
+    {
+      setIsChecked([]);
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    // Update the state when the data prop changes
+    const check = typeof search
+    if(check === 'undefined')
+    {
+      console.log(check)
+      setSearchBy('undefined')
+
+    }
+    else
+    {
+      setSearchBy(search)
+    }
+  }, [search]);
+
+  useEffect(() => {
+    // Update the state when the data prop changes
+    const check = typeof sort
+    if(check === 'undefined')
+    {
+      setSortBy('undefined')
+
+    }
+    else
+    {
+      setSortBy(sort)
+    }
+  }, [sort]);
+
+  // useEffect(() => {
+    
+  //   if (optionValue !== null) {
+  //     router.push(`/?sort=${optionValue}`)
+      // (async () => {
+      //   //setSortPage(1);
         
-        setSearchedResults([]);
-        setHasMore(true);
-        await fetchSortPosts();
-      })();
+      //   setSearchedResults([]);
+      //   setHasMore(true);
+      //   await fetchSortPosts();
+      // })();
       //setSortPage(1);
      
-    } 
-  }, [optionValue]);
+  //   } 
+  // }, [optionValue]);
 
   useEffect(() => {
     if(isOpen === false && isChecked.length > 0){
-      (async () => {
-        setSearchedResults([]);
-        setHasMore(true);
-        await fetchFilterPosts();
-      })();
+      setHasMore(true);
+      const sort = searchParams.get('sort')
+      const search = searchParams.get('search')
+    //router.push(pathname + '?' + createQueryString('sort', optionText))
+    if(sort == null && search != null)
+    {
+      router.push(`/?search=${search}&include=${isChecked.join(',')}`)
+    }
+    else if(sort != null && search == null)
+    {
+      router.push(`/?sort=${sort}&include=${isChecked.join(',')}`)
+    }
+    else if(sort != null && search != null)
+    {
+      router.push(`/?search=${search}&sort=${sort}&include=${isChecked.join(',')}`)
+    }
+    else
+    {
+      router.push(`/?include=${isChecked.join(',')}`)
+
+    }
+      // (async () => {
+      //   setSearchedResults([]);
+      //   setHasMore(true);
+      //   await fetchFilterPosts();
+      // })();
      
     } 
   }, [isOpen]);
 
-  useEffect(() => {
-    if(searching === true){
-      (async () => {
-        setSearchedResults([]);
-        setHasMore(true);
-        await fetchSearchPosts();
-      })();
+  // useEffect(() => {
+  //   if(searching === true){
+  //     (async () => {
+  //       setSearchedResults([]);
+  //       setHasMore(true);
+  //       await fetchSearchPosts();
+  //     })();
      
-    } 
-  }, [searching]);
+  //   } 
+  // }, [searching]);
   
-  useEffect(() => {
-    if(loginModal == true )
-    {
-
-    }
-  }, [loginModal])
-  
-  
-  useEffect(() => {
-    if(tags)
-    {
-      (async () => {
-        setSearchedResults([]);
-        setHasMore(true);
-        await fetchTagPosts();
-      })();
-
-    }
-  }, [tags])
   // useEffect(() => {
   //   (async () => {
   //     setHasMore(true);
@@ -110,7 +163,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
   // },[]);
 
   const fetchPosts = async () => {
-    const queryParam = `page=${page}&pageSize=10`;
+    const queryParam = `search=${searchBy}&tag=${tag}&sort=${sortBy}&filter=${isChecked.join(',')}&page=${page}&pageSize=10`;
     // Increment the page number for the next data fetch
     setPage((prevSortPage) => prevSortPage + 1)
 
@@ -124,6 +177,7 @@ const Feed =  ({data,category,reactions,wishies}) => {
      if (data.length === 0) {
       setHasMore(false);
     } 
+    
     setIsFilter(false);
     setIsSort(false);
     setSearchTimeout(false);
@@ -132,125 +186,125 @@ const Feed =  ({data,category,reactions,wishies}) => {
 
   }
     
-  const fetchSortPosts =  async() => {
-    // Construct the query parameter using names optionValue,sortPage
-    const queryParam = `status=${optionValue}&filter=${isChecked.join(',')}&search=${searchText}&page=${sortPage}&pageSize=10`;
-    setSortPage((prevSortPage) => prevSortPage + 1)
-    try {
-      const response = await fetch(`/api/prompt/sort?${queryParam}`)
-      const data = await  response.json()
-      //console.log(data);
-      setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
-      setIsSort(true);
-      if(data.length === 0)
-      {
-        setHasMore(false);
-      }
-      setIsFilter(false);
-      setIsSort(true);
-      setSearchTimeout(false);
-      setSearching(false);
-      setSearchTag(false);
+  // const fetchSortPosts =  async() => {
+  //   // Construct the query parameter using names optionValue,sortPage
+  //   const queryParam = `status=${optionValue}&filter=${isChecked.join(',')}&search=${searchText}&page=${sortPage}&pageSize=10`;
+  //   setSortPage((prevSortPage) => prevSortPage + 1)
+  //   try {
+  //     const response = await fetch(`/api/prompt/sort?${queryParam}`)
+  //     const data = await  response.json()
+  //     //console.log(data);
+  //     setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
+  //     setIsSort(true);
+  //     if(data.length === 0)
+  //     {
+  //       setHasMore(false);
+  //     }
+  //     setIsFilter(false);
+  //     setIsSort(true);
+  //     setSearchTimeout(false);
+  //     setSearching(false);
+  //     setSearchTag(false);
 
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  } finally {
-    //final code
-  }
-  }
+  // } catch (error) {
+  //   console.error('Error fetching data:', error);
+  // } finally {
+  //   //final code
+  // }
+  // }
 
 
-  const fetchFilterPosts = async () => {
-    // Construct the query parameter using names
-    const queryParam = `names=${isChecked.join(',')}&sort=${optionValue}&search=${searchText}&page=${filterPage}&pageSize=10`;
-    // Increment the page number for the next data fetch
-    try {
-      setFilterPage((prevSortPage) => prevSortPage + 1)
-      const response = await fetch(`/api/prompt/filter?${queryParam}`);
-      const data = await response.json();
-      //console.log(data)
-      // Update the items state with the new data
-      setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
+  // const fetchFilterPosts = async () => {
+  //   // Construct the query parameter using names
+  //   const queryParam = `names=${isChecked.join(',')}&sort=${optionValue}&search=${searchText}&page=${filterPage}&pageSize=10`;
+  //   // Increment the page number for the next data fetch
+  //   try {
+  //     setFilterPage((prevSortPage) => prevSortPage + 1)
+  //     const response = await fetch(`/api/prompt/filter?${queryParam}`);
+  //     const data = await response.json();
+  //     //console.log(data)
+  //     // Update the items state with the new data
+  //     setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
         
-      // Determine if there's more data to fetch
-      if (data.length === 0) {
-        setHasMore(false);
-        }
+  //     // Determine if there's more data to fetch
+  //     if (data.length === 0) {
+  //       setHasMore(false);
+  //       }
 
-      setIsFilter(true);
-      setIsSort(false);
-      setSearchTimeout(false);
-      setSearching(false);
-      setSearchTag(false)
+  //     setIsFilter(true);
+  //     setIsSort(false);
+  //     setSearchTimeout(false);
+  //     setSearching(false);
+  //     setSearchTag(false)
 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      //final code
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     //final code
+  //   }
+  // }
 
-  const fetchSearchPosts = async () => {
-    // Construct the query parameter using names
+  // const fetchSearchPosts = async () => {
+  //   // Construct the query parameter using names
 
-    const queryParam = `q=${searchText}&sort=${optionValue}&filter=${isChecked.join(',')}&page=${searchPage}&pageSize=10`;
-    try {
-      // Increment the page number for the next data fetch
-      setSearchPage((prevSortPage) => prevSortPage + 1)
-      const response = await fetch(`/api/prompt/search?${queryParam}`);
-      const data = await response.json();
+  //   const queryParam = `q=${searchText}&sort=${optionValue}&filter=${isChecked.join(',')}&page=${searchPage}&pageSize=10`;
+  //   try {
+  //     // Increment the page number for the next data fetch
+  //     setSearchPage((prevSortPage) => prevSortPage + 1)
+  //     const response = await fetch(`/api/prompt/search?${queryParam}`);
+  //     const data = await response.json();
 
-      // Update the items state with the new data
-      setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
+  //     // Update the items state with the new data
+  //     setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
         
-      // Determine if there's more data to fetch
-      if (data.length === 0) {
-        setHasMore(false);
-        setSearching(false);
-      }
+  //     // Determine if there's more data to fetch
+  //     if (data.length === 0) {
+  //       setHasMore(false);
+  //       setSearching(false);
+  //     }
 
-      setIsFilter(false);
-      setIsSort(false);
-      setSearchTimeout(true);
-      setSearchTag(false)
+  //     setIsFilter(false);
+  //     setIsSort(false);
+  //     setSearchTimeout(true);
+  //     setSearchTag(false)
 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      //final code
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     //final code
+  //   }
+  // }
 
-  const fetchTagPosts = async () => {
-    // Construct the query parameter using names
-    const queryParam = `q=${tags}&page=${pageTag}&pageSize=10`;
-    try {
-      // Increment the page number for the next data fetch
-      setPageTag((prevSortPage) => prevSortPage + 1)
-      const response = await fetch(`/api/prompt/tag?${queryParam}`);
-      const data = await response.json();
+  // const fetchTagPosts = async () => {
+  //   // Construct the query parameter using names
+  //   const queryParam = `q=${tags}&page=${pageTag}&pageSize=10`;
+  //   try {
+  //     // Increment the page number for the next data fetch
+  //     setPageTag((prevSortPage) => prevSortPage + 1)
+  //     const response = await fetch(`/api/prompt/tag?${queryParam}`);
+  //     const data = await response.json();
 
-      // Update the items state with the new data
-      setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
+  //     // Update the items state with the new data
+  //     setSearchedResults((prevPrompts) => [...prevPrompts, ...data]);
         
-      // Determine if there's more data to fetch
-      if (data.length === 0) {
-        setHasMore(false);
-        setTags("")
-      }
+  //     // Determine if there's more data to fetch
+  //     if (data.length === 0) {
+  //       setHasMore(false);
+  //       setTags("")
+  //     }
 
-      setIsFilter(false);
-      setIsSort(false);
-      setSearchTimeout(false);
-      setSearching(false);
-      setSearchTag(true)
+  //     setIsFilter(false);
+  //     setIsSort(false);
+  //     setSearchTimeout(false);
+  //     setSearching(false);
+  //     setSearchTag(true)
 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      //final code
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     //final code
+  //   }
+  // }
 
   // const filterPrompts = (searchtext) => {
   //   const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
@@ -302,11 +356,34 @@ const Feed =  ({data,category,reactions,wishies}) => {
         setSearchPage={setSearchPage}
         setSearching={setSearching}
         category={category}
+        setHasMore={setHasMore}
         />
             
       </form>
       {/* All Prompts */}
-      {isSort &&  (
+      {posts.length == 0 || posts == 'undefined' ? (
+        <div className='h-[300px] flex items-center justify-center '>
+          <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">Record Not Found</p>
+                <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Sorry, we can't find Result on your search. You'll find lots to explore on other filters. </p>
+            </div>   
+          </div>
+        </div>
+      ) : 
+      <PromptCardList 
+        data={posts} 
+        hasMore = {hasMore}
+        fetchPosts={fetchPosts}
+        setTags={setTags}
+        setSearchTag={setSearchTag}
+        setPageTag={setPageTag}
+        reactions={UserReactions}
+        WishList = {UserWishList}
+        setLoginModal={setLoginModal}
+      />
+    }
+      {/* {isSort &&  (
         <PromptCardList
           data={searchedResults}
           hasMore = {hasMore}
@@ -318,8 +395,8 @@ const Feed =  ({data,category,reactions,wishies}) => {
           WishList = {UserWishList}
           setLoginModal={setLoginModal}
         />
-      )}
-      {isFilter && (
+      )} */}
+      {/* {isFilter && (
           <PromptCardList
             data={searchedResults}
             hasMore = {hasMore}
@@ -331,8 +408,8 @@ const Feed =  ({data,category,reactions,wishies}) => {
             WishList = {UserWishList}
             setLoginModal={setLoginModal}
           />
-      )}
-      {searchTimeout && (
+      )} */}
+      {/* {searchTimeout && (
             <PromptCardList
               data={searchedResults}
               hasMore = {hasMore}
@@ -344,8 +421,8 @@ const Feed =  ({data,category,reactions,wishies}) => {
               WishList = {UserWishList}
               setLoginModal={setLoginModal}
             />
-      )}
-      {searchTag && (
+      )} */}
+      {/* {searchTag && (
             <PromptCardList
               data={searchedResults}
               setPageTag={setPageTag}
@@ -357,8 +434,8 @@ const Feed =  ({data,category,reactions,wishies}) => {
               WishList = {UserWishList}
               setLoginModal={setLoginModal}
             />
-      )}
-      {!isSort && !isFilter && !searchTimeout && !searchTag && (
+      )} */}
+      {/* {!isSort && !isFilter && !searchTimeout && !searchTag && (
         <PromptCardList 
         data={posts} 
         hasMore = {hasMore}
@@ -371,7 +448,9 @@ const Feed =  ({data,category,reactions,wishies}) => {
         setLoginModal={setLoginModal}
       />
       
-      )}
+      )} */}
+
+      
       {loginModal && (
         <LoginModal setLoginModal={setLoginModal} />
       )}

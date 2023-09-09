@@ -238,6 +238,9 @@ body{
 .head_text {
   @apply mt-24 text-3xl md:text-5xl font-extrabold leading-[1.15] text-[#2B3A55] dark:text-white sm:text-5xl;
 }
+.category_text {
+  @apply text-3xl md:text-3xl font-extrabold leading-[1.15] text-[#2B3A55] dark:text-white sm:text-3xl;
+}
 .logo_color {
   @apply bg-[#FF6F3C]
 }
@@ -279,6 +282,9 @@ body{
 /* Feed Component */
 .feed {
   @apply mt-4 mx-auto w-full flex justify-center items-center flex-col gap-2;
+}
+.categoryfeed {
+  @apply mt-2 mx-auto w-full flex justify-center items-center flex-col gap-2;
 }
 /* Chat Component */
 .chat_textarea {

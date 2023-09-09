@@ -8,8 +8,9 @@ import AIWishlist from "@models/aiwishlist";
 
 export const revalidate = 0
 
-const fetchFirstPosts = async () => {
-  const queryParam = `page=1&pageSize=10`;
+const fetchFirstPosts = async (search,sort,include,tag) => {
+  const queryParam = `search=${search}&tag=${tag}&sort=${sort}&filter=${include}&page=1&pageSize=10` ;
+  console.log(queryParam)
 
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool?${queryParam}`);
     const data = await response.json();
@@ -55,9 +56,14 @@ const fetchAllReaction = async () =>{
     return error;
 }
 }
-const AITool =  async() => {
+const AITool =  async({searchParams}) => {
+  const param = searchParams;
+  const search = param.search;
+  const sort = param.sort;
+  const include = param.include;
+  const tag = param.tag;
 
-  const data = await fetchFirstPosts();
+  const data = await fetchFirstPosts(search,sort,include,tag);
   const category = await fetchCategory();
   const usrRect = await fetchAllReaction();
   const wishlist = await fetchWishList();
@@ -71,10 +77,10 @@ const AITool =  async() => {
         <span className="orange_gradient">AI-Driven Tools</span>
     </h1>
     <p className="desc text-center">
-    Explore and Use the most Extensive Collection of  AI Tools
+      Explore and Use the most Extensive Collection of  AI Tools
     </p>
 
-    <Tool data={data} category={category} reactions={usrRect} wishies={wishlist} />
+    <Tool data={data} category={category} reactions={usrRect} tag={tag} wishies={wishlist}search={search} sort={sort} filters={include} />
 </section>
   )
 }

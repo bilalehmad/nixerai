@@ -8,7 +8,7 @@ import mql from "@microlink/mql";
 
 const cheerio = require('cheerio');
 
-const ToolCard = ({post,key, handleEdit,reactions, handleDelete, setPageTag, setTags,setSearchTag, onModalStateChange,onShareModalStateChane,wishing}) => {
+const ToolCard = ({post,key, handleEdit,reactions,setLoginModal, handleDelete, setPageTag, setTags,setSearchTag, onModalStateChange,onShareModalStateChane,wishing}) => {
   const {data: session} = useSession();
   const [thumbnail, setThumbnail] = useState('');
   const [isNativeShare, setNativeShare] = useState(false);
@@ -22,11 +22,7 @@ const ToolCard = ({post,key, handleEdit,reactions, handleDelete, setPageTag, set
   const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}.png`);
 
 
-  // const router = useRouter();
-  // const promptView = () => {
-  //   router.push(`/view-prompt?id=${post._id}`)
-  // }
-
+  const router = useRouter();
  
 // useEffect(() => {
 //   const tumbnailFun = async (url) => {
@@ -100,7 +96,7 @@ const likeHandle = () => {
   }
   else
   {
-    alert("Login Please")
+    setLoginModal(true)
   }
 }
 
@@ -125,7 +121,7 @@ const dislikeHandle = () => {
   }
   else
   {
-    alert("Login Please")
+    setLoginModal(true)
   }
 }
 const fetchReaction = async (react) => {
@@ -198,7 +194,7 @@ const handleWishlist = async () => {
     }
     else
     {
-      alert("Login Please")
+      setLoginModal(true)
     }
 }
 
@@ -207,7 +203,7 @@ const handleTagClick = (tagName) => {
   {
     setTags(tagName);
     setPageTag(1);
-    setSearchTag(true);
+    router.push(`/ai-tool?tag=${tagName}`)
 
   }
 }
@@ -235,6 +231,20 @@ function isDateBetween(targetDate, startDate, endDate) {
 
   const shareModal = () => {
     onShareModalStateChane(post.url)
+  }
+
+  
+  const promptView = () => {
+    if(session?.user)
+    {
+      const title = post.title.replace(/ /g, '-');
+      router.push(`/ai-tool/${title}`)
+      
+    }
+    else
+    {
+      setLoginModal(true)
+    }
   }
   useEffect(() => {
     if (window.navigator.share) {
@@ -341,7 +351,7 @@ function isDateBetween(targetDate, startDate, endDate) {
                                   <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="/assets/images/logo.png" alt={`${post.title}-NixerAI`} />
                                 )} */}
                             <div className="w-full flex flex-col h-[120px] md:h-[130px] md:gap-1 pl-3 overflow-hidden css-0">
-                                <Link href={post.url} target="_blank" className=" cursor-pointer">
+                                <div onClick={promptView} className=" cursor-pointer">
                                     <div className="w-full inline-flex justify-between ">
                                         <p className="text-[13px] md:text-lg mt-1 font-semibold tracking-wide line-clamp-1 break-words css-0 w-[200px]">{post.title}</p>
                                         {badge && (
@@ -358,7 +368,7 @@ function isDateBetween(targetDate, startDate, endDate) {
                                         <p className="w-full text-[10px] md:text-[12px] text-gray-500 dark:text-gray-400 2xl:text-md sm:mb-2 line-clamp-2 md:line-clamp-3 font-medium md:break-words css-0">{post.description}</p>
                                     </div>
                                 
-                                </Link>
+                                </div>
                                 <div className="w-full flex flex-col md:flex-row md:inline-flex justify-end md:justify-between text-sm h-[40px]  md:h-[80px] ">
                                     <div className="inline-flex w-full items-end justify-start p-0.5 md:mr-2 overflow-hidden text-sm font-medium transition-all rounded-sm  ease-in duration-75  ">
                                         {/* <span onClick={openModal} target="_blank" className="relative px-1 py-0.5 cursor-pointer transition-all ease-in duration-75 bg-none  rounded-md group-hover:bg-opacity-0">
@@ -373,7 +383,7 @@ function isDateBetween(targetDate, startDate, endDate) {
                                             <svg xmlns="http://www.w3.org/2000/svg"  width="14" height="14" viewBox="0 0 24 24" fill="none" className="w-3 h-3 md:w-3.5 md:h-3.5 stroke-gray-600 dark:stroke-gray-400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>                                            
                                         </span>}
                                         <Link href={post.url} target="_blank" className="relative px-0.5 md:px-1 py-0.5 transition-all ease-in duration-75 bg-none text-white  rounded-md group-hover:bg-opacity-0">
-                                        <   svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" className="w-3 h-3 md:w-3.5 md:h-3.5 stroke-gray-600 dark:stroke-gray-400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><g fill="none" fillRule="evenodd"><path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/></g></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" className="w-3 h-3 md:w-3.5 md:h-3.5 stroke-gray-600 dark:stroke-gray-400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><g fill="none" fillRule="evenodd"><path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/></g></svg>
                                         </Link>
                                         <span 
                                         onClick={likeHandle}

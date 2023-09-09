@@ -1,17 +1,51 @@
-import { useEffect, useState } from "react";
+'use client';
+import { useCallback, useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import Filter from "./Filter";
-const SearchFeed = ({category,setSearching, setSearchPage, setSortPage, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
- 
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+
+
+const SearchFeed = ({category,setSearching, setSearchPage, setSortPage,setHasMore, setSearchText,isChecked,setIsChecked,isOpen,setIsOpen,setFilterPage,optionValue, setOptionValue}) => {
+  const [text, setText] = useState("")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  
   const handleSearchInputChange =(e) => {
     e.preventDefault();
     setSearchText(e.target.value);
+    setText(e.target.value)
   }
-
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchPage(1);
     setSearching(true);
+    
+    setHasMore(true);
+    const search = searchParams.get('sort')
+    const checkFilter = searchParams.get('include')  == null ? false : searchParams.get('include').split(',')    
+    const checkValidFilter = checkFilter.length > 0 ? checkFilter.includes('undefined') || checkFilter.includes('') ? false : true : false;
+    console.log(searchParams.get("include"),checkValidFilter,search )
+    //router.push(pathname + '?' + createQueryString('sort', optionText))
+    if(checkValidFilter == true && search == null)
+    {
+      const filter = searchParams.get("include")|| [];
+      router.push(`/?search=${text}&include=${filter}`)
+    }
+    else if(search != null && checkValidFilter == false)
+    {
+      router.push(`/?search=${text}&sort=${search}`)
+    }
+    else if(checkValidFilter == true && search != null)
+    {
+      const filter = searchParams.get("include")|| [];
+      router.push(`/?search=${text}&sort=${search}&include=${filter}`)
+    }
+    else
+    {
+      router.push(`/?search=${text}`)
+
+    }
   };
   return (
     
@@ -51,6 +85,7 @@ const SearchFeed = ({category,setSearching, setSearchPage, setSortPage, setSearc
         optionValue = {optionValue}
         setOptionValue = {setOptionValue}
         setSortPage = {setSortPage}
+        setHasMore={setHasMore}
         />
     </div>
   );

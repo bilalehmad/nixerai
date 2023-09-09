@@ -1,4 +1,7 @@
-import {useEffect, useState} from 'react'
+'use client';
+
+import {useCallback, useEffect, useState} from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
 
 const options = [
@@ -29,22 +32,60 @@ const options = [
     //   },
   ];
 
-const Dropdown = ({optionValue, setOptionValue,setSortPage}) => {
+const Dropdown = ({optionValue, setOptionValue,setSortPage,setHasMore}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [optionImage, setOptionImage] = useState(null)
-    
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
 
     const handleButton = (e) => {
         e.preventDefault();
         setIsOpen((prev) => !prev)
     }
 
+    const createQueryString = useCallback((name, value) => {
+          const params = new URLSearchParams(searchParams)
+          params.set(name, value)
+     
+          return params.toString()
+        },
+        [searchParams]
+      )
+      
     const handleOptionSelect = (optionText,image) => {
         setOptionValue(optionText);
         setSortPage(1);
         setOptionImage(image);
         //alert(`Selected option: ${optionText}`);
         setIsOpen((prev) => !prev)
+        setHasMore(true)
+        //router.push(pathname + '?' + createQueryString('sort', optionText))
+        //router.push(`/?sort=${optionText}`)
+        const search = searchParams.get('search')
+        const checkFilter = searchParams.get('include')  == null ? false : searchParams.get('include').split(',')    
+        const checkValidFilter = checkFilter.length > 0 ? checkFilter.includes('undefined') || checkFilter.includes('') ? false : true : false;
+        console.log(searchParams.get("include"),checkValidFilter,search )
+        //router.push(pathname + '?' + createQueryString('sort', optionText))
+        if(checkValidFilter == true && search == null)
+        {
+          const filter = searchParams.get("include")|| [];
+          router.push(`/?sort=${optionText}&include=${filter}`)
+        }
+        else if(search != null && checkValidFilter == false)
+        {
+            router.push(`/?search=${search}&sort=${optionText}`)
+        }
+        else if(checkValidFilter == true && search != null)
+        {
+          const filter = searchParams.get("include")|| [];
+          router.push(`/?search=${search}&sort=${optionText}&include=${filter}`)
+        }
+        else
+        {
+          router.push(`/?sort=${optionText}`)
+    
+        }
       };
 
   return (

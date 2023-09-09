@@ -32,7 +32,7 @@ const Pakages = ({data}) => {
                         </div>
                        
                         {value.title !== "Free" && (
-                        <button onClick={() => setChoosePlan(value._id)} className={`w-full px-4 py-2 mt-10 ${value.highlight === "TRUE" ? ("text-gray-700 bg-gray-50 dark:text-gray-700 dark:bg-gray-50 ") : ("text-white bg-gray-800")}  dark:bg-gray-700 focus:outline-none  font-bold rounded-md text-sm md:px-10 md:py-2.5 text-center items-center mr-2 `}>
+                        <button onClick={() => setChoosePlan(value._id)} className={`w-full px-4 py-2 mt-10 ${value.highlight === "TRUE" ? ("text-gray-700 bg-gray-50 dark:text-gray-50 dark:bg-gray-50 ") : ("text-white bg-gray-800")}  dark:bg-gray-700 focus:outline-none  font-bold rounded-md text-sm md:px-10 md:py-2.5 text-center items-center mr-2 `}>
                             Subscribe
                         </button>
 

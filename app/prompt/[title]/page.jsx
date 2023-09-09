@@ -9,14 +9,21 @@ import Prompt from "@models/prompt";
 
 export const revalidate = 0
 const fetchId = async (name) => {
-  const prompt = await Prompt.find({ title: name });
+  try {
+    const prompt = await Prompt.find({ title: name });
 
-  if (prompt.length === 0) {
+    if (prompt.length === 0) {
+      redirect(`/`)
+      console.log("No prompts found with the given title.");
+    } else {
+      return prompt[0]._id;
+    }
+    
+  } catch (error) {
     redirect(`/`)
-    console.log("No prompts found with the given title.");
-  } else {
-    return prompt[0]._id;
+    console.log(`Error ${error}`)
   }
+  
 }  
 
 const fetchPosts = async (promptId) => {

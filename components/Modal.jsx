@@ -1,6 +1,7 @@
 "use client";
+import Link from 'next/link';
 import {useState,useEffect} from 'react'
-
+import { usePathname } from 'next/navigation';
 import { RiCloseLine } from "react-icons/ri";
 
 const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => {
@@ -9,6 +10,7 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
     const [searchedResults, setSearchedResults] = useState([]);
     const [filtered, setFiltered] = useState([])
     const [posts, setPosts] = useState(data);
+    const pathName = usePathname();
     // const posts = data;
     const groupedCategory = posts.reduce((groups, category) => {
         const letter = category.name[0].toUpperCase();
@@ -38,6 +40,7 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
         {
             setFilterPage(1);
             setIsOpen(false);
+            //router.push(`/?include=${optionText}`)
         }
     }
 
@@ -61,6 +64,12 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
     return posts.filter(
       (item) => regex.test(item.name))
   };
+    useEffect(() => {
+        if(!pathName.startsWith("/ai-tool"))
+        {
+
+        }
+    }, [])
 
   const handleSearchChange = (e) => {
     clearTimeout(searchTimeout);
@@ -71,42 +80,44 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
   };
   return (
     <div className="modal z-50" >
-      <div className="modal-content w-[780px]  rounded-none  border dark:border-gray-400">
+      <div className="modal-content w-[880px]  rounded-none  border dark:border-gray-400">
             <div className='modalHeader flex justify-between px-5 dark:bg-[#1A202c] '>
                 <h5 className='heading dark:text-gray-200'>Filter</h5>
                 
                 <RiCloseLine className='mt-4 cursor-pointer' onClick={() => setIsOpen(false)} />
             </div>
             
-            <div className='modalContent h-80 overflow-auto bg-white dark:bg-[#1A202c] border dark:border-gray-400 dark:text-gray-200 ' >
+            <div className='modalContent h-[450px] overflow-auto bg-white dark:bg-[#1A202c] border dark:border-gray-400 dark:text-gray-200 ' >
                 {setIsOpen && (
                     <>
-                    <div className="w-full flex justify-center -order-1 md:order-none mb-2 sm:mb-0">
-                        <label htmlFor="default-search" className=" text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                        <div className="relative w-1/2 border border-gray-200  dark:border-gray-400 rounded-md">
-                            <input type="search"
-                            onKeyUp={handleSearchChange}
-                            className="block w-full p-1.5 pl-10 text-sm text-gray-900 rounded-md focus:outline-none  bg-white dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white " placeholder="Search From Them..." required />
-                            
+                    {!pathName.startsWith("/ai-tool") ? (
+                        <div className="w-full flex justify-center -order-1 md:order-none mb-2 sm:mb-0">
+                            <Link href="/category" className='hover:underline'>All Categories</Link>
                         </div>
-                    </div> 
+                    ) : (
+                            <div className="w-full flex justify-center -order-1 md:order-none mb-2 sm:mb-0">
+                                <Link href="/ai-tool/category" className='hover:underline'>All Categories</Link>
+                            </div>
+                    )}  
                     <div className='grid grid-cols-2 justify-center mt-4'> 
                                                         
-                        {filtered && searchtext && (data.map((value) => (
-                            
-                            <div key={value._id} className='flex flex-wrap w-full px-5 py-1 justify-start'>  
-                                <input 
-                                type='checkbox' 
-                                value={value.name}
-                                onChange={handleCheckboxChange}
-                                checked={isChecked.includes(value.name)}
-                                />
-                                <h3 className='px-1'>{value.name}</h3>
-                                    {/* display other user info here */}
-                            </div>
-                        )))}
+                        {/*filtered && searchtext && (data.map((value) => 
+                            (
+                                
+                                <div key={value._id} className='flex flex-wrap w-full px-5 py-1 justify-start'>  
+                                    <input 
+                                    type='checkbox' 
+                                    value={value.name}
+                                    onChange={handleCheckboxChange}
+                                    checked={isChecked.includes(value.name)}
+                                    />
+                                    <h3 className='px-1'>{value.name}</h3>
+                                </div>
+                            )
+                            ))
+                        */}
                         
-                        {!searchtext && (data.map((value) => (
+                        {data.map((value) => (
                                 <div key={value._id} className='inline-flex w-full px-5 py-1 justify-start'>
                                     
                                 <input 
@@ -118,7 +129,7 @@ const Modal = ({ setIsOpen , data , setIsChecked, setFilterPage, isChecked}) => 
                                 <h3 className='px-1'>{value.name}</h3>
                                     {/* display other user info here */}
                                     </div>
-                        )))}
+                        ))}
                     </div>  
                     </>
                 )}

@@ -2,7 +2,7 @@
 import { useState,useEffect } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter ,asPath } from "next/navigation";
 
 const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setPageTag, setTags,setSearchTag,wishing}) => {
   const {data: session, status } = useSession();
@@ -183,7 +183,6 @@ function isDateBetween(targetDate, startDate, endDate) {
   return targetDate >= startDate && targetDate <= endDate;
 }
   useEffect(() => {
-
     setPostTags(() => {
       const res = post.tag.trim().split(" ")
       return res;
@@ -270,11 +269,11 @@ function isDateBetween(targetDate, startDate, endDate) {
   }, [])
   
   const handleTagClick = (tagName) => {
-    if(pathName !== '/profile')
+    if(pathName !== '/profile' && !pathName.startsWith("/category"))
     {
       setTags(tagName);
       setPageTag(1);
-      setSearchTag(true);
+      router.push(`/?tag=${tagName}`)
     }
   }
   return (

@@ -10,7 +10,7 @@ const fetchFirstPosts = async () => {
 const UserList = async() => {
     const data =  await fetchFirstPosts();
   return (
-    <div className='h-screen p-4 sm:ml-64 w-full'>
+    <div className='p-4 sm:ml-64 w-full'>
         <div className=' mt-20'>
            <UserDetail data={data} />
         </div>
