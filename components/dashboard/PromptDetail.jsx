@@ -4,8 +4,9 @@ import {useState,useEffect} from 'react'
 import PromptTable from './tables/PromptTable';
 import PromptPagination from './pagination/PromptPagination';
 import Modal from './modal/Modal';
+import { useSession } from 'next-auth/react';
 
-const PromptDetail = ({data,total}) => {
+const PromptDetail = ({data,total,category}) => {
   const [post, setPost] = useState(data);
   const [currentPage, setCurrentPage] = useState(1);
  const [fromPage, setFromPage] = useState(1);
@@ -14,21 +15,25 @@ const PromptDetail = ({data,total}) => {
  const [modal, setModal] = useState(false);
  const [promptId, setPromptId] = useState(null);
  const [submitting, setsubmitting] = useState(false);
+ const [action, setAction] = useState("");
+ const [validation, setValidation] = useState(false);
+ const [formerror, setFormerror] = useState("");
  const [editPost, setEditPost] = useState({
   title: '',
   teasor: '',
   sample: '',
   accessLevel: '',
   status: '',
-  // prompt4: '',
+  category: '',
   // prompt5: '',
   tag : ''
 })
 
+const {data : session} = useSession();
   useEffect(() => {
     const pageSize = 10;
     const queryParam = `page=${currentPage}&pageSize=${pageSize}`;
-    fetch(`/api/prompt?${queryParam}`)
+    fetch(`/api/prompt/admin?${queryParam}`)
         .then(response => response.json())
         .then(data => {
             setPost(data);
@@ -47,6 +52,7 @@ const PromptDetail = ({data,total}) => {
 }, [currentPage]);
 useEffect(() => {
   // console.log(postId)
+  const checkId = isString(promptId);
   const getPromptDetails = async () => {
     const response = await fetch(`/api/prompt/${promptId}`);
     const data = await response.json();
@@ -62,65 +68,195 @@ useEffect(() => {
     })
 
   }
-  if(promptId) getPromptDetails();
+  if(checkId) getPromptDetails();
 }, [promptId])
-
-const updatePrompt = async (e) => {
-  e.preventDefault();
-  setsubmitting(true);
-
-  if(!promptId) return alert('Prompt ID Not Found');
-  try {
-      const respose = await fetch(`/api/prompt/${promptId}`,{
-          method :'PATCH',
-          body : JSON.stringify({
-              title: editPost.title,
-              teasor: editPost.teasor,
-              sample: editPost.sample,
-              accessLevel: editPost.accessLevel,
-              status: editPost.status,
-              // prompt4: editPost.prompt4,
-              // prompt5: editPost.prompt5,
-              tag : editPost.tag
-          })
-      })
-
-      if (respose.ok) {
-          setModal((prev) => !prev);
-
-          const updatePrompt = (id, newValues) => {
-            setPost(prev => 
-              prev.map(prompt => 
-                prompt._id === id ? { ...prompt, ...newValues } : prompt
-              )
-            );
-          }
-          
-          // Usage
-          updatePrompt(promptId, {
-            title: editPost.title,
-            teasor: editPost.teasor,
-            sample: editPost.sample,
-            accessLevel: editPost.accessLevel,
-            status: editPost.status,
-            tag : editPost.tag
-          });
-
-      }
-  } catch (error) {
-      console.log(error)
-  }
-  finally{
-      setsubmitting(false)
+function isString(data) {
+  if (typeof data === 'string') {
+    return true;
+  } else if (typeof data === 'object') {
+    return false;
   }
 }
-const onPageChange = () => {
+const updatePrompt = async (e) => {
+  e.preventDefault();
+  setValidation(false)
+  setFormerror("")
+  const checkId = isString(promptId);
+  const date = new Date();
+  if(editPost.title == '')
+  {
+    setValidation(true)
+    setFormerror("Please Write down the Title")
+  }
+  else if(editPost.category == '' || editPost.category == 'undefined')
+  {
+    setValidation(true)
+    setFormerror("Please Select the Category Dropdown")
+  }
+  else if(editPost.teasor == '')
+  {
+    
+    setValidation(true)
+    setFormerror("Please Write down the Teasor")
+
+  }
+  else if(editPost.sample == '')
+  {
+    
+    setValidation(true)
+    setFormerror("Please Write down the Sample")
+
+  }
+  else if(editPost.status == '')
+  {
+    
+    setValidation(true)
+    setFormerror("Please Select the Status Dropdown")
+
+  }
+  else if(editPost.accessLevel == '')
+  {
+    setValidation(true)
+    setFormerror("Please Select the AccessLevel Dropdown")
+  }
+  else if(editPost.tag == '')
+  {
+    
+    setValidation(true)
+    setFormerror("Please Write down the Tag")
+
+  }
+  else
+  {
+    
+    setsubmitting(true);
+    setValidation(false)
+    setFormerror("")
+    if(!checkId)
+    {
+      try {
+        const respose = await fetch(`/api/prompt/new`,{
+            method :'POST',
+            body : JSON.stringify({
+                userId: session?.user.id,
+                title: editPost.title,
+                teasor: editPost.teasor,
+                sample: editPost.sample,
+                status: editPost.status,
+                image: "image",
+                likes: 1,
+                views: 1,
+                wishlisted: 1,
+                tag : editPost.tag,
+                category: editPost.category,
+                timestamp: date,
+                price: 1,
+                accessLevel: editPost.accessLevel,
+            })
+        })
+
+        if (respose.ok) {
+            setModal((prev) => !prev);
+
+            // const updatePrompt = (id, newValues) => {
+            //   setPost(prev => 
+            //     prev.map(prompt => 
+            //       prompt._id === id ? { ...prompt, ...newValues } : prompt
+            //     )
+            //   );
+            // }
+            
+            // // Usage
+            // updatePrompt(promptId, {
+            //   title: editPost.title,
+            //   teasor: editPost.teasor,
+            //   sample: editPost.sample,
+            //   accessLevel: editPost.accessLevel,
+            //   status: editPost.status,
+            //   tag : editPost.tag
+            // });
+
+        }
+    } catch (error) {
+        console.log(error)
+    }
+    finally{
+        setsubmitting(false)
+    }
+    }
+    else
+    {
+      try {
+          const respose = await fetch(`/api/prompt/${promptId}`,{
+              method :'PATCH',
+              body : JSON.stringify({
+                  title: editPost.title,
+                  teasor: editPost.teasor,
+                  sample: editPost.sample,
+                  accessLevel: editPost.accessLevel,
+                  status: editPost.status,
+                  // prompt4: editPost.prompt4,
+                  // prompt5: editPost.prompt5,
+                  tag : editPost.tag
+              })
+          })
+
+          if (respose.ok) {
+              setModal((prev) => !prev);
+
+              const updatePrompt = (id, newValues) => {
+                setPost(prev => 
+                  prev.map(prompt => 
+                    prompt._id === id ? { ...prompt, ...newValues } : prompt
+                  )
+                );
+              }
+              
+              // Usage
+              updatePrompt(promptId, {
+                title: editPost.title,
+                teasor: editPost.teasor,
+                sample: editPost.sample,
+                accessLevel: editPost.accessLevel,
+                status: editPost.status,
+                tag : editPost.tag
+              });
+
+          }
+      } catch (error) {
+          console.log(error)
+      }
+      finally{
+          setsubmitting(false)
+      }
+    }
+  }
+}
+const onPageChange = (id) => {
+    setPromptId(id)
+    const checkId = isString(id);
+    checkId ? setAction("Edit") : setAction("Add");
+    
+    setValidation(false)
+    setFormerror("")
+    setEditPost({
+      title: "",
+      teasor: "",
+      sample: "",
+      accessLevel: "",
+      status: "",
+      category:"",
+      // prompt4: data.prompt4,
+      // prompt5: data.prompt5,
+      tag: ""
+  })
+
     setModal((prev) => !prev)
   };
   return (
     <div>
       <div className='py-2'>
-        <button type="button" className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-500 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-700 ">
+        <button type="button" onClick={onPageChange} className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-500 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-700 ">
         <svg viewBox="0 0 448 512"  className="w-4 h-4 fill-white text-white mr-1" xmlns="http://www.w3.org/2000/svg"><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg>
           Add Prompt
         </button>
@@ -159,7 +295,6 @@ const onPageChange = () => {
           key={post._id}
           post={post}
           onPageChange={onPageChange}
-          setPromptId = {setPromptId}
         />
         ))}
         </tbody>
@@ -177,12 +312,15 @@ const onPageChange = () => {
    </nav>
     {modal && 
         <Modal 
-        type = "Edit"
+        type = {action}
         handleSubmit={updatePrompt}
         submitting={submitting}
         post={editPost}
         setModal={onPageChange}
         setPost={setEditPost}
+        validation = {validation}
+        formerror = {formerror}
+        category={category}
           />
     }
   </div>

@@ -1,6 +1,9 @@
 import React from 'react'
 
-const PackageTable = ({post}) => {
+const PackageTable = ({post,onPageChange}) => {
+    const handleEdit = () => {
+        onPageChange(post._id);
+    }
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     {/* <td className="w-4 p-4">
@@ -19,7 +22,7 @@ const PackageTable = ({post}) => {
     {post.amount}
     </td>
     <td className="px-6 py-4">
-        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+        <button  onClick={handleEdit}  className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
     </td>
 </tr>
   )

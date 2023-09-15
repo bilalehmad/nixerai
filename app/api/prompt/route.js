@@ -7,12 +7,14 @@ export const GET = async (request) => {
     const url = new URL(request.url);
     const query = url.searchParams;
     const searchParams = new URLSearchParams(query);
-    const sort = searchParams.get('sort') || "";
-    const search = searchParams.get('search') || "";
-    const tag = searchParams.get('tag') || "";
+    const sort = searchParams.get('sort') || "undefined";
+    const search = searchParams.get('search') || "undefined";
+    const tag = searchParams.get('tag') || "undefined";
+
     const checkFilter = searchParams.get("filter").split(',') || [];
-    const checkValidFilter = checkFilter.includes('undefined') || checkFilter.includes('') ? false : true;
-    console.log(searchParams.get("filter").split(','),checkValidFilter,sort,search ,tag )
+    
+    const checkValidFilter = checkFilter.includes('undefined') || checkFilter.includes('') ? false : true ;
+    
 
     // const filter = searchParams.get("include").includes('undefined') ? undefined : searchParams.get("include").split(',');
     //console.log(filter)
@@ -148,6 +150,8 @@ export const GET = async (request) => {
         }
         else
         {
+            
+            console.log("last")
             const prompts = await Prompt.find({})
             .skip((page - 1) * pageSize)
             .limit(pageSize);

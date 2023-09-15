@@ -1,9 +1,8 @@
 import React from 'react'
 
-const PromptTable = ({key,post,onPageChange,setPromptId}) => {
+const PromptTable = ({key,post,onPageChange}) => {
     const handleEdit = () => {
-        onPageChange();
-        setPromptId(post._id)
+        onPageChange(post._id);
     }
   return (
     

@@ -48,7 +48,7 @@ const AddAITool = () => {
         e.preventDefault();
 
         setsubmitting(true);
-        
+        const date = new Date();
         try {
             const respose = await fetch('/api/tool/new',{
                 method :'POST',
@@ -61,7 +61,8 @@ const AddAITool = () => {
                     description: post.description,
                     image: 'image',
                     userId: session?.user.id,
-                    tag : post.tag
+                    tag : post.tag,
+                    timestamp: date
                 })
             })
 

@@ -6,9 +6,11 @@ import path from 'path';
 import fs from "fs/promises";
 //import { writeFile } from "fs";
 
+//PATCH (update)
+export const PATCH = async (req) => {
 
-export const POST = async (req) => {
     const data = await req.formData();
+    const id = data.get('id');
     const image = data.get('image');
     const title = data.get('title');
     const url = data.get('url');
@@ -39,33 +41,29 @@ export const POST = async (req) => {
     await fs.writeFile(pathCrt, buffer);
     //console.log(`open ${pathCrt} to see uploaded file`)
     
-    
+    //const { title,url, description,verified,status,tag} = await request.json();
     try {
-
         await connectToDB();
-
-        console.log("Post Tool")
+        const existingTool = await AITool.findById(id);
+        if(!existingTool) return new Response("Tools not found", {status : 404});
+        existingTool.title = title;
+        existingTool.url = url;
+        existingTool.description = description;
+        existingTool.image = name;
+        existingTool.confirmation = confirmation;
+        existingTool.status = status;
+        existingTool.tag = tag;
+        existingTool.timestamp = timestamp;
+        // existingTool.output2 = output2;
+        //existingTool.type = type;
+        // existingTool.image = image;
+        // existingTool.likes = likes;
+        // existingTool.views = views;
+        // existingTool.wishlisted = wishlisted;
         
-        const newAITool = new AITool({
-            creator : userId,
-            title,
-            url,
-            youtubeUrl,
-            description,
-            image : name,
-            status,
-            confirmation,
-            likes,
-            dislikes,
-            views,
-            wishlisted,
-            tag,
-            timestamp
-        })
-
-        await newAITool.save();
-        return new Response(JSON.stringify(newAITool), {status : 201})
+        await existingTool.save();
+        return new Response(JSON.stringify(existingTool), { status: 200 })
     } catch (error) {
-        return new Response("Failed to create a new AI Tool!", {status : 500})
+        return new Response("Failed to Update the Tools", { status: 500 })
     }
 }

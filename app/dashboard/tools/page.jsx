@@ -13,6 +13,7 @@ const fetchTotal = async () => {
     return error
 }
 }
+
 const fetchFirstPosts = async () => {
     const queryParam = `page=1&pageSize=10`;
   

@@ -2,9 +2,12 @@ import Timestamp from '@components/others/Timestamp'
 import React from 'react'
 import { usePathname, useRouter } from "next/navigation";
 
-const SubscriptionTable = ({post}) => {
+const SubscriptionTable = ({post,onPageChange}) => {
     const pathName = usePathname();
     const router = useRouter();
+    const handleEdit = () => {
+        onPageChange(post._id);
+    }
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     
@@ -18,9 +21,9 @@ const SubscriptionTable = ({post}) => {
     <td className="px-6 py-4 capitalize">
     {post.package.title}
     </td>
-    <td className="px-6 py-4 capitalize">
+    {/* <td className="px-6 py-4 capitalize">
     {post.package.detail}
-    </td>
+    </td> */}
     <td className="px-6 py-4 capitalize">
     {post.package.duration}
     </td>
@@ -33,7 +36,7 @@ const SubscriptionTable = ({post}) => {
     
     {pathName !== '/profile/subscription' && (
         <td className="px-6 py-4">
-            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <button onClick={handleEdit}  className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
         </td>
     )}
 </tr>

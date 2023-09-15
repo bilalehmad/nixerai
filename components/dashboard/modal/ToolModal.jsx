@@ -1,7 +1,9 @@
 import React from 'react'
+import Image from 'next/image'
 
-const ToolModal = ({setModal,type,post,setPost,submitting,handleSubmit}) => {
-  return (
+const ToolModal = ({setModal,handleImage,image,selectedImage,setSelectedImage,setSelectedFile,type,post,setPost,submitting,handleSubmit,validation,formerror}) => {
+    
+    return (
     
     <div className="modal z-50" >
     <div id="editUserModal" tabindex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 items-center justify-center p-4  w-full flex overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -19,6 +21,9 @@ const ToolModal = ({setModal,type,post,setPost,submitting,handleSubmit}) => {
                 </button>
                 </div>
                 <div className="p-6 space-y-6">
+                    {validation && (
+                        <><p className='text-sm text-red-800 text-center'>{formerror}</p></>
+                    )}
                     <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
                             <label for="first-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
@@ -51,16 +56,17 @@ const ToolModal = ({setModal,type,post,setPost,submitting,handleSubmit}) => {
                             type="text" name="last-name" id="last-name" className="form_textarea shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Green" required="" ></textarea>
                         </div>
                         <div className="col-span-6 sm:col-span-3">
-                            <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Verified</label>
+                            <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmation</label>
                             <select
-                             value={post.verified}
+                             value={post.confirmation}
                              onChange={(e) => setPost({
                                ...post,
-                               verified: e.target.value
+                               confirmation: e.target.value
                              })}
-                              name="verified" id="verified" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. +(12)3456 789" required="" >
-                                <option value="FALSE">False</option>
-                                <option value="TRUE">True</option>
+                              name="confirmation" id="confirmation" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. +(12)3456 789" required="" >
+                                <option value="">Select..</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
                             </select>
                             </div>
                         <div className="col-span-6 sm:col-span-3">
@@ -72,20 +78,27 @@ const ToolModal = ({setModal,type,post,setPost,submitting,handleSubmit}) => {
                                status: e.target.value
                              })}
                              name="status" id="status" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. +(12)3456 789" required="" >
+                                 <option value="">Select..</option>
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>
                         </div>
-                        {/* <div className="col-span-6 sm:col-span-3">
-                            <label for="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                            <input type="text" name="category" id="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. Marketing" required="" />
-                        </div>
+                         {/* <div className="col-span-6 sm:col-span-3">
+                             <label for="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                                <input 
+                                    value={post.image}
+                                    onChange={handleImage}
+                                    type="file"
+                                    placeholder='Upload your Image   Here...'
+                                    required
+                                    className='form_input'
+                                    accept="image/*"
+                                /> 
+                                                     
+                                
+                            </div> */}
                         <div className="col-span-6 sm:col-span-3">
-                            <label for="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                            <input type="number" name="price" id="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1234567" required="" />
-                        </div> */}
-                        <div className="col-span-6 sm:col-span-3">
-                            <label for="tag" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
+                           <label for="tag" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
                             <input 
                             value={post.tag}
                             onChange={(e) => setPost({
@@ -94,12 +107,41 @@ const ToolModal = ({setModal,type,post,setPost,submitting,handleSubmit}) => {
                             })}
                             type="text" name="tag" id="tag" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. Sale" required="" />
                         </div>
+                        
+                        <div className="col-span-6 sm:col-span-3">
+                         {/* {image && 
+                            <Image src={image} width={100} height={100} alt='Image For AI Tool' />
+                                }    */}
+                         <label>
+                            <input
+                            type="file"
+                            hidden
+                            onChange={(event) => {
+                                console.log(event)
+                                if (event.target.files) {
+                                const file = event.target.files[0];
+                                setSelectedImage(URL.createObjectURL(file));
+                                setSelectedFile(file);
+                                }
+                            }}
+                            />
+                            <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
+                            {selectedImage ? (
+                                <img src={selectedImage} alt="" />
+                            ) : (
+                                <span>Select Image</span>
+                            )}
+                            </div>
+                        </label>
+                        </div>
                     </div>
                 </div>
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                     <button  
                     disabled = {submitting} 
-                    type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save all</button>
+                    type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        {submitting ? `${type}...` : type}
+                    </button>
                 </div>
             </form>
         </div>

@@ -10,19 +10,21 @@ const BundleSchema = new Schema({
         required: [true, "Detail is Required."]
     },
     amount: {
-        type: 'number',
+        type: Number,
+        required: true
     },
-    short: {
-        type: 'String',
+    discription: {
+        type: [String],
     },
     duration: {
         type: 'String',
-        required: [true, "Title is Required."]
+        required: [true, "Duration is Required."]
     },
     highlight: {
-        type:'String'
+        type: 'String'
     }
-})
+});
+
 
 const Bundle = models.Bundle || model("Bundle", BundleSchema);
 

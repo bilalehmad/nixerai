@@ -10,7 +10,8 @@ export const GET = async (request) => {
     const sort = searchParams.get('sort') || "";
     const search = searchParams.get('search') || "";
     const tag = searchParams.get('tag') || "";
-    const checkFilter = searchParams.get("filter").split(',') || [];
+    console.log(searchParams.get("filter"),sort,search,tag  )
+    const checkFilter = searchParams.get("filter") == null ? false: searchParams.get("filter").split(',') || [];
     const checkValidFilter = checkFilter.includes('undefined') || checkFilter.includes('') ? false : true;
     console.log(searchParams.get("filter").split(','),checkValidFilter,sort,search,tag  )
 
@@ -330,6 +331,7 @@ export const GET = async (request) => {
         }
         else
         {
+            
             const aitool = await AITool.find({})
             .skip((page - 1) * pageSize)
             .limit(pageSize)

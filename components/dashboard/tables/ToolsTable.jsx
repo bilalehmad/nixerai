@@ -1,9 +1,8 @@
 import React from 'react'
 
-const ToolsTable = ({key,post,onPageChange,setPromptId}) => {
+const ToolsTable = ({key,post,onPageChange}) => {
     const handleEdit = () => {
-        onPageChange();
-        setPromptId(post._id)
+        onPageChange(post._id);
     }
   return (
     <tr key={key} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -20,7 +19,7 @@ const ToolsTable = ({key,post,onPageChange,setPromptId}) => {
         {post.description}
     </td>
     <td className="px-6 py-4">
-    Waiting..
+    {post.confirmation}
     </td>
     <td className="px-6 py-4">
     {post.status}

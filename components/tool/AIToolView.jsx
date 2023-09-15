@@ -249,7 +249,7 @@ useEffect(() => {
     }
   }, [])
   return (
-    <div className="max-w-8xl mx-auto px-4 sm:px-3 md:px-4">    
+    <div className="max-w-8xl mx-auto px-4 sm:px-3 md:px-4 h-screen">    
         <div class="lg:px-[15.5rem]">
             <main class="max-w-3xl mx-auto relative z-20 pt-10 xl:max-w-none">
                 <header class="mb-10 max-w-lg">
@@ -262,9 +262,9 @@ useEffect(() => {
                             <svg  xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="overflow-visible ml-3  stroke-slate-300 group-hover:stroke-slate-200 dark:stroke-slate-500 dark:group-hover:stroke-slate-400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><g fill="none" fillRule="evenodd"><path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/></g></svg>
                         </a>
                     </div>
-                    <div className="flex justify-between items-center ">
+                    <div className="flex justify-end items-center ">
                         
-                        <div class="flex items-center space-x-1 ">
+                        {/* <div class="flex items-center space-x-1 ">
                             <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                             </svg>
@@ -280,7 +280,7 @@ useEffect(() => {
                             <svg class="w-4 h-4 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                             </svg>
-                        </div>
+                        </div> */}
                         <span class="flex ml-3 pl-3 py-2">
                             <span
                                  onClick={handleWishlist}
