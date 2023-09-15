@@ -6,8 +6,6 @@
 .pnp.js
 .env
 
-#public
-/public/assets/tool/
 
 # testing
 /coverage
