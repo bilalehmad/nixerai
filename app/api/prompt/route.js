@@ -154,7 +154,8 @@ export const GET = async (request) => {
         else
         {
             
-            // console.log("last")
+            
+            console.log("last")
 
             // Step 1: Get a random sample of prompts from the collection
             const samplePrompts = await Prompt.aggregate([
