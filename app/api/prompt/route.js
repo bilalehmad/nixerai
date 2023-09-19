@@ -2,6 +2,7 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 import { AiFillAlipaySquare } from "react-icons/ai";
+import Category from "@models/category";
 
 export const GET = async (request) => {
     const url = new URL(request.url);
@@ -21,6 +22,8 @@ export const GET = async (request) => {
     const page = parseInt(searchParams.get("page")) || 1;
     const pageSize = parseInt(searchParams.get("pageSize")) || 10;
 
+    // Fetch and Shuffle Categories
+   
     try {
         await connectToDB();
         if(tag != 'undefined' && search == 'undefined' && sort == 'undefined' && checkValidFilter == false )
@@ -152,9 +155,46 @@ export const GET = async (request) => {
         {
             
             console.log("last")
-            const prompts = await Prompt.find({})
-            .skip((page - 1) * pageSize)
-            .limit(pageSize);
+
+            // Step 1: Get a random sample of prompts from the collection
+            const samplePrompts = await Prompt.aggregate([
+                { $sample: { size: pageSize } }
+            ]);
+
+            // Step 2: Get distinct categories from the sample
+            const sampledCategories = [...new Set(samplePrompts.map(prompt => prompt.category))];
+
+            // Step 3: Use aggregation to get a few prompts from each sampled category and then shuffle the sequence
+            const prompts = await Prompt.aggregate([
+                {
+                    $match: { category: { $in: sampledCategories } }
+                },
+                {
+                    $group: {
+                        _id: "$category",
+                        docs: { $push: "$$ROOT" }
+                    }
+                },
+                {
+                    $project: {
+                        docs: { $slice: ["$docs", Math.ceil(pageSize / sampledCategories.length)] }
+                    }
+                },
+                { $unwind: "$docs" },
+                // Assign a random number to each document and sort by it for shuffling
+                {
+                    $addFields: {
+                        "randomOrder": { $rand: {} }
+                    }
+                },
+                { $sort: { "randomOrder": 1 } },
+                { $replaceRoot: { newRoot: "$docs" } }
+            ]);
+
+
+            //const prompts = await Prompt.find({})
+            //.skip((page - 1) * pageSize)
+            //.limit(pageSize);
             // .populate('creator')
     
             return new Response(JSON.stringify(prompts), { status: 200 })
