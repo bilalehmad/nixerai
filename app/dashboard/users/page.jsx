@@ -1,5 +1,6 @@
 import UserDetail from '@components/dashboard/UserDetail'
 import React from 'react'
+
 export const revalidate = 0;
 
 const fetchFirstPosts = async () => {

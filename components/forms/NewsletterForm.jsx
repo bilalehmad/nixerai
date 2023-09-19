@@ -69,6 +69,10 @@ const NewsletterForm = () => {
               </div>
               <div className="mx-auto max-w-screen-sm text-sm text-left text-gray-500 newsletter-form-footer dark:text-gray-300">We care about the protection of your data. <a href="#" className="font-medium text-primary-600 dark:text-primary-500 hover:underline">Read our Privacy Policy</a>.</div>
           </form>
+
+          <div className='flex justify-center py-14'>
+             <a href="https://www.producthunt.com/posts/nixer-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nixer&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=414827&theme=light" alt="Nixer - A&#0032;Hub&#0032;of&#0032;GPT&#0032;Prompts | Product Hunt" css={"width: 250px; height: 54px;" } width="250" height="54" /></a>
+         </div>
     </>
   )
 }

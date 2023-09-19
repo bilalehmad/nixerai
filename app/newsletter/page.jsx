@@ -12,6 +12,8 @@ const Newsletter = () => {
           <p className="mx-auto mb-8 max-w-2xl font-light text-gray-500 md:mb-12 sm:text-xl dark:text-gray-400">Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with your email.</p>
           
          <NewsletterForm />
+
+        
       </div>
   </div>
 </section>

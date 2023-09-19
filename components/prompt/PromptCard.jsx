@@ -286,7 +286,7 @@ function isDateBetween(targetDate, startDate, endDate) {
                     <div>
                       <div className="  antialiased cursor-pointer css-84zodg" onClick={promptView} >
                         <div className="css-289z9l">
-                          <Image alt="prompt image" height={50} width={50} src="/assets/images/logo.png" className="rounded-md opacity-90  group-hover:opacity-100  object-cover css-sm43lu" />
+                          <Image alt="prompt image" height={50} width={50} src={`/assets/prompts/80x80/${post.category}.png`} className="rounded-md opacity-90  group-hover:opacity-100  object-cover css-sm43lu" />
                         </div>
                         <div className=" flex flex-col h-[80px] gap-1 pl-1  css-0">
                           <div className="inline-flex justify-start css-k008qs">

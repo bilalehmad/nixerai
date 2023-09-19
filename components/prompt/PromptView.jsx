@@ -251,7 +251,7 @@ useEffect(() => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className='col-span-1 p-5'>
                     <div className='flex flex-wrap'>
-                        <Image alt="prompt image" height={200} width={100} src="/assets/images/nixerai.png" className="rounded-md opacity-90 transition-all h-60 w-full group-hover:opacity-100  object-cover" />
+                        <Image alt="prompt image" height={200} width={100} src={`/assets/prompts/240x240/${post.category}.png`} className="rounded-md opacity-90 transition-all h-60 w-full group-hover:opacity-100  object-cover" />
                     </div>
                     <h1 className='font-staoshi font-semibold text-xl md:text-2xl mt-2'>
                         <span className='text-gray-900 dark:text-white  text-left'>{post.title}</span>

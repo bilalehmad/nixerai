@@ -1,6 +1,7 @@
 
 import Pakages from '@components/pricing/Pakages';
 import React from 'react'
+
 export const revalidate = 0;
 
 const fetchPakages = async () => {
