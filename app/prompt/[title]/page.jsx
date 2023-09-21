@@ -7,7 +7,8 @@ import {authOptions} from '../../api/auth/[...nextauth]/route';
 import Subscription from "@models/subscription";
 import Prompt from "@models/prompt";
 
-export const revalidate = 0
+export const revalidate = 0;
+
 const fetchId = async (name) => {
   try {
     const prompt = await Prompt.find({ title: name });
@@ -28,7 +29,14 @@ const fetchId = async (name) => {
 
 const fetchPosts = async (promptId) => {
   try {
-      await connectToDB()
+    await connectToDB()
+    const prompts = await Prompt.findById(promptId)
+    return prompts
+} catch (error) {
+    return error;
+}
+  try {
+      //await connectToDB()
       // const prompts = await Prompt.find({_id : promptId,accessLevel : "Paid"})
       // if(prompts.length > 0)
       // {
@@ -71,10 +79,7 @@ const fetchPosts = async (promptId) => {
       // }
 
       
-      const query = `/api/prompt/${promptId}`;
-      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/prompt/${promptId}`);
-      const data = await response.json();
-      return data;
+     
       
   } catch (error) {
     

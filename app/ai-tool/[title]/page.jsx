@@ -27,11 +27,10 @@ const fetchId = async (name) => {
   }  
 
 const fetchPosts = async (toolId) => {
-    const query = `/api/tool/${toolId}`;
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/tool/${toolId}`);
-    const data = await response.json();
-    return data;
-  }
+    await connectToDB()
+    const tools = await AITool.findById(toolId)
+      return tools;
+    }
   
   const fetchWishList = async (id) => {
   
