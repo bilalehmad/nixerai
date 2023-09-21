@@ -12,6 +12,7 @@ import { redirect } from 'next/navigation'
 
 const fetchId = async (name) => {
     try {
+      await connectToDB()
       const tool = await AITool.findOne({ title: name });
   
       if (tool.length === 0) {
