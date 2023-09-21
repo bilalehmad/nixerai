@@ -235,16 +235,18 @@ function isDateBetween(targetDate, startDate, endDate) {
 
   
   const promptView = () => {
-    if(session?.user)
-    {
-      const title = post.title.replace(/ /g, '-');
+       const title = post.title.replace(/ /g, '-');
       router.push(`/ai-tool/${title}`)
+    // if(session?.user)
+    // {
+    //   const title = post.title.replace(/ /g, '-');
+    //   router.push(`/ai-tool/view/${title}`)
       
-    }
-    else
-    {
-      setLoginModal(true)
-    }
+    // }
+    // else
+    // {
+    //   setLoginModal(true)
+    // }
   }
   useEffect(() => {
     if (window.navigator.share) {

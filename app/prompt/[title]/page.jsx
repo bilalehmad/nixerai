@@ -15,6 +15,7 @@ const fetchId = async (name) => {
     console.log(name)
     const prompt = await Prompt.findOne({ title: name });
 
+    console.log(prompt.length)
     if (prompt.length === 0) {
       redirect(`/`)
       console.log("No prompts found with the given title.");

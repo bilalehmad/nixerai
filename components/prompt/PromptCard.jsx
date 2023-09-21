@@ -149,16 +149,18 @@ const PromptCard = ({post,reactions,setLoginModal, handleEdit, handleDelete,setP
   
 
   const promptView = () => {
-    if(session?.user)
-    {
       const title = post.title.replace(/ /g, '-');
       router.push(`/prompt/${title}`)
+    // if(session?.user)
+    // {
+    //   const title = post.title.replace(/ /g, '-');
+    //   router.push(`/prompt/${title}`)
       
-    }
-    else
-    {
-      setLoginModal(true)
-    }
+    // }
+    // else
+    // {
+    //   setLoginModal(true)
+    // }
   // if(post.accessLevel == "Paid")
   //   {
   //     if(session?.user)
