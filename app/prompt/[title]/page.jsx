@@ -12,13 +12,14 @@ export const revalidate = 0;
 
 const fetchId = async (name) => {
   try {
-    const prompt = await Prompt.find({ title: name });
+    console.log(name)
+    const prompt = await Prompt.findOne({ title: name });
 
     if (prompt.length === 0) {
       redirect(`/`)
       console.log("No prompts found with the given title.");
     } else {
-      return prompt[0]._id;
+      return prompt._id;
     }
     
   } catch (error) {

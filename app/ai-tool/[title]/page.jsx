@@ -12,13 +12,13 @@ import { redirect } from 'next/navigation'
 
 const fetchId = async (name) => {
     try {
-      const tool = await AITool.find({ title: name });
+      const tool = await AITool.findOne({ title: name });
   
       if (tool.length === 0) {
             redirect(`/`)
             console.log("No prompts found with the given title.");
       } else {
-        return tool[0]._id;
+        return tool._id;
       }
       
     } catch (error) {
