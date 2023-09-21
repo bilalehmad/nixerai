@@ -6,6 +6,7 @@ import { getServerSession  } from 'next-auth/next';
 import {authOptions} from '../../api/auth/[...nextauth]/route';
 import Subscription from "@models/subscription";
 import Prompt from "@models/prompt";
+import { redirect } from 'next/navigation'
 
 export const revalidate = 0;
 

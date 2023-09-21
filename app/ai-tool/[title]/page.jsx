@@ -7,6 +7,7 @@ import {authOptions} from '../../api/auth/[...nextauth]/route';
 import AIWishlist from "@models/aiwishlist";
 import React from 'react';
 import AITool from '@models/aitool';
+import { redirect } from 'next/navigation'
 
 
 const fetchId = async (name) => {
