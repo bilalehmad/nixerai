@@ -10,7 +10,7 @@ const AIToolView = ({data,reactions,wishies}) => {
     const {data: session} = useSession();
 // const post = props.data;
 const [post, setPost] = useState(data);
-const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.png`);
+const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.PNG`);
 const [reaction, setReaction] = useState(()=> {
     const result = reactions == true ? []: JSON.parse(reactions);
     return result;
@@ -34,7 +34,7 @@ const handleCopy = () => {
     }, 3000);
   }
 
-  const defaultImage = '/assets/images/logo.png';
+  const defaultImage = '/assets/images/logo.PNG';
   const handleImageError = () => {
     setCurrentImage(defaultImage);
   };

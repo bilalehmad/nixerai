@@ -19,7 +19,7 @@ const ToolCard = ({post,key, handleEdit,reactions,setLoginModal, handleDelete, s
   const [verification, setVerification] = useState(false);
   const [wishlist, setWishlist] = useState({});
   const defaultImage = '/assets/images/logo.png';
-  const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.png`);
+  const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.PNG`);
 
 
   const router = useRouter();
@@ -345,7 +345,7 @@ function isDateBetween(targetDate, startDate, endDate) {
                           {currentImage ? (
                              <Image width={60} onError={handleImageError}  height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={currentImage} alt={`${post.title}-NixerAI`} />
                             ): (
-                              <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="/assets/images/logo.png" alt={`${post.title}-NixerAI`} />
+                              <Image width={60} height={60} className="object-cover w-[120px] h-[120px] rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src="/assets/images/logo.PNG" alt={`${post.title}-NixerAI`} />
                             )}
                             {/* {!imageExists && thumbnail  ?(
                                 <Image width={50}   height={50} className="object-cover w-[120px] h-[120px] md:h:36 rounded-l-lg md:h-36  md:w-36 md:rounded-none md:rounded-l-lg " src={thumbnail} alt={`${post.title}-NixerAI`} />
