@@ -19,7 +19,7 @@ const ToolCard = ({post,key, handleEdit,reactions,setLoginModal, handleDelete, s
   const [verification, setVerification] = useState(false);
   const [wishlist, setWishlist] = useState({});
   const defaultImage = '/assets/images/logo.png';
-  const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}.png`);
+  const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.png`);
 
 
   const router = useRouter();

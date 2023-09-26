@@ -10,6 +10,7 @@ const AIToolView = ({data,reactions,wishies}) => {
     const {data: session} = useSession();
 // const post = props.data;
 const [post, setPost] = useState(data);
+const [currentImage, setCurrentImage] = useState(`/assets/tools/${post.title}_NixerAI.png`);
 const [reaction, setReaction] = useState(()=> {
     const result = reactions == true ? []: JSON.parse(reactions);
     return result;
@@ -33,6 +34,10 @@ const handleCopy = () => {
     }, 3000);
   }
 
+  const defaultImage = '/assets/images/logo.png';
+  const handleImageError = () => {
+    setCurrentImage(defaultImage);
+  };
   const likeHandle =  () => {
     if (session?.user) {
       const responce =  fetchReaction("Like");
@@ -312,10 +317,11 @@ useEffect(() => {
                             
                             <div class="w-full flex-none mb-10 xl:w-[29rem]">
                                 <div class="aspect-w-[1216] aspect-h-[606] sm:aspect-w-[1376] sm:aspect-h-[664] shadow-lg rounded-lg  overflow-hidden ">
-                                    <picture>
-                                        <source type="image/jpeg" srcSet="/assets/images/nixerai.png" media="(min-width: 640px)"/>
-                                        <img src="/assets/images/nixerai.png" alt="" decoding="async"/>
-                                    </picture>
+                                <picture>
+                                    <source type="image/jpeg" onError={handleImageError}  src={currentImage} media="(min-width: 640px)"/>
+                                    <img src={currentImage} onError={handleImageError}  alt={`${post.title}-NixerAI`} decoding="async"/>
+                                </picture>
+                                    
                                 </div>
                             </div>
                             <div class="flex-auto  xl:mb-0 xl:ml-8">
